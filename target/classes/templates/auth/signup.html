@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Fruitkha</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="../../static/assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="../../static/assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="../../static/assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="../../static/assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="../../static/assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="../../static/assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="../../static/assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="../../static/assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="../../static/assets/css/responsive.css">
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+
+
+	<!-- hero area -->
+	<div class="hero-area hero-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 offset-lg-2">
+					<div class="hero-text">
+						<div class="hero-text-tablecell" style="justify-items: center;">
+							<div class="col-lg-7 col-md-6" >
+								<div class="form" style="justify-items: center; background: linear-gradient(to bottom, #cfd9df 0%, #003566  100%);">
+									<div class="form-title pt-5">
+										<h2 class="text-center">Sign Up</h2>
+									</div>
+									<form id="signupForm">
+										<div class="form-group">
+										  <label for="username">Username</label>
+										  <input type="text" id="username" required>
+										  <i class="ri-checkbox-circle-fill h-5"></i>
+										  <i class="fas fa-check-circle valid-icon fa-2x" id="usernameValid"></i>
+										  <div class="error" id="usernameError"></div>
+										  <div class="success-message" id="usernameSuccess"></div>
+										</div>
+										<div class="form-group">
+										  <label for="email">E-mail</label>
+										  <input type="email" id="email" required>
+										  <i class="fas fa-check-circle valid-icon fa-2x" id="emailValid"></i>
+										  <div class="error" id="emailError"></div>
+										  <div class="success-message" id="emailSuccess"></div>
+										</div>
+										<div class="form-group">
+										  <label for="password">Password</label>
+										  <input type="password" id="password" required>
+										  <i class="fas fa-check-circle valid-icon fa-2x" id="passwordValid"></i>
+										  <div class="error" id="passwordError"></div>
+										  <div class="success-message" id="passwordSuccess"></div>
+										</div>
+										<div class="form-group">
+										  <label for="confirmPassword">Confirm Password</label>
+										  <input type="password" id="confirmPassword" required>
+										  <i class="fas fa-check-circle valid-icon fa-2x" id="confirmValid"></i>
+										  <div class="error" id="confirmError"></div>
+										  <div class="success-message" id="confirmSuccess"></div>
+										</div>
+										<button type="submit" class="boxed-btn m-auto" style="display: block; margin: 0 auto; font-weight: bold; font-size: 15px;">Submit</button>
+									  </form>
+									  <p style="font-size: 16px;">Already have an account? <a href="login.html">Log in here!</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end hero area -->
+
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>&copy; Copyright Click 'n' Collect
+						<script>
+							document.write(new Date().getFullYear());
+						</script>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+
+	<!-- Form Validation -->
+	<script>
+		const form = document.getElementById('signupForm');
+		
+		form.addEventListener('submit', function(e) {
+		  e.preventDefault();
+		  
+		  let isValid = true;
+		  const username = document.getElementById('username');
+		  const email = document.getElementById('email');
+		  const password = document.getElementById('password');
+		  const confirm = document.getElementById('confirmPassword');
+		  
+		  // Clear previous messages
+		  document.querySelectorAll('.error').forEach(el => el.textContent = '');
+		  document.querySelectorAll('.success-message').forEach(el => el.style.display = 'none');
+		  document.querySelectorAll('.valid-icon').forEach(el => el.style.display = 'none');
+		  document.querySelectorAll('input').forEach(el => el.classList.remove('valid'));
+	
+		  // Username validation
+		  if(username.value.trim().length < 4) {
+			document.getElementById('usernameError').textContent = 'Username must be at least 4 characters';
+			isValid = false;
+		  } else {
+			username.classList.add('valid');
+			document.getElementById('usernameValid').style.display = 'block';
+			document.getElementById('usernameSuccess').style.display = 'block';
+			document.getElementById('usernameSuccess').textContent = 'Username available!';
+		  }
+		  
+		  // Email validation
+		  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		  if(!emailRegex.test(email.value)) {
+			document.getElementById('emailError').textContent = 'Please enter a valid email';
+			isValid = false;
+		  } else {
+			email.classList.add('valid');
+			document.getElementById('emailValid').style.display = 'block';
+			document.getElementById('emailSuccess').style.display = 'block';
+		  }
+		  
+		  // Password validation
+		  if(password.value.length < 6) {
+			document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
+			isValid = false;
+		  } else {
+			password.classList.add('valid');
+			document.getElementById('passwordValid').style.display = 'block';
+			document.getElementById('passwordSuccess').style.display = 'block';
+		  }
+		  
+		  // Confirm password
+		  if(password.value !== confirm.value) {
+			document.getElementById('confirmError').textContent = 'Passwords do not match';
+			isValid = false;
+		  } else if(password.value.length >= 6) {
+			confirm.classList.add('valid');
+			document.getElementById('confirmValid').style.display = 'block';
+			document.getElementById('confirmSuccess').style.display = 'block';
+		  }
+		  
+		  if(isValid) {
+			alert('Account created successfully!');
+			form.reset();
+		  }
+		});
+	  </script>
+	<!-- /Form Validation -->
+	<!-- jquery -->
+	<script src="../../static/assets/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="../../static/assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="../../static/assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="../../static/assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="../../static/assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="../../static/assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="../../static/assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="../../static/assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="../../static/assets/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="../../static/assets/js/main.js"></script>
+
+</body>
+</html>
