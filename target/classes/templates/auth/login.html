@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,29 +8,26 @@
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
-	<title>Fruitkha</title>
+	<title>Click n Collect</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
 	<!-- fontawesome -->
-	<link rel="stylesheet" href="assets/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
 	<!-- bootstrap -->
-	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
 	<!-- owl carousel -->
-	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
 	<!-- magnific popup -->
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
 	<!-- animate css -->
-	<link rel="stylesheet" href="assets/css/animate.css">
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
 	<!-- mean menu css -->
-	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
 	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
 	<!-- responsive -->
-	<link rel="stylesheet" href="assets/css/responsive.css">
+	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
 
 </head>
 <body>
@@ -72,7 +70,7 @@
                                         </div>
                                         <button class="boxed-btn m-auto" type="submit" style="display: block; margin: 0 auto; font-weight: bolder; font-size: 15px;">Login</button>
                                       </form>
-									  <p style="font-size: 16px;">Dont have an account? <a href="signup.html">Sign up here!</a></p>
+									  <p style="font-size: 16px;">Don't have an account? <a th:href="@{/signup}">Sign up here!</a></p>
 								</div>
 							</div>
 						</div>
@@ -139,7 +137,7 @@
           }
           
           // Password validation
-          if(password.value.length < 6) {
+          if(password.value.length < 2) {
             document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
             isValid = false;
           } else {
@@ -157,25 +155,25 @@
       </script>
 	<!-- /Form Validation -->
 	<!-- jquery -->
-	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
 	<!-- count down -->
-	<script src="assets/js/jquery.countdown.js"></script>
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
 	<!-- isotope -->
-	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
 	<!-- waypoints -->
-	<script src="assets/js/waypoints.js"></script>
+	<script th:src="@{/assets/js/waypoints.js}"></script>
 	<!-- owl carousel -->
-	<script src="assets/js/owl.carousel.min.js"></script>
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
 	<!-- magnific popup -->
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
 	<!-- mean menu -->
-	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
 	<!-- sticker js -->
-	<script src="assets/js/sticker.js"></script>
+	<script th:src="@{/assets/js/sticker.js}"></script>
 	<!-- main js -->
-	<script src="assets/js/main.js"></script>
+	<script th:src="@{/../../static/assets/js/main.js}"></script>
 
 </body>
 </html>
