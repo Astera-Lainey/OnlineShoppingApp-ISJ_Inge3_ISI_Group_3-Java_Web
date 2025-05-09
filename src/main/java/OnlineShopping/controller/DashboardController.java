@@ -31,7 +31,7 @@ public class DashboardController {
 
         // Add admin-specific statistics
         model.addAttribute("totalUsers", userRepository.count());
-        return "pages/admin/dashboard";
+        return "/admin/dashboard";
     }
 
     @GetMapping("/user/dashboard")
@@ -48,7 +48,7 @@ public class DashboardController {
         User currentUser = currentUserOpt.get();
 
 
-        return "pages/user/dashboard";
+        return "/user/dashboard";
     }
 
   }
