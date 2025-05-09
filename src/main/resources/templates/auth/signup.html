@@ -1,91 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
-	<!-- title -->
-	<title>Click n Collect</title>
+	<!-- Title -->
+	<title>Fruitkha</title>
 
-	<!-- favicon -->
+	<!-- Favicon -->
 	<link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
-	<!-- fontawesome -->
-	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
-	<!-- bootstrap -->
-	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
-	<!-- owl carousel -->
-	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
-	<!-- magnific popup -->
-	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
-	<!-- animate css -->
-	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
-	<!-- mean menu css -->
-	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
-	<!-- main style -->
-	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
-	<!-- responsive -->
-	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
 
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+
+	<!-- CSS Libraries -->
+	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}"> <!-- FontAwesome -->
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}"> <!-- Bootstrap -->
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}"> <!-- Owl Carousel -->
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}"> <!-- Magnific Popup -->
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}"> <!-- Animate CSS -->
+	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}"> <!-- Mean Menu -->
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}"> <!-- Main Style -->
+	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}"> <!-- Responsive -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"> <!-- Remix Icons -->
 </head>
 <body>
-	
-	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
+<!-- PreLoader -->
+<div class="loader">
+	<div class="loader-inner">
+		<div class="circle"></div>
+	</div>
+</div>
+<!-- PreLoader Ends -->
 
-
-	<!-- hero area -->
-	<div class="hero-area hero-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-9 offset-lg-2">
-					<div class="hero-text">
-						<div class="hero-text-tablecell" style="justify-items: center;">
-							<div class="col-lg-7 col-md-6" >
-								<div class="form" style="justify-items: center; background: linear-gradient(to bottom, #cfd9df 0%, #003566  100%);">
-									<div class="form-title pt-5">
-										<h2 class="text-center">Sign Up</h2>
-									</div>
-									<form id="signupForm">
-										<div class="form-group">
-										  <label for="username">Username</label>
-										  <input type="text" id="username" required>
-										  <i class="ri-checkbox-circle-fill h-5"></i>
-										  <i class="fas fa-check-circle valid-icon fa-2x" id="usernameValid"></i>
-										  <div class="error" id="usernameError"></div>
-										  <div class="success-message" id="usernameSuccess"></div>
-										</div>
-										<div class="form-group">
-										  <label for="email">E-mail</label>
-										  <input type="email" id="email" required>
-										  <i class="fas fa-check-circle valid-icon fa-2x" id="emailValid"></i>
-										  <div class="error" id="emailError"></div>
-										  <div class="success-message" id="emailSuccess"></div>
-										</div>
-										<div class="form-group">
-										  <label for="password">Password</label>
-										  <input type="password" id="password" required>
-										  <i class="fas fa-check-circle valid-icon fa-2x" id="passwordValid"></i>
-										  <div class="error" id="passwordError"></div>
-										  <div class="success-message" id="passwordSuccess"></div>
-										</div>
-										<div class="form-group">
-										  <label for="confirmPassword">Confirm Password</label>
-										  <input type="password" id="confirmPassword" required>
-										  <i class="fas fa-check-circle valid-icon fa-2x" id="confirmValid"></i>
-										  <div class="error" id="confirmError"></div>
-										  <div class="success-message" id="confirmSuccess"></div>
-										</div>
-										<button type="submit" class="boxed-btn m-auto" style="display: block; margin: 0 auto; font-weight: bold; font-size: 15px;">Submit</button>
-									  </form>
-									  <p style="font-size: 16px;">Already have an account? <a th:href="@{/login}">Log in here!</a></p>
+<!-- Hero Area -->
+<div class="hero-area hero-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9 offset-lg-2">
+				<div class="hero-text">
+					<div class="hero-text-tablecell" style="display: flex; justify-content: center;">
+						<div class="col-lg-7 col-md-6">
+							<div class="form" style="background: linear-gradient(to bottom, #cfd9df 0%, #003566 100%);">
+								<div class="form-title pt-5">
+									<h2 class="text-center">Sign Up</h2>
 								</div>
+								<!-- Signup Form -->
+								<form id="signupForm" th:action="@{/api/auth/signup}" th:object="${user}" method="post" py="12px">
+									<div class="form-group">
+										<label for="username">FirstName</label>
+										<input type="text" id="firstname" th:field="*{firstName}" placeholder="Toto" required>
+									</div>
+									<div class="form-group">
+										<label for="username">LastName</label>
+										<input type="text" id="lastname" th:field="*{lastName}" placeholder="Tata" required>
+									</div>
+									<div class="form-group">
+										<label for="username">UserName</label>
+										<input type="text" id="username" th:field="*{username}" placeholder="tototata" required>
+									</div>
+									<div class="form-group">
+										<label for="email">E-mail</label>
+										<input type="email" id="email" th:field="*{email}" placeholder="toto@example.com" required>
+									</div>
+									<div class="form-group">
+										<label for="password">Password</label>
+										<input type="password" id="password" th:field="*{password}" placeholder="****" required>
+									</div>
+									<div class="form-group">
+										<label for="confirmPassword">Confirm Password</label>
+										<input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="****" required>
+									</div>
+									<button type="submit" class="boxed-btn" style="display: block; margin: 0 auto; font-weight: bold; font-size: 15px;">Submit</button>
+								</form>
+								<p style="font-size: 16px; text-align: center;">Already have an account? <a th:href="@{/api/auth/login}">Log in here!</a></p>
 							</div>
 						</div>
 					</div>
@@ -93,123 +84,47 @@
 			</div>
 		</div>
 	</div>
-	<!-- end hero area -->
+</div>
+<!-- End Hero Area -->
 
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>&copy; Copyright Click 'n' Collect
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-					</p>
-				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-						</ul>
-					</div>
+<!-- Copyright -->
+<div class="copyright">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12">
+				<p>© Copyright Click 'n' Collect
+					<script>
+						document.write(new Date().getFullYear());
+					</script>
+				</p>
+			</div>
+			<div class="col-lg-6 text-right col-md-12">
+				<div class="social-icons">
+					<ul>
+						<!-- Replace with actual social media URLs or remove if not needed -->
+						<li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+						<li><a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a></li>
+						<li><a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a></li>
+						<li><a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+						<li><a href="https://dribbble.com" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end copyright -->
+</div>
+<!-- End Copyright -->
 
-	<!-- Form Validation -->
-	<script>
-		const form = document.getElementById('signupForm');
-		
-		form.addEventListener('submit', function(e) {
-		  e.preventDefault();
-		  
-		  let isValid = true;
-		  const username = document.getElementById('username');
-		  const email = document.getElementById('email');
-		  const password = document.getElementById('password');
-		  const confirm = document.getElementById('confirmPassword');
-		  
-		  // Clear previous messages
-		  document.querySelectorAll('.error').forEach(el => el.textContent = '');
-		  document.querySelectorAll('.success-message').forEach(el => el.style.display = 'none');
-		  document.querySelectorAll('.valid-icon').forEach(el => el.style.display = 'none');
-		  document.querySelectorAll('input').forEach(el => el.classList.remove('valid'));
-	
-		  // Username validation
-		  if(username.value.trim().length < 4) {
-			document.getElementById('usernameError').textContent = 'Username must be at least 4 characters';
-			isValid = false;
-		  } else {
-			username.classList.add('valid');
-			document.getElementById('usernameValid').style.display = 'block';
-			document.getElementById('usernameSuccess').style.display = 'block';
-			document.getElementById('usernameSuccess').textContent = 'Username available!';
-		  }
-		  
-		  // Email validation
-		  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		  if(!emailRegex.test(email.value)) {
-			document.getElementById('emailError').textContent = 'Please enter a valid email';
-			isValid = false;
-		  } else {
-			email.classList.add('valid');
-			document.getElementById('emailValid').style.display = 'block';
-			document.getElementById('emailSuccess').style.display = 'block';
-		  }
-		  
-		  // Password validation
-		  if(password.value.length < 6) {
-			document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
-			isValid = false;
-		  } else {
-			password.classList.add('valid');
-			document.getElementById('passwordValid').style.display = 'block';
-			document.getElementById('passwordSuccess').style.display = 'block';
-		  }
-		  
-		  // Confirm password
-		  if(password.value !== confirm.value) {
-			document.getElementById('confirmError').textContent = 'Passwords do not match';
-			isValid = false;
-		  } else if(password.value.length >= 6) {
-			confirm.classList.add('valid');
-			document.getElementById('confirmValid').style.display = 'block';
-			document.getElementById('confirmSuccess').style.display = 'block';
-		  }
-		  
-		  if(isValid) {
-			alert('Account created successfully!');
-			form.reset();
-		  }
-		});
-	  </script>
-	<!-- /Form Validation -->
-	<!-- jquery -->
-	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-	<!-- bootstrap -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<!-- count down -->
-	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-	<!-- isotope -->
-	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-	<!-- waypoints -->
-	<script th:src="@{/assets/js/waypoints.js}"></script>
-	<!-- owl carousel -->
-	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-	<!-- magnific popup -->
-	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-	<!-- mean menu -->
-	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-	<!-- sticker js -->
-	<script th:src="@{/assets/js/sticker.js}"></script>
-	<!-- main js -->
-	<script th:src="@{/../../static/assets/js/main.js}"></script>
-
+<!-- JavaScript Libraries -->
+<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+<script th:src="@{/assets/js/waypoints.js}"></script>
+<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+<script th:src="@{/assets/js/sticker.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
 </body>
 </html>
