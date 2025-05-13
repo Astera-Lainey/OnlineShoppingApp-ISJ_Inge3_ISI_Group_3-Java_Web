@@ -35,10 +35,10 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, name = "first_name")
+    @Column(nullable = false, name = "firstName")
     private String firstName;
 
-    @Column(nullable = false, name = "last_name")
+    @Column(nullable = false, name = "lastName")
     private String lastName;
 
     @Enumerated(EnumType.STRING)
@@ -55,28 +55,21 @@ public class User implements UserDetails {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+    @Column(name = "accountNonExpired", nullable = false)
+    private boolean accountNonExpired = true;
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+    @Column(name = "accountNonLocked", nullable = false)
+    private boolean accountNonLocked = true; // Ensure default value is set
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+    @Column(name = "credentialsNonExpired", nullable = false)
+    private boolean credentialsNonExpired = true;
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled = true;
 
     public enum Role {
         ADMIN,
-        USER
+        USER,
+        DELIVERY
     }
 }
