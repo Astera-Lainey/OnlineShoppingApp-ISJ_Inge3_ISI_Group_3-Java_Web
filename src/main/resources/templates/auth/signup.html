@@ -7,15 +7,14 @@
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- Title -->
-	<title>Fruitkha</title>
+	<title>Click and Collect</title>
 
-	<!-- Favicon -->
+
+	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
-
-	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-
+	<!-- google font -->
+	<!--	<link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,400,700}" rel="stylesheet">-->
+	<!--	<link th:href="@{https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap}" rel="stylesheet">-->
 	<!-- fontawesome -->
 	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
 	<!-- bootstrap -->
@@ -31,8 +30,7 @@
 	<!-- main style -->
 	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
 	<!-- responsive -->
-	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"> <!-- Remix Icons -->
+	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}"> <!-- Remix Icons -->
 </head>
 <body>
 <!-- PreLoader -->
@@ -51,33 +49,33 @@
 				<div class="hero-text">
 					<div class="hero-text-tablecell" style="display: flex; justify-content: center;">
 						<div class="col-lg-7 col-md-6">
-							<div class="form" style="background: linear-gradient(to bottom, #cfd9df 0%, #003566 100%);">
+							<div class="form mt-5" style=" background: linear-gradient(to bottom, #cfd9df 0%, #003566 100%);">
 								<div class="form-title pt-5">
 									<h2 class="text-center">Sign Up</h2>
 								</div>
 								<!-- Signup Form -->
-								<form id="signupForm" th:action="@{/api/auth/register}" th:object="${user}" method="post" >
+								<form id="signupForm" th:action="@{/api/auth/register}" th:object="${user}" method="post" style=" margin: 40px;">
 									<div class="form-group">
-										<label for="username">FirstName</label>
-										<input type="text" id="firstname" th:field="*{firstName}" placeholder="Toto" required>
+										<label for="username">First Name</label>
+										<input type="text" id="firstname" th:field="*{firstName}" placeholder="Enter your first name" required>
 									</div>
 									<div class="form-group">
-										<label for="username">LastName</label>
-										<input type="text" id="lastname" th:field="*{lastName}" placeholder="Tata" required>
+										<label for="username">Last Name</label>
+										<input type="text" id="lastname" th:field="*{lastName}" placeholder="Enter your last name" required>
 									</div>
 									<div class="form-group">
 										<label for="username">UserName</label>
-										<input type="text" id="username" th:field="*{username}" placeholder="tototata" required>
+										<input type="text" id="username" th:field="*{username}" placeholder="Enter your username" required>
 									</div>
 									<div class="form-group">
 										<label for="email">E-mail</label>
-										<input type="email" id="email" th:field="*{email}" placeholder="toto@example.com" required>
+										<input type="email" id="email" th:field="*{email}" placeholder="yourname@example.com" required>
 									</div>
 									<div class="form-group">
 										<label for="password">Password</label>
 										<input type="password" id="password" th:field="*{password}" placeholder="****" required>
 									</div>
-									<button type="submit" class="boxed-btn" style="display: block; margin: 0 auto; font-weight: bold; font-size: 15px;">Submit</button>
+									<button type="submit" class="boxed-btn" style="display: block; margin: 0 auto; font-weight: bold; font-size: 15px; padding-top: 10px;">Submit</button>
 								</form>
 								<p style="font-size: 16px; text-align: center;">Already have an account? <a th:href="@{/api/auth/login}">Log in here!</a></p>
 							</div>
