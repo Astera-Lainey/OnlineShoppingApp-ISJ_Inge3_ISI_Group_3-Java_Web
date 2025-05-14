@@ -11,24 +11,23 @@
     <link rel="manifest" href="/site.webmanifest">
 	<!-- title -->
 	<title>Admin Page</title>
-	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="../assets/img/favicon.png">
+	<link rel="shortcut icon" type="image/png" th:href="@{../assets/img/favicon.png}">
 	<!-- fontawesome -->
-	<link rel="stylesheet" href="../assets/css/all.min.css">
+	<link rel="stylesheet" th:href="@{../assets/css/all.min.css}">
 	<!-- bootstrap -->
-	<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{../assets/bootstrap/css/bootstrap.min.css}">
 	<!-- owl carousel -->
-	<link rel="stylesheet" href="../assets/css/owl.carousel.css">
+	<link rel="stylesheet" th:href="@{../assets/css/owl.carousel.css}">
 	<!-- magnific popup -->
-	<link rel="stylesheet" href="../assets/css/magnific-popup.css">
+	<link rel="stylesheet" th:href="@{../assets/css/magnific-popup.css}">
 	<!-- animate css -->
-	<link rel="stylesheet" href="../assets/css/animate.css">
+	<link rel="stylesheet" th:href="@{../assets/css/animate.css}">
 	<!-- mean menu css -->
-	<link rel="stylesheet" href="../assets/css/meanmenu.min.css">
+	<link rel="stylesheet" th:href="@{../assets/css/meanmenu.min.css}">
 	<!-- main style -->
-	<link rel="stylesheet" href="../assets/css/main.css">
+	<link rel="stylesheet" th:href="@{../assets/css/main.css}">
 	<!-- responsive -->
-	<link rel="stylesheet" href="../assets/css/responsive.css">
+	<link rel="stylesheet" th:href="@{../assets/css/responsive.css}">
 	<style>
         table{
             img{
@@ -70,8 +69,8 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="main.html">
-								<img src="assets/img/logo.png" alt="">
+							<a th:href="@{/main}">
+								<img th:src="@{../assets/img/logo.png}" alt="">
 							</a>
 						</div>
 						<!-- logo -->
@@ -79,14 +78,14 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li><a href="./adminDashboard.html">Home</a>
+								<li><a th:href="@{/adminDashboard.html}">Home</a>
 								</li>
-								<li><a href="./Users.html">Users</a></li> 
+								<li><a th:href="@{/Users.html}">Users</a></li>
 								<li  class="current-list-item"><a href="#">Products</a></li>
-								<li><a href="./Orders.html">Orders</a></li>
+								<li><a th:href="@{/Orders.html}">Orders</a></li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" href="#"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -180,7 +179,7 @@
 					<td>
 					  <div class="d-flex">
 						<div>
-						  <img src="../assets/img/profile.png" alt="Avatar"/>
+						  <img th:src="@{../assets/img/profile.png}" alt="Avatar"/>
 						</div>
 						<div class="pl-3">
 						  <h6 class="mb-0">Apples</h6>
@@ -214,7 +213,7 @@
 					<td>
 					  <div class="d-flex">
 						<div>
-						  <img src="../assets/img/profile.png" alt="Avatar"/>
+						  <img th:src="@{../assets/img/profile.png}" alt="Avatar"/>
 						</div>
 						<div class="pl-3">
 						  <h6 class="mb-0">Apples</h6>
@@ -248,7 +247,7 @@
 					<td>
 					  <div class="d-flex">
 						<div>
-						  <img src="../assets/img/profile.png" alt="Avatar"/>
+						  <img th:src="@{../assets/img/profile.png}" alt="Avatar"/>
 						</div>
 						<div class="pl-3">
 						  <h6 class="mb-0">Apples</h6>
@@ -363,7 +362,7 @@
 								type="text"
 								class="form-control"
 								placeholder="Enter Name" />
-							  <label for="emailBasic">Product Name</label>
+							  <label>Product Name</label>
 							</div>
 						  </div>
 						  <div class="col mb-2">
@@ -390,7 +389,7 @@
 						  <div class="col mb-6 mt-2">
 							<div class="form-floating form-floating-outline">
 							  <input type="text" class="form-control" placeholder="Enter Provider" />
-							  <label for="nameBasic">Product Quantity</label>
+							  <label>Product Quantity</label>
 							</div>
 						  </div>
 						</div>
@@ -399,11 +398,10 @@
 						  <div class="col mb-6 mt-2">
 							<div class="form-floating form-floating-outline">
 							  <textarea
-							  id="basic-icon-default-message"
 							  class="form-control"
 							  placeholder="Hi, What would you like to request for?"
 							  aria-describedby="basic-icon-default-message2"></textarea>
-							  <label for="nameBasic">Product Details</label>
+							  <label>Product Details</label>
 							</div>
 						  </div>
 						</div>
@@ -445,7 +443,7 @@
 										  type="text"
 										  class="form-control"
 										  placeholder="Enter Name" />
-										<label for="emailBasic">Product Name</label>
+										<label>Product Name</label>
 									  </div>
 									</div>
 									<div class="col mb-2">
@@ -472,7 +470,7 @@
 									<div class="col mb-6 mt-2">
 									  <div class="form-floating form-floating-outline">
 										<input type="text" class="form-control" placeholder="Enter Provider" />
-										<label for="nameBasic">Product Quantity</label>
+										<label>Product Quantity</label>
 									  </div>
 									</div>
 								  </div>
@@ -485,7 +483,7 @@
 										class="form-control"
 										placeholder="Hi, What would you like to request for?"
 										aria-describedby="basic-icon-default-message2"></textarea>
-										<label for="nameBasic">Product Details</label>
+										<label>Product Details</label>
 									  </div>
 									</div>
 								  </div>
@@ -555,35 +553,35 @@
 		}
 		</script>
 
-		<script src="../assets/bootstrap/js/bootstrap.js"></script>
-<script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- <script src="../assets/bootstrap/js/bootstrap.esm.min.js"></script> -->
-<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="../assets/bootstrap/js/popper.js"></script>
+		<script th:src="@{../assets/bootstrap/js/bootstrap.js}"></script>
+<script th:src="@{../assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{../assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{../assets/bootstrap/js/popper.js}"></script>
 	<!-- end copyright -->
+	<script th:src="@{../assets/bootstrap/js/menu.js}"></script>
 	<!-- jquery -->
-	<script src="../assets/js/jquery-1.11.3.min.js"></script>
+	<script th:src="@{../assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
-	<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+	<script th:src="@{../assets/bootstrap/js/bootstrap.min.js}"></script>
 	<!-- count down -->
-	<script src="../assets/js/jquery.countdown.js"></script>
+	<script th:src="@{../assets/js/jquery.countdown.js}"></script>
 	<!-- isotope -->
-	<script src="../assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<script th:src="@{../assets/js/jquery.isotope-3.0.6.min.js}"></script>
 	<!-- waypoints -->
-	<script src="../assets/js/waypoints.js"></script>
+	<script th:src="@{../assets/js/waypoints.js}"></script>
 	<!-- owl carousel -->
-	<script src="../assets/js/owl.carousel.min.js"></script>
+	<script th:src="@{../assets/js/owl.carousel.min.js}"></script>
 	<!-- magnific popup -->
-	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+	<script th:src="@{../assets/js/jquery.magnific-popup.min.js}"></script>
 	<!-- mean menu -->
-	<script src="../assets/js/jquery.meanmenu.min.js"></script>
+	<script th:src="@{../assets/js/jquery.meanmenu.min.js}"></script>
 	<!-- sticker js -->
-	<script src="../assets/js/sticker.js"></script>
+	<script th:src="@{../assets/js/sticker.js}"></script>
 	<!-- main js -->
-	<script src="../assets/js/main.js"></script>
-	<script src="../assets/bootstrap/js/bootstrap.js"></script>
-	<script src="../assets/bootstrap/js/bootstrap.bundle.js"></script>
-	<script src="../assets/bootstrap/js/popper.js"></script>
+	<script th:src="@{../assets/js/main.js}"></script>
+	<script th:src="@{../assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{../assets/bootstrap/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{../assets/bootstrap/js/popper.js}"></script>
 
 </body>
 </html>

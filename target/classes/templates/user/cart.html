@@ -4,32 +4,28 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
 	<title>Cart</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="image/png" th:href="@{../assets/img/favicon.png}">
 	<!-- fontawesome -->
-	<link rel="stylesheet" href="assets/css/all.min.css">
+	<link rel="stylesheet" th:href="@{../assets/css/all.min.css}">
 	<!-- bootstrap -->
-	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{../assets/bootstrap/css/bootstrap.min.css}">
 	<!-- owl carousel -->
-	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<link rel="stylesheet" th:href="@{../assets/css/owl.carousel.css}">
 	<!-- magnific popup -->
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<link rel="stylesheet" th:href="@{../assets/css/magnific-popup.css}">
 	<!-- animate css -->
-	<link rel="stylesheet" href="assets/css/animate.css">
+	<link rel="stylesheet" th:href="@{../assets/css/animate.css}">
 	<!-- mean menu css -->
-	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	<link rel="stylesheet" th:href="@{../assets/css/meanmenu.min.css}">
 	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" th:href="@{../assets/css/main.css}">
 	<!-- responsive -->
-	<link rel="stylesheet" href="assets/css/responsive.css">
+	<link rel="stylesheet" th:href="@{../assets/css/responsive.css}">
 
 </head>
 <body>
@@ -50,8 +46,8 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="main.html">
-								<img src="assets/img/logo.png" alt="">
+							<a th:href="@{main.html}">
+								<img th:src="@{../assets/img/logo.png}" alt="">
 							</a>
 						</div>
 						<!-- logo -->
@@ -61,18 +57,18 @@
 							<ul>
 								<li><a href="#">Home</a>
 								</li>
-								<li><a href="shop.html">Shop</a>
+								<li><a>Shop</a>
 									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
+										<li><a th:href="@{shop.html}">Shop</a></li>
+										<li><a th:href="@{checkout.html}">Check Out</a></li>
 									
 									</ul>
 								</li>
-								<li><a href="contact.html">Contact Us</a></li>
+								<li><a th:href="@{contact.html}">Contact Us</a></li>
 								
 								<li class="current-list-item">
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" th:href="@{cart.html}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -142,7 +138,7 @@
 							<tbody>
 								<tr class="table-body-row">
 									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-1.jpg" alt=""></td>
+									<td class="product-image"><img th:src="@{../assets/img/products/product-img-1.jpg}" alt=""></td>
 									<td class="product-name">Strawberry</td>
 									<td class="product-price">$85</td>
 									<td class="product-quantity"><input type="number" placeholder="0"></td>
@@ -150,7 +146,7 @@
 								</tr>
 								<tr class="table-body-row">
 									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-2.jpg" alt=""></td>
+									<td class="product-image"><img th:src="@{../assets/img/products/product-img-2.jpg}" alt=""></td>
 									<td class="product-name">Berry</td>
 									<td class="product-price">$70</td>
 									<td class="product-quantity"><input type="number" placeholder="0"></td>
@@ -158,7 +154,7 @@
 								</tr>
 								<tr class="table-body-row">
 									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-3.jpg" alt=""></td>
+									<td class="product-image"><img th:src="@{../assets/img/products/product-img-3.jpg}" alt=""></td>
 									<td class="product-name">Lemon</td>
 									<td class="product-price">$35</td>
 									<td class="product-quantity"><input type="number" placeholder="0"></td>
@@ -194,15 +190,15 @@
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<a href="cart.html" class="boxed-btn">Update Cart</a>
-							<a href="checkout.html" class="boxed-btn black">Check Out</a>
+							<a th:href="@{cart}" class="boxed-btn">Update Cart</a>
+							<a th:href="@{checkout}" class="boxed-btn black">Check Out</a>
 						</div>
 					</div>
 
 					<div class="coupon-section">
 						<h3>Apply Coupon</h3>
 						<div class="coupon-form-wrap">
-							<form action="main.html">
+							<form th:action="@{main}">
 								<p><input type="text" placeholder="Coupon"></p>
 								<p><input type="submit" value="Apply"></p>
 							</form>
@@ -220,25 +216,25 @@
 				<div class="col-lg-12">
 					<div class="logo-carousel-inner">
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/iphone.png" alt="">
+							<img th:src="@{../assets/img/company-logos/iphone.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/sam.png" alt="">
+							<img th:src="@{../assets/img/company-logos/sam.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/kapp.png" alt="">
+							<img th:src="@{../assets/img/company-logos/kapp.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/iphone.png" alt="">
+							<img th:src="@{../assets/img/company-logos/iphone.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/addi.png" alt="">
+							<img th:src="@{../assets/img/company-logos/addi.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/nikes.png" alt="">
+							<img th:src="@{../assets/img/company-logos/nikes.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/hnm.png" alt="">
+							<img th:src="@{../assets/img/company-logos/hnm.png}" alt="">
 						</div>
 					</div>
 				</div>
@@ -271,9 +267,9 @@
 					<div class="footer-box pages">
 						<h2 class="widget-title">Navigation</h2>
 						<ul>
-							<li><a href="main.html">Home</a></li>
-							<li><a href="shop.html">Shop</a></li>
-							<li><a href="contact.html">Contact Us</a></li>
+							<li><a th:href="@{main}">Home</a></li>
+							<li><a th:href="@{shop}">Shop</a></li>
+							<li><a th:href="@{contact}">Contact Us</a></li>
 						</ul>
 					</div>
 				</div>
@@ -320,25 +316,25 @@
 	<!-- end copyright -->
 	
 	<!-- jquery -->
-	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<script th:src="@{../assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script th:src="@{../assets/bootstrap/js/bootstrap.min.js}"></script>
 	<!-- count down -->
-	<script src="assets/js/jquery.countdown.js"></script>
+	<script th:src="@{../assets/js/jquery.countdown.js}"></script>
 	<!-- isotope -->
-	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<script th:src="@{../assets/js/jquery.isotope-3.0.6.min.js}"></script>
 	<!-- waypoints -->
-	<script src="assets/js/waypoints.js"></script>
+	<script th:src="@{../assets/js/waypoints.js}"></script>
 	<!-- owl carousel -->
-	<script src="assets/js/owl.carousel.min.js"></script>
+	<script th:src="@{../assets/js/owl.carousel.min.js}"></script>
 	<!-- magnific popup -->
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<script th:src="@{../assets/js/jquery.magnific-popup.min.js}"></script>
 	<!-- mean menu -->
-	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<script th:src="@{../assets/js/jquery.meanmenu.min.js}"></script>
 	<!-- sticker js -->
-	<script src="assets/js/sticker.js"></script>
+	<script th:src="@{../assets/js/sticker.js}"></script>
 	<!-- main js -->
-	<script src="assets/js/main.js"></script>
+	<script th:src="@{../assets/js/main.js}"></script>
 
 </body>
 </html>

@@ -7,29 +7,26 @@
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
-	<title>Single Product</title>
+	<title> Product Info</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="image/png" th:href="@{../assets/img/favicon.png}">
 	<!-- fontawesome -->
-	<link rel="stylesheet" href="assets/css/all.min.css">
+	<link rel="stylesheet" th:href="@{../assets/css/all.min.css}">
 	<!-- bootstrap -->
-	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{../assets/bootstrap/css/bootstrap.min.css}">
 	<!-- owl carousel -->
-	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<link rel="stylesheet" th:href="@{../assets/css/owl.carousel.css}">
 	<!-- magnific popup -->
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<link rel="stylesheet" th:href="@{../assets/css/magnific-popup.css}">
 	<!-- animate css -->
-	<link rel="stylesheet" href="assets/css/animate.css">
+	<link rel="stylesheet" th:href="@{../assets/css/animate.css}">
 	<!-- mean menu css -->
-	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	<link rel="stylesheet" th:href="@{../assets/css/meanmenu.min.css}">
 	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" th:href="@{../assets/css/main.css}">
 	<!-- responsive -->
-	<link rel="stylesheet" href="assets/css/responsive.css">
+	<link rel="stylesheet" th:href="@{../assets/css/responsive.css}">
 
 </head>
 <body>
@@ -50,8 +47,8 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="main.html">
-								<img src="assets/img/logo.png" alt="">
+							<a th:href="@{/main}">
+								<img th:src="@{assets/img/logo.png}" alt="">
 							</a>
 						</div>
 						<!-- logo -->
@@ -61,18 +58,18 @@
 							<ul>
 								<li ><a href="#">Home</a>
 								</li>
-								<li class="current-list-item" ><a href="shop.html">Shop</a>
+								<li class="current-list-item" ><a>Shop</a>
 									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
+										<li><a th:href="@{/shop}">Shop</a></li>
+										<li><a th:href="@{/checkout}">Check Out</a></li>
 									
 									</ul>
 								</li>
-								<li><a href="contact.html">Contact</a></li>
+								<li><a th:href="@{/contact}">Contact</a></li>
 								
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -128,7 +125,7 @@
 			<div class="row">
 				<div class="col-md-5">
 					<div class="single-product-img">
-						<img src="assets/img/products/product-img-5.jpg" alt="">
+						<img th:src="@{../assets/img/products/product-img-5.jpg}" alt="">
 					</div>
 				</div>
 				<div class="col-md-7">
@@ -137,10 +134,10 @@
 						<p class="single-product-pricing"> 5000XAF</p>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint dignissimos, rem commodi cum voluptatem quae reprehenderit repudiandae ea tempora incidunt ipsa, quisquam animi perferendis eos eum modi! Tempora, earum.</p>
 						<div class="single-product-form">
-							<form action="main.html">
+							<form action="#">
 								<input type="number" placeholder="0">
 							</form>
-							<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+							<a th:href="@{/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 							<p><strong>Categories: </strong>Fruits, Organic</p>
 						</div>
 						<h4>Share:</h4>
@@ -170,41 +167,41 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+							<a th:href="@{/single-product.html}"><img th:src="@{../assets/img/products/product-img-1.jpg}" alt=""></a>
 						</div>
 						<h3>Strawberry</h3>
 						<p class="product-price"> 8500XAF</p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
+							<a th:href="@{/single-product.html}"><img th:src="@{../assets/img/products/product-img-2.jpg}" alt=""></a>
 						</div>
 						<h3>Berry</h3>
 						<p class="product-price"> 7000XAF </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-lg-0 offset-md-3 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
+							<a th:href="@{/single-product.html}"><img th:src="@{../assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"> 3500XAF</p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-lg-0 offset-md-3 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
+							<a th:href="@{/single-product.html}"><img th:src="@{../assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"> 3500XAF</p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 			</div>
@@ -219,25 +216,25 @@
 				<div class="col-lg-12">
 					<div class="logo-carousel-inner">
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/iphone.png" alt="">
+							<img th:src="@{../assets/img/company-logos/iphone.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/sam.png" alt="">
+							<img th:src="@{../assets/img/company-logos/sam.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/kapp.png" alt="">
+							<img th:src="@{../assets/img/company-logos/kapp.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/iphone.png" alt="">
+							<img th:src="@{../assets/img/company-logos/iphone.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/addi.png" alt="">
+							<img th:src="@{../assets/img/company-logos/addi.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/nikes.png" alt="">
+							<img th:src="@{../assets/img/company-logos/nikes.png}" alt="">
 						</div>
 						<div class="single-logo-item">
-							<img src="assets/img/company-logos/hnm.png" alt="">
+							<img th:src="@{../assets/img/company-logos/hnm.png}" alt="">
 						</div>
 					</div>
 				</div>
@@ -245,7 +242,6 @@
 		</div>
 	</div>
 	<!-- end logo carousel -->
-
 
 	<!-- footer -->
 	<div class="footer-area">
@@ -271,9 +267,9 @@
 					<div class="footer-box pages">
 						<h2 class="widget-title">Navigation</h2>
 						<ul>
-							<li><a href="main.html">Home</a></li>
-							<li><a href="shop.html">Shop</a></li>
-							<li><a href="contact.html">Contact Us</a></li>
+							<li><a th:href="@{main}">Home</a></li>
+							<li><a th:href="@{shop}">Shop</a></li>
+							<li><a th:href="@{contact}">Contact Us</a></li>
 						</ul>
 					</div>
 				</div>
@@ -291,7 +287,7 @@
 		</div>
 	</div>
 	<!-- end footer -->
-	
+
 	<!-- copyright -->
 	<div class="copyright">
 		<div class="container">
@@ -318,27 +314,27 @@
 		</div>
 	</div>
 	<!-- end copyright -->
-	
+
 	<!-- jquery -->
-	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<script th:src="@{../assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script th:src="@{../assets/bootstrap/js/bootstrap.min.js}"></script>
 	<!-- count down -->
-	<script src="assets/js/jquery.countdown.js"></script>
+	<script th:src="@{../assets/js/jquery.countdown.js}"></script>
 	<!-- isotope -->
-	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<script th:src="@{../assets/js/jquery.isotope-3.0.6.min.js}"></script>
 	<!-- waypoints -->
-	<script src="assets/js/waypoints.js"></script>
+	<script th:src="@{../assets/js/waypoints.js}"></script>
 	<!-- owl carousel -->
-	<script src="assets/js/owl.carousel.min.js"></script>
+	<script th:src="@{../assets/js/owl.carousel.min.js}"></script>
 	<!-- magnific popup -->
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<script th:src="@{../assets/js/jquery.magnific-popup.min.js}"></script>
 	<!-- mean menu -->
-	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<script th:src="@{../assets/js/jquery.meanmenu.min.js}"></script>
 	<!-- sticker js -->
-	<script src="assets/js/sticker.js"></script>
+	<script th:src="@{../assets/js/sticker.js}"></script>
 	<!-- main js -->
-	<script src="assets/js/main.js"></script>
+	<script th:src="@{../assets/js/main.js}"></script>
 
 </body>
 </html>
