@@ -16,15 +16,22 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 
-	<!-- CSS Libraries -->
-	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}"> <!-- FontAwesome -->
-	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}"> <!-- Bootstrap -->
-	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}"> <!-- Owl Carousel -->
-	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}"> <!-- Magnific Popup -->
-	<link rel="stylesheet" th:href="@{/assets/css/animate.css}"> <!-- Animate CSS -->
-	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}"> <!-- Mean Menu -->
-	<link rel="stylesheet" th:href="@{/assets/css/main.css}"> <!-- Main Style -->
-	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}"> <!-- Responsive -->
+	<!-- fontawesome -->
+	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
+	<!-- bootstrap -->
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+	<!-- owl carousel -->
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
+	<!-- magnific popup -->
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+	<!-- animate css -->
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<!-- mean menu css -->
+	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
+	<!-- main style -->
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
+	<!-- responsive -->
+	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"> <!-- Remix Icons -->
 </head>
 <body>
@@ -49,7 +56,7 @@
 									<h2 class="text-center">Sign Up</h2>
 								</div>
 								<!-- Signup Form -->
-								<form id="signupForm" th:action="@{/api/auth/signup}" th:object="${user}" method="post" py="12px">
+								<form id="signupForm" th:action="@{/api/auth/register}" th:object="${user}" method="post" >
 									<div class="form-group">
 										<label for="username">FirstName</label>
 										<input type="text" id="firstname" th:field="*{firstName}" placeholder="Toto" required>
@@ -69,10 +76,6 @@
 									<div class="form-group">
 										<label for="password">Password</label>
 										<input type="password" id="password" th:field="*{password}" placeholder="****" required>
-									</div>
-									<div class="form-group">
-										<label for="confirmPassword">Confirm Password</label>
-										<input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="****" required>
 									</div>
 									<button type="submit" class="boxed-btn" style="display: block; margin: 0 auto; font-weight: bold; font-size: 15px;">Submit</button>
 								</form>

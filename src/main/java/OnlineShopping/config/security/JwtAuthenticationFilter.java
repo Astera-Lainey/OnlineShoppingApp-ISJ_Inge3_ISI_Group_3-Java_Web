@@ -1,6 +1,6 @@
 package OnlineShopping.config.security;
 
-import OnlineShopping.service.UserDetailsServiceImpl;
+import OnlineShopping.service.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,8 +21,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenProvider tokenProvider;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
+
+    public JwtAuthenticationFilter(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

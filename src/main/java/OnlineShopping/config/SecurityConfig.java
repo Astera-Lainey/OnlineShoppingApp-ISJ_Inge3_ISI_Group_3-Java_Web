@@ -38,11 +38,10 @@ public class SecurityConfig {
                     "/css/**",
                     "/js/**",
                     "/images/**",
-                    "/assets/**",
                     "/webjars/**"
                 ).permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .requestMatchers("/project-manager/**").hasAuthority("ROLE_PROJECT_MANAGER")
+                .requestMatchers("/user/**").hasAuthority("ROLE_USER")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

@@ -11,10 +11,10 @@
 	<title>Fruitkha - Slider Version</title>
 
 	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png}" th:href="@{/assets/img/favicon.png}">
+	<link rel="shortcut icon" type="image/png" href="../static/assets/img/favicon.png">
 	<!-- google font -->
-<!--	<link th:href="@{https://fonts.googleapis.com/css?family=Open+Sans:300,400,700}" rel="stylesheet">-->
-<!--	<link th:href="@{https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap}" rel="stylesheet">-->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 	<!-- fontawesome -->
 	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
 	<!-- bootstrap -->
@@ -361,6 +361,41 @@
 	</div>
 </div>
 <!-- end product section -->
+			<div class="row">
+				<div class="col-lg-4 col-md-6 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="#"><img th:src="@{/../static/assets/img/products/product-img-1.jpg}" alt=""></a>
+						</div>
+						<h3>Strawberry</h3>
+						<p class="product-price"><span>Per Kg</span> 8500FCFA </p>
+						<a th:href="@{/login}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href=""><img th:src="@{/../static/assets/img/products/product-img-2.jpg}" alt=""></a>
+						</div>
+						<h3>Berry</h3>
+						<p class="product-price"><span>Per Kg</span> 7000FCFA </p>
+						<a th:href="@{/login}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="#"><img th:src="@{/../static/assets/img/products/product-img-3.jpg}" alt=""></a>
+						</div>
+						<h3>Lemon</h3>
+						<p class="product-price"><span>Per Kg</span> 3500FCFA </p>
+						<a th:href="@{/login}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end product section -->
 
 <!-- shop banner -->
 <section class="shop-banner">
