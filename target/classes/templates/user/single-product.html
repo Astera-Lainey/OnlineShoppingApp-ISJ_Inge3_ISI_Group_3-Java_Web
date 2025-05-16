@@ -47,7 +47,7 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a th:href="@{/main}">
+							<a th:href="@{/user/main}">
 								<img th:src="@{assets/img/logo.png}" alt="">
 							</a>
 						</div>
@@ -60,17 +60,21 @@
 								</li>
 								<li class="current-list-item" ><a>Shop</a>
 									<ul class="sub-menu">
-										<li><a th:href="@{/shop}">Shop</a></li>
-										<li><a th:href="@{/checkout}">Check Out</a></li>
+										<li><a th:href="@{/user/shop}">Shop</a></li>
+										<li><a th:href="@{/user/checkout}">Check Out</a></li>
 									
 									</ul>
 								</li>
-								<li><a th:href="@{/contact}">Contact</a></li>
+								<li><a th:href="@{/user/contact}">Contact</a></li>
 								
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<a class="pb-5" th:href="@{/user/profile}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+											<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+										</svg>
+										</a>
 									</div>
 								</li>
 							</ul>
@@ -137,7 +141,7 @@
 							<form action="#">
 								<input type="number" placeholder="0">
 							</form>
-							<a th:href="@{/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+							<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 							<p><strong>Categories: </strong>Fruits, Organic</p>
 						</div>
 						<h4>Share:</h4>
@@ -167,7 +171,7 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{/single-product.html}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
 						</div>
 						<h3>Strawberry</h3>
 						<p class="product-price"> 8500XAF</p>
@@ -177,7 +181,7 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{/single-product.html}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
 						</div>
 						<h3>Berry</h3>
 						<p class="product-price"> 7000XAF </p>
@@ -187,7 +191,7 @@
 				<div class="col-lg-3 col-md-6 offset-lg-0 offset-md-3 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{/single-product.html}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"> 3500XAF</p>
@@ -197,7 +201,7 @@
 				<div class="col-lg-3 col-md-6 offset-lg-0 offset-md-3 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{/single-product.html}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"> 3500XAF</p>

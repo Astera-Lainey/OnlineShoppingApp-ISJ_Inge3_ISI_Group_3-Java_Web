@@ -43,7 +43,7 @@
 				position: relative;
 				bottom: 110px;
 			}
-			#shop{
+			.shop{
 				position: relative;
 				display: none;
 				bottom: 100px;
@@ -85,7 +85,7 @@
 					transition: 0.5s;
 					display: block;
 				}
-				#shop{
+				.shop{
 					display: block;
 				}
 			
@@ -112,7 +112,7 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a th:href="@{main}">
+							<a th:href="@{/user/main}">
 								<img th:src="@{assets/img/logo.png}" alt="">
 							</a>
 						</div>
@@ -126,16 +126,78 @@
 								<li><a>Shop</a>
 									<ul class="sub-menu">
 										<li><a th:href="@{/user/shop}">Shop</a></li>
-										<li><a th:href="@{checkout}">Check Out</a></li>
+										<li><a th:href="@{/user/checkout}">Check Out</a></li>
 									
 									</ul>
 								</li>
 								<li><a th:href="@{/user/contact}">Contact</a></li>
 
 								<li>
-									<div class="header-icons">
-										<a class="shopping-cart" th:href="@{cart}"><i class="fas fa-shopping-cart"></i></a>
+									<div class="header-icons d-flex">
+										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<!--Profile Settings added -->
+										<a>
+											<ul class="navbar-nav flex-row align-items-center ms-auto">
+											<!-- User -->
+											<li class="nav-item navbar-dropdown dropdown-user dropdown">
+												<a
+														class="nav-link dropdown-toggle hide-arrow p-0"
+														href="javascript:void(0);"
+														data-bs-toggle="dropdown">
+													<div class="avatar avatar-online">
+														<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
+															<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+														</svg>                    </div>
+												</a>
+												<ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:40px; border-radius: 10px; padding-block: 10px;" >
+													<li>
+														<a class="dropdown-item" href="#">
+															<div class="d-flex align-items-center">
+																<div class="flex-shrink-0 me-2">
+																	<div class="avatar avatar-online">
+																		<img th:src="@{../assets/img/user (1).png}" alt class="w-px-40 h-auto rounded-circle"  style="width: 12%; position: relative; left: 20px;"/>
+																	</div>
+																	<div>
+																		<button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; width: 20%; color: black; background-color: white;">Edit Profile</button>
+																	</div>
+																</div>
+															</div>
+														</a>
+													</li>
+													<li>
+														<div class="dropdown-divider"></div>
+													</li>
+													<li>
+														<a class="dropdown-item" href="#">
+															<i class="ri-user-3-line ri-22px me-2"></i>
+															<span class="align-middle" style="color: black">Username</span>
+															<div class="form-control">babygirl</div>
+														</a>
+														<a class="dropdown-item" href="#">
+															<i class="ri-user-3-line ri-22px me-2"></i>
+															<span class="align-middle" style="color: black">Password</span>
+															<div class="form-control">..........</div>
+														</a>
+													</li>
+
+													<li>
+														<div class="dropdown-divider"></div>
+													</li>
+													<li>
+														<div class="d-grid px-4 pt-2 pb-1">
+															<a class="btn btn-danger d-flex" href="#">
+																<small class="align-middle">Logout</small>
+																<i class="ri-logout-box-r-line ms-2 ri-16px"></i>
+															</a>
+														</div>
+													</li>
+												</ul>
+											</li>
+											<!--/ User -->
+										</ul>
+										</a>
+
 									</div>
 								</li>
 							</ul>
@@ -251,47 +313,47 @@
 							<a href="#"><img th:src="@{/assets/img/pexels-kaip-996329.jpg}" width="90%" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>FASHION</p>
-							<a th:href="@{/user/shop}" id="shop" class="boxed-btn">Shop Now</a>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
 				<div class="col-lg-2 col-md-6 text-center">
 						<div class="image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/pexels-garrettmorrow-682933.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-garrettmorrow-682933.jpg}" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>ELECTRONICS</p>
-							<a th:href="@{/user/shop}"  class="boxed-btn">Shop Now</a>
+							<a th:href="@{/user/shop}"  class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
 				<div class="col-lg-2 col-md-6 text-center">
 					<div class="image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/cat (5).jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/cat (5).jpg}" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>HOME</p>
-							<a th:href="@{/user/shop}" class="boxed-btn">Shop Now</a>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
 				<div class="col-lg-2 col-md-6 text-center">
 					<div class="image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/pexels-kovyrina-12211.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-kovyrina-12211.jpg}" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>TOYS</p>
-							<a th:href="@{/user/shop}" class="boxed-btn">Shop Now</a>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
 				<div class="col-lg-2 col-md-6 text-center">
 					<div class="image">
-							<a th:href="@{single-product}"><img src="@{/assets/img/pexels-pixabay-416717.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-416717.jpg}" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>SPORT</p>
-							<a th:href="@{/user/shop}" class="boxed-btn">Shop Now</a>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
 				<div class="col-lg-2 col-md-6 text-center">
 					<div class="image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/pexels-pixabay-267202.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-267202.jpg}" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>SHOES</p>
-							<a th:href="@{/user/shop}" class="boxed-btn">Shop Now</a>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
 
 				</div>
@@ -316,41 +378,41 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
 						</div>
 						<h3>Strawberry</h3>
 						<p class="product-price"><span>Per Kg</span> 8500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
 						</div>
 						<h3>Berry</h3>
 						<p class="product-price"><span>Per Kg</span> 7000XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"><span>Per Kg</span> 3500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"><span>Per Kg</span> 3500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 			</div>
@@ -358,41 +420,41 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
 						</div>
 						<h3>Strawberry</h3>
 						<p class="product-price"><span>Per Kg</span> 8500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
 						</div>
 						<h3>Berry</h3>
 						<p class="product-price"><span>Per Kg</span> 7000XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"><span>Per Kg</span> 3500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"><span>Per Kg</span> 3500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 			</div>
@@ -400,41 +462,41 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
 						</div>
 						<h3>Strawberry</h3>
 						<p class="product-price"><span>Per Kg</span> 8500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
 						</div>
 						<h3>Berry</h3>
 						<p class="product-price"><span>Per Kg</span> 7000XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"><span>Per Kg</span> 3500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"><span>Per Kg</span> 3500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 			</div>
@@ -442,41 +504,41 @@
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
 						</div>
 						<h3>Strawberry</h3>
 						<p class="product-price"><span>Per Kg</span> 8500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
 						</div>
 						<h3>Berry</h3>
 						<p class="product-price"><span>Per Kg</span> 7000XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"><span>Per Kg</span> 3500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6 offset-md-3 offset-lg-0 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
 						</div>
 						<h3>Lemon</h3>
 						<p class="product-price"><span>Per Kg</span> 3500XAF </p>
-						<a th:href="@{cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 					</div>
 				</div>
 			</div>
@@ -510,12 +572,122 @@
                         travel, or relaxation.</div>
                     <!--Countdown Timer-->
                     <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
-                	<a th:href="@{cart}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                	<a th:href="@{/user/cart}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                 </div>
             </div>
         </div>
     </section>
     <!-- end cart banner section -->
+
+<!--	&lt;!&ndash; OffCanvas &ndash;&gt;-->
+<!--	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">-->
+<!--		<div class="offcanvas-header">-->
+<!--			<h4 class="offcanvas-title" id="offcanvasRightLabel">Set Filter Settings</h4>-->
+<!--			<div class="btn-close" data-bs-dismiss="offcanvas"></div>-->
+
+<!--		</div>-->
+<!--		<div class="offcanvas-body">-->
+<!--			<div>-->
+<!--				<center>-->
+<!--					<img-->
+<!--							th:src="@{../assets/img/user (1).png}"-->
+<!--							alt="user-avatar"-->
+<!--							class="d-block w-px-100 h-px-100 rounded"-->
+<!--							id="uploadedAvatar" style="width: 80px;"/>-->
+<!--				</center>-->
+
+<!--				<div class="btns d-flex gap-5">-->
+<!--					<button type="submit" class="boxed-btn w-50" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-dismiss="offcanvas" style="border-radius: 50px;">Change Picture</button>-->
+<!--					<button data-bs-dismiss="offcanvas" class="btn-close bordered-btn w-50" data-bs-toggle="modal" data-bs-target="#editModal" >Edit Profile</button>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div>-->
+<!--				<label>First Name</label>-->
+<!--				<div class="form-control">Forbin</div>-->
+<!--			</div>-->
+<!--			<br>-->
+<!--			<div>-->
+<!--				<label>Last Name</label>-->
+<!--				<div class="form-control">Astera</div>-->
+<!--			</div>-->
+<!--			<br>-->
+<!--			<div>-->
+<!--				<label>Username</label>-->
+<!--				<div class="form-control">babygirl</div>-->
+<!--			</div>-->
+<!--			<br>-->
+<!--			<div class="btn mt-3">-->
+<!--				<button type="submit" class="boxed-btn w-80" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-dismiss="offcanvas" style="border-radius: 50px;"> Edit Profile</button>-->
+<!--			</div>-->
+<!--			<div class="mt-10">-->
+<!--				<button class="bordered-btn">Logout</button>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--	&lt;!&ndash; /OffCanvas &ndash;&gt;-->
+
+
+	<!-- Edit User Settings Modal -->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
+					<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter First Name" />
+								<label>Full Name</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="text" class="form-control" placeholder="Enter Last Name" />
+								<label>Last Name</label>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter Username" />
+								<label >Username</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="password" class="form-control" placeholder="..........." />
+								<label>Password</label>
+							</div>
+						</div>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+						Cancel
+					</button>
+					<button type="button" class="btn btn-primary">Save Settings</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Edit User Settings Modal -->
 
 
 	<!-- logo carousel -->
@@ -576,9 +748,9 @@
 					<div class="footer-box pages">
 						<h2 class="widget-title">Navigation</h2>
 						<ul>
-							<li><a th:href="@{main}">Home</a></li>
+							<li><a th:href="@{/user/main}">Home</a></li>
 							<li><a th:href="@{/user/shop}">Shop</a></li>
-							<li><a th:href="@{contact}">Contact Us</a></li>
+							<li><a th:href="@{/user/contact}">Contact Us</a></li>
 						</ul>
 					</div>
 				</div>
@@ -624,6 +796,13 @@
 	</div>
 	<!-- end copyright -->
 
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
 	<!-- jquery -->
 	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
@@ -644,6 +823,13 @@
 	<script th:src="@{/assets/js/sticker.js}"></script>
 	<!-- main js -->
 	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+
+	<!-- OffCanvas Script -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

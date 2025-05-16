@@ -11,8 +11,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "user")
 @DiscriminatorValue("USER")
-public class allUser extends User {
-    public allUser() {
+public class Customer extends User {
+    public Customer() {
         super();
         this.setRole(Role.USER);
     }
