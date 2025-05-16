@@ -75,6 +75,13 @@ public class User implements UserDetails {
         return true;
     }
 
+    public void setActive(boolean b) {
+    }
+
+    public boolean getUserId() {
+        return true;
+    }
+
     public enum Role {
         ADMIN,
         USER

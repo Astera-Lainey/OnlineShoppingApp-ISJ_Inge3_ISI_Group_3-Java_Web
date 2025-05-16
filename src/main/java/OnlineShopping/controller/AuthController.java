@@ -1,7 +1,7 @@
 package OnlineShopping.controller;
 
 import OnlineShopping.config.security.JwtUtil;
-import OnlineShopping.entity.repository.UserService;
+import OnlineShopping.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
