@@ -20,12 +20,4 @@ public class AdminDashboard {
     @Column(name = "total_users")
     private Integer totalUsers;
 
-    @Column(name = "total_projects")
-    private Integer totalProjects;
-
-    @Column(name = "total_revenue")
-    private Double totalRevenue;
-
-    @Column(name = "last_updated")
-    private LocalDateTime lastUpdated;
 } 

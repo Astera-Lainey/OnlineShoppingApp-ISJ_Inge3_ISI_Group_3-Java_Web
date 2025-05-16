@@ -18,7 +18,8 @@ public class DashboardController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/admin/dashboard")
+    //admin getMappings
+    @GetMapping("/admin/adminDashboard")
     public String adminDashboard(Model model, Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/api/auth/login";
@@ -31,10 +32,30 @@ public class DashboardController {
 
         // Add admin-specific statistics
         model.addAttribute("totalUsers", userRepository.count());
-        return "/admin/dashboard";
+        return "/admin/adminDashboard";
     }
 
-    @GetMapping("/user/dashboard")
+    @GetMapping("/admin/Users")
+    public String adminUsers() {
+
+        return "/admin/Users";
+    }
+
+    @GetMapping("/admin/Product")
+    public String adminProducts() {
+
+        return "/admin/Product";
+    }
+
+    @GetMapping("/admin/Orders")
+    public String adminOrders() {
+
+        return "/admin/Orders";
+    }
+
+
+    //user getMappings
+    @GetMapping("/user/main")
     public String userDashboard(Authentication authentication, Model model) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/api/auth/login";
@@ -45,10 +66,41 @@ public class DashboardController {
             return "redirect:/api/auth/login";
         }
 
-        User currentUser = currentUserOpt.get();
+//        User currentUser = currentUserOpt.get();
 
 
-        return "/user/dashboard";
+        return "/user/main";
     }
+
+    @GetMapping("/user/cart")
+    public String usersCart(Authentication authentication, Model model) {
+
+        return "/user/cart";
+    }
+
+    @GetMapping("/user/checkout")
+    public String usersCheckout(Authentication authentication, Model model) {
+
+        return "/user/checkout";
+    }
+
+    @GetMapping("/user/contact")
+    public String usersContact(Authentication authentication, Model model) {
+
+        return "/user/contact";
+    }
+
+    @GetMapping("/user/shop")
+    public String usersShop(Authentication authentication, Model model) {
+
+        return "/user/shop";
+    }
+
+    @GetMapping("/user/single-product")
+    public String usersSingleProduct(Authentication authentication, Model model) {
+
+        return "/user/single-product";
+    }
+
 
   }

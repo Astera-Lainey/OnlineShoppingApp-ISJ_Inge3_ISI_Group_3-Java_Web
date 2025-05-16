@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,23 +11,23 @@
     <link rel="manifest" href="/site.webmanifest">
 	<!-- title -->
 	<title>Admin Page</title>
-	<link rel="shortcut icon" type="image/png" th:href="@{../assets/img/favicon.png}">
+	<link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
 	<!-- fontawesome -->
-	<link rel="stylesheet" th:href="@{../assets/css/all.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
 	<!-- bootstrap -->
-	<link rel="stylesheet" th:href="@{../assets/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
 	<!-- owl carousel -->
-	<link rel="stylesheet" th:href="@{../assets/css/owl.carousel.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
 	<!-- magnific popup -->
-	<link rel="stylesheet" th:href="@{../assets/css/magnific-popup.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
 	<!-- animate css -->
-	<link rel="stylesheet" th:href="@{../assets/css/animate.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
 	<!-- mean menu css -->
-	<link rel="stylesheet" th:href="@{../assets/css/meanmenu.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
 	<!-- main style -->
-	<link rel="stylesheet" th:href="@{../assets/css/main.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
 	<!-- responsive -->
-	<link rel="stylesheet" th:href="@{../assets/css/responsive.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
 	<style>
         table{
             img{
@@ -70,7 +70,7 @@
 						<!-- logo -->
 						<div class="site-logo">
 							<a th:href="@{/main}">
-								<img th:src="@{../assets/img/logo.png}" alt="">
+								<img th:src="@{/assets/img/logo.png}" alt="">
 							</a>
 						</div>
 						<!-- logo -->
@@ -78,11 +78,11 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li><a th:href="@{/adminDashboard.html}">Home</a>
+								<li><a th:href="@{/admin/adminDashboard}">Home</a>
 								</li>
 								<li class="current-list-item"><a href="#">Users</a></li> 
-								<li><a th:href="@{/Product.html}">Products</a></li>
-								<li><a th:href="@{/Orders.html}">Orders</a></li>
+								<li><a th:href="@{/admin/Product}">Products</a></li>
+								<li><a th:href="@{/admin/Orders}">Orders</a></li>
 								<li>
 									<div class="header-icons">
 										<a class="shopping-cart" href="#"><i class="fas fa-shopping-cart"></i></a>
@@ -166,7 +166,7 @@
                             <td>
                               <div class="d-flex">
                                 <div>
-                                  <img th:src="@{../assets/img/profile.png}" alt="Avatar"/>
+                                  <img th:src="@{/assets/img/profile.png}" alt="Avatar"/>
                                 </div>
                                 <div class="pl-3">
                                   <h6 class="mb-0">Jordan Stevenson</h6>
@@ -206,7 +206,7 @@
                             <td>
                               <div class="d-flex">
                                 <div>
-                                  <img th:src="@{../assets/img/profile.png}" alt="Avatar"/>
+                                  <img th:src="@{/assets/img/profile.png}" alt="Avatar"/>
                                 </div>
                                 <div class="pl-3">
                                   <h6 class="mb-0">Jordan Stevenson</h6>
@@ -246,7 +246,7 @@
                             <td>
                               <div class="d-flex">
                                 <div>
-                                  <img th:src="@{../assets/img/profile.png}" alt="Avatar"/>
+                                  <img th:src="@{/assets/img/profile.png}" alt="Avatar"/>
                                 </div>
                                 <div class="pl-3">
                                   <h6 class="mb-0">Jordan Stevenson</h6>
@@ -365,35 +365,35 @@
 			</div>
 		</div>
 	</div>
-	<script th:src="@{../assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{../assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{../assets/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{../assets/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
 	<!-- end copyright -->
-	<script th:src="@{../assets/bootstrap/js/menu.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
 	<!-- jquery -->
-	<script th:src="@{../assets/js/jquery-1.11.3.min.js}"></script>
+	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
-	<script th:src="@{../assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
 	<!-- count down -->
-	<script th:src="@{../assets/js/jquery.countdown.js}"></script>
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
 	<!-- isotope -->
-	<script th:src="@{../assets/js/jquery.isotope-3.0.6.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
 	<!-- waypoints -->
-	<script th:src="@{../assets/js/waypoints.js}"></script>
+	<script th:src="@{/assets/js/waypoints.js}"></script>
 	<!-- owl carousel -->
-	<script th:src="@{../assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
 	<!-- magnific popup -->
-	<script th:src="@{../assets/js/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
 	<!-- mean menu -->
-	<script th:src="@{../assets/js/jquery.meanmenu.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
 	<!-- sticker js -->
-	<script th:src="@{../assets/js/sticker.js}"></script>
+	<script th:src="@{/assets/js/sticker.js}"></script>
 	<!-- main js -->
-	<script th:src="@{../assets/js/main.js}"></script>
-	<script th:src="@{../assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{../assets/bootstrap/js/bootstrap.bundle.js}"></script>
-	<script th:src="@{../assets/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
 
 </body>
 </html>

@@ -58,10 +58,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             
             if (role.equals("ROLE_ADMIN")) {
                 logger.info("Found ADMIN role, redirecting to admin dashboard");
-                return "/admin/dashboard";
+                return "/admin/adminDashboard";
             } else if (role.equals("ROLE_USER")) {
                 logger.info("Found USER role, redirecting to user dashboard");
-                return "/user/dashboard";
+                return "/user/main";
             }
         }
         

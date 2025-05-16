@@ -7,25 +7,14 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "project_manager_dashboards")
+@Table(name = "users_dashboards")
 public class UsersDashboard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "project_manager_id", nullable = false)
+    @JoinColumn(name = "users_id", nullable = false)
     private allUser allUser;
 
-    @Column(name = "active_projects")
-    private Integer activeProjects;
-
-    @Column(name = "completed_projects")
-    private Integer completedProjects;
-
-    @Column(name = "pending_tasks")
-    private Integer pendingTasks;
-
-    @Column(name = "last_updated")
-    private LocalDateTime lastUpdated;
 } 
