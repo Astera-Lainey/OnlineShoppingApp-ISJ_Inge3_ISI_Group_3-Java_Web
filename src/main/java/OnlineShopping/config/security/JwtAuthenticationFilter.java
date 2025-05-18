@@ -1,6 +1,6 @@
 package OnlineShopping.config.security;
 
-import OnlineShopping.impl.UserDetailsServiceImpl;
+import OnlineShopping.entity.impl.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

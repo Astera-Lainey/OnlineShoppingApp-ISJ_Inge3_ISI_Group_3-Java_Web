@@ -1,7 +1,7 @@
 package OnlineShopping.controller;
 
 import OnlineShopping.entity.User;
-import OnlineShopping.repository.UserRepository;
+import OnlineShopping.entity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

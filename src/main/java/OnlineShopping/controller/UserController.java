@@ -3,7 +3,7 @@ package OnlineShopping.controller;
 import OnlineShopping.dto.UserListResponseDTO;
 import OnlineShopping.dto.UserRequestDTO;
 import OnlineShopping.dto.UserResponseDTO;
-import OnlineShopping.services.UserService;
+import OnlineShopping.entity.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
