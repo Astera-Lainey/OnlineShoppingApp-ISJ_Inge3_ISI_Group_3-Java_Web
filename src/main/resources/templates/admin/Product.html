@@ -423,87 +423,74 @@
 					<button style="display: block; margin: 0 auto; border-radius: 50px; font-weight: 900; font-size: 15px;" class="boxed-btn" data-bs-toggle="modal" data-bs-target="#addModal">Create Product</button>
 
 				  </div>
-					     <!-- Add New Material Modal -->
-						 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-							  <div class="modal-content">
-								<div class="modal-header">
-								  <h5 class="modal-title" id="exampleModalLabel1">Add Product</h5>
-								  <button
-									type="button"
-									class="btn-close"
-									data-bs-dismiss="modal"
-									aria-label="Close"></button>
-								</div>
-								<div class="modal-body">
-								  <div class="row g-4">
-									<div class="col mb-2">
-									  <div class="form-floating form-floating-outline">
-										<input
-										  type="text"
-										  class="form-control"
-										  placeholder="Enter Name" />
-										<label>Product Name</label>
-									  </div>
-									</div>
-									<div class="col mb-2">
-									  <div class="form-floating form-floating-outline">
-										<input type="text" class="form-control" placeholder="Enter Brand" />
-										<label>Product Brand</label>
-									  </div>
-									</div>
-								  </div>
-								  <div class="row">
-									<div class="col mb-6 mt-2">
-									  <div class="form-floating form-floating-outline">
-										<select class="form-select" name="sendNotification">
-											<option selected>Fashion</option>
-											<option>Electronics</option>
-											<option value="">Home & Furniture</option>
-											<option value="">Toys</option>
-										</select>
-										<label>Product Category</label>
-									</div>
-									</div>
-								  </div>
-								  <div class="row">
-									<div class="col mb-6 mt-2">
-									  <div class="form-floating form-floating-outline">
-										<input type="text" class="form-control" placeholder="Enter Provider" />
-										<label>Product Quantity</label>
-									  </div>
-									</div>
-								  </div>
-								  
-								  <div class="row">
-									<div class="col mb-6 mt-2">
-									  <div class="form-floating form-floating-outline">
-										<textarea
-										id="basic-icon-default-message"
-										class="form-control"
-										placeholder="Hi, What would you like to request for?"
-										aria-describedby="basic-icon-default-message2"></textarea>
-										<label>Product Details</label>
-									  </div>
-									</div>
-								  </div>
 
-								  
-								 
+
+	<!-- Add New Product Modal -->
+		<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<form th:action="@{/admin/products/add}" method="post" enctype="multipart/form-data" th:object="${productform}">
+					<div class="modal-header">
+						<h5 class="modal-title">Add Product</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row g-4">
+							<div class="col mb-2">
+								<div class="form-floating form-floating-outline">
+									<input type="text" class="form-control" placeholder="Enter Name" th:field="${productform.name}" required />
+									<label>Product Name</label>
 								</div>
-								<div class="modal-footer">
-								  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-									Cancel
-								  </button>
-								  <button type="button" class="btn btn-primary">Add Material</button>
-								</div>
-							  </div>
 							</div>
-						  </div>
-						   <!-- /Add New Material Modal -->
-			
+							<div class="col mb-2">
+								<div class="form-floating form-floating-outline">
+									<input type="text" class="form-control" placeholder="Enter Brand" th:field="${productform.brand}" required />
+									<label>Product Brand</label>
+								</div>
+							</div>
+						</div>
 
-				
+						<div class="row">
+							<div class="col mb-6 mt-2">
+								<div class="form-floating form-floating-outline">
+									<select id="category" th:field="${productform.category}" required>
+										<option th:each="cat : ${cats}" th:value="${cat}" th:text="${cat}"></option>
+									</select>
+									<label>Product Category</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col mb-6 mt-2">
+								<div class="form-floating form-floating-outline">
+									<input type="text" class="form-control" placeholder="Enter Description" th:field="${productform.description}" required />
+									<label>Product Description</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col mb-6 mt-2">
+								<div class="form-floating form-floating-outline">
+									<h4>Upload pictures</h4>
+									<input type="file" th:field="${productform.images}" id="images" name="images" multiple required/>
+								</div>
+							</div>
+						</div>
+					</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary">Create Product</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+	<!-- /Add New Product Modal -->
+
 
 	<!-- copyright -->
 	<div class="copyright mt-150">
