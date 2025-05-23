@@ -71,10 +71,69 @@
 									<div class="header-icons">
 										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-										<a class="pb-5" th:href="@{/user/profile}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-											<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-										</svg>
-										</a>
+										<!--Profile Settings added -->
+										<div class="profile" style="position: relative; bottom: 90px;left: 60px;">
+											<a>
+												<ul class="navbar-nav flex-row align-items-center ms-auto" >
+													<!-- User -->
+													<li class="nav-item navbar-dropdown dropdown-user dropdown">
+														<a
+																class="nav-link dropdown-toggle hide-arrow p-0"
+																href="javascript:void(0);"
+																data-bs-toggle="dropdown" style="justify-content: end">
+															<div class="avatar avatar-online">
+																<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
+																	<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+																</svg>                    </div>
+														</a>
+														<ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:20px; border-radius: 10px; padding-block: 10px;" >
+															<li>
+																<a class="dropdown-item" href="#">
+																	<div class="d-flex align-items-center">
+																		<div class="flex-shrink-0 me-2">
+																			<div class="avatar avatar-online">
+																				<img th:src="@{../assets/img/user (1).png}" alt class="w-px-40 h-auto rounded-circle"  style="width: 12%; position: relative; left: 20px;"/>
+																			</div>
+																			<div>
+																				<button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
+																			</div>
+																		</div>
+																	</div>
+																</a>
+															</li>
+															<li>
+																<div class="dropdown-divider"></div>
+															</li>
+															<li>
+																<a class="dropdown-item" href="#">
+																	<i class="ri-user-3-line ri-22px me-2"></i>
+																	<span class="align-middle" style="color: black">Username</span>
+																	<div class="form-control">babygirl</div>
+																</a>
+																<a class="dropdown-item" href="#">
+																	<i class="ri-user-3-line ri-22px me-2"></i>
+																	<span class="align-middle" style="color: black">Email</span>
+																	<div class="form-control">forbin@gmail.com</div>
+																</a>
+															</li>
+
+															<li>
+																<div class="dropdown-divider"></div>
+															</li>
+															<li>
+																<div class="d-grid px-4 pt-2 pb-1 me-5">
+																	<a class="btn btn-danger d-flex" href="#">
+																		<small class="align-middle">Logout</small>
+																		<i class="ri-logout-box-r-line ms-2 ri-16px"></i>
+																	</a>
+																</div>
+															</li>
+														</ul>
+													</li>
+													<!--/ User -->
+												</ul>
+											</a>
+										</div>
 									</div>
 								</li>
 							</ul>
@@ -247,6 +306,68 @@
 	</div>
 	<!-- end logo carousel -->
 
+	<!-- Edit User Settings Modal -->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
+					<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter First Name" />
+								<label>Full Name</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="text" class="form-control" placeholder="Enter Last Name" />
+								<label>Last Name</label>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter Username" />
+								<label >Username</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="password" class="form-control" placeholder="..........." />
+								<label>Password</label>
+							</div>
+						</div>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+						Cancel
+					</button>
+					<button type="button" class="btn btn-primary">Save Settings</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Edit User Settings Modal -->
+
 	<!-- footer -->
 	<div class="footer-area">
 		<div class="container">
@@ -319,6 +440,14 @@
 	</div>
 	<!-- end copyright -->
 
+
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
 	<!-- jquery -->
 	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
@@ -339,6 +468,10 @@
 	<script th:src="@{/assets/js/sticker.js}"></script>
 	<!-- main js -->
 	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+
 
 </body>
 </html>
