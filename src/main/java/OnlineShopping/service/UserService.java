@@ -106,7 +106,7 @@ public class UserService {
 
         // Update password only if provided
         if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
-            user.setPassword(userDTO.getPassword());
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         }
 
         User updatedUser = userRepository.save(user);
