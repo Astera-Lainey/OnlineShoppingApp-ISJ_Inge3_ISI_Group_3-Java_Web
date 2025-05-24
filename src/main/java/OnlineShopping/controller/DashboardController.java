@@ -41,11 +41,11 @@ public class DashboardController {
         return "/admin/Users";
     }
 
-    @GetMapping("/admin/Product")
-    public String adminProducts() {
-
-        return "/admin/Product";
-    }
+//    @GetMapping("/admin/Product")
+//    public String adminProducts() {
+//
+//        return "/admin/Product";
+//    }
 
     @GetMapping("/admin/Orders")
     public String adminOrders() {

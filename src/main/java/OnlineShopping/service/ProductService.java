@@ -1,18 +1,35 @@
 package OnlineShopping.service;
 
-import OnlineShopping.dto.ProductDTO;
 import OnlineShopping.entity.Category;
 import OnlineShopping.entity.Product;
-import OnlineShopping.entity.ProductImage;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import org.springframework.web.multipart.MultipartFile;
+import OnlineShopping.entity.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ProductService {
+@Service
+public class ProductService {
 
-   public void createProduct( String name, String description, List<MultipartFile> images, String brand, Category category );
-   public List<Product> ViewProducts();
+    @Autowired
+    private ProductRepository productRepository;
+
+    public Product createProduct( String name, String description, String brand, Category category, double price, int stock){
+        Product product = new Product();
+        product.setName(name);
+        product.setDescription(description);
+        product.setBrand(brand);
+        product.setCategory(category);
+        product.setPrice(price);
+        product.setStockQuantity(stock);
+        return productRepository.save(product);
+    };
+    public List<Product> getAllProducts(){
+        return productRepository.findAll();
+    };
+
+    public Product updateProduct(Product product){
+        return productRepository.save(product);
+    }
 }
 

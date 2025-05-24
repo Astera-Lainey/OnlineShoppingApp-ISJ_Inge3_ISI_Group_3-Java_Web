@@ -19,7 +19,38 @@ public class ProductDTO {
     @NotNull
     private Category category;
 
-    private List<MultipartFile> images; // for image uploads
+    @NotNull
+    private double price;
+
+    @NotNull
+    private int stock;
+
+    public @NotNull List<MultipartFile> getImage() {
+        return images;
+    }
+
+    public void setImage(@NotNull List<MultipartFile> image) {
+        this.images = image;
+    }
+
+    @NotNull
+    private List<MultipartFile> images;
+
+    public @NotNull double getPrice() {
+        return price;
+    }
+
+    public void setPrice(@NotNull double price) {
+        this.price = price;
+    }
+
+    public @NotNull int getStock() {
+        return stock;
+    }
+
+    public void setStock(@NotNull int stock) {
+        this.stock = stock;
+    }
 
     public String getDescription() {
         return description;
@@ -43,14 +74,6 @@ public class ProductDTO {
 
     public void setCategory(@NotNull Category category) {
         this.category = category;
-    }
-
-    public List<MultipartFile> getImages() {
-        return images;
-    }
-
-    public void setImages(List<MultipartFile> images) {
-        this.images = images;
     }
 
     public @NotBlank String getName() {

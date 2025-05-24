@@ -12,17 +12,16 @@ import lombok.NoArgsConstructor;
 public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Lob
-    @Column(name = "image_data", nullable = false)
-    private byte[] imageData;
+   @Column
+   private String path;
 
-    @Column(name = "image_name")
-    private String imageName;
+//    @Column(name = "image_name")
+//    private String imageName;
 
-    @Column(name = "content_type")
-    private String contentType; // e.g., "image/jpeg"
+//    @Column(name = "content_type")
+//    private String contentType; // e.g., "image/jpeg"
 
 //    fetch = FetchType.LAZY optimizes performance by loading the product data only when needed
     @ManyToOne(fetch = FetchType.LAZY)

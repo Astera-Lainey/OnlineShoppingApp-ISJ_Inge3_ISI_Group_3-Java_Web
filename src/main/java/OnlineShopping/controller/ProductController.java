@@ -3,26 +3,36 @@ package OnlineShopping.controller;
 import OnlineShopping.dto.ProductDTO;
 import OnlineShopping.entity.Category;
 import OnlineShopping.entity.Product;
+import OnlineShopping.entity.ProductImage;
+import OnlineShopping.service.ProductImageService;
 import OnlineShopping.service.ProductService;
-import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/products")
+@Controller
 public class ProductController {
+    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
     @Autowired
     private ProductService productService;
 
-    @GetMapping
+    @Autowired
+    private ProductImageService productImageService;
+
+    @GetMapping("/admin/Product")
     public String adminProducts(Model model) {
-        List<Product> allProducts = productService.ViewProducts();
+        List<Product> allProducts = productService.getAllProducts();
         model.addAttribute("products", allProducts);
         model.addAttribute("productform", new ProductDTO());
         model.addAttribute("cats",Category.values());
@@ -38,14 +48,64 @@ public class ProductController {
             return "/admin/Product";
         }
         try{
-            productService.createProduct(productDTO.getName(),productDTO.getDescription(),productDTO.getImages(),productDTO.getBrand(),productDTO.getCategory());
+            //creates a product
+           Product newProduct = productService.createProduct(productDTO.getName(),productDTO.getDescription(),productDTO.getBrand(),productDTO.getCategory(), productDTO.getPrice(), productDTO.getStock());
+
+           //creates an image for each image sent for a specific product
+            List<MultipartFile> images = productDTO.getImage();
+            for (MultipartFile image : images) {
+                try {
+                    //setting the name of the image to the product name
+                    String fileName = productDTO.getName() + "_Image_" + System.currentTimeMillis();
+                    String uploadDir = "uploads/products/images/";
+                    Path uploadPath = Paths.get(uploadDir);
+
+                    //creates the product/images folder in the file system
+                    if (!Files.exists(uploadPath)) {
+                        Files.createDirectories(uploadPath);
+                    }
+
+                    //saves the picture in the folder
+                    try {
+                        // Get file extension from original filename
+                        String originalFilename = image.getOriginalFilename();
+                        String fileExtension = "";
+                        if (originalFilename != null && originalFilename.contains(".")) {
+                            fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                        }
+
+                        String fullFileName = fileName + fileExtension;
+                        Path filePath = uploadPath.resolve(fullFileName);
+                        Files.write(filePath, image.getBytes());
+
+                        log.info("Image saved successfully: {}", filePath.toString());
+
+                        //creates the corresponding image for each images
+                        ProductImage productImage = new ProductImage();
+                        productImage.setPath(uploadDir + fullFileName);
+                        productImage.setProduct(newProduct);
+                        productImageService.addProductImage(productImage);
+
+                    }catch (Exception e){
+                        log.error(e.getMessage());
+                    }
+
+//                    //creates the corresponding image for each images
+//                    ProductImage productImage = new ProductImage();
+//                    productImage.setPath(uploadDir + fileName);
+//                    productImage.setProduct(newProduct);
+//                    productImageService.addProductImage(productImage);
+                }catch (Exception e){
+                    log.error(e.getMessage());
+                }
+            }
             System.out.println("Product created successfully");
             redirectAttributes.addFlashAttribute("successMessage", "Product created successfully");
-            return "redirect:/admin/products";
+            return "redirect:/admin/Product";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
-        return "redirect:/admin/products";
+        return "redirect:/admin/Product";
     }
 
 
