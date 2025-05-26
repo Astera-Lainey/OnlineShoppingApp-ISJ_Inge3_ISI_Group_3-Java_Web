@@ -294,8 +294,8 @@
 								<div class="row">
 									<div class="col-12">
 										<form action="#" method="post">
-											<input type="search" name="search" placeholder="Search for Products...">
-											<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+											<input type="text" name="keyword" id="keyword" placeholder="Search for Products..." th:value="${keyword}">
+											<button type="button" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
 										</form>
 									</div>
 								</div>
@@ -437,7 +437,7 @@
 															</div>
 															<div class="modal-body fs-4">
 																<div class="row d-flex" style="display: flex; flex-wrap: wrap; flex-direction: row">
-																		<img th:each="image : ${images}" th:if="${image.getImageUrl().contains(product.getName())}" th:src="@{/{imageUrl}(imageUrl=${image.imageUrl})}" alt="Product Image" style="width: 30%; height: 100px; margin-right: 10px"/>
+																		<img th:each="image : ${images}" th:if="${image.getImageUrl().contains(product.getName())}" th:src="@{/{imageUrl}(imageUrl=${image.imageUrl})}" alt="Product Image" style="width: 30%; height: 100px; margin-right: 10px; margin-top: 10px; border-radius: 10px; border: solid 2px #F0CB46"/>
 																</div>
 																<div>
 																<p style="font-size: 21px; font-weight: 900">Product Name: <span th:text="${product.name}" style="font-size: 19px;"></span></p>
@@ -836,7 +836,31 @@
 			</div>
 		</div>
 	</div>
+<!--	Search Filter -->
+	<script>
+		function search() {
+			const input = document.getElementById("keyword");
+			const filter = input.value.toLowerCase();
+			const table = document.querySelector("table");
+			const rows = table.getElementsByTagName("tr");
 
+			for (let i = 1; i < rows.length; i++) {
+				const row = rows[i];
+				let found = false;
+				const cells = row.getElementsByTagName("td");
+
+				for (let j = 0; j < cells.length; j++) {
+					const cell = cells[j];
+					if (cell && cell.textContent.toLowerCase().includes(filter)) {
+						found = true;
+						break;
+					}
+				}
+
+				row.style.display = found ? "" : "none";
+			}
+		}
+	</script>
 <!--	Display Images script-->
 	<script>
 		const fileInput = document.getElementById("file-input");
