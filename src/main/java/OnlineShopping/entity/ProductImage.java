@@ -1,5 +1,6 @@
 package OnlineShopping.entity;
 
+import OnlineShopping.dto.ImageDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,15 +17,14 @@ public class ProductImage {
 
    @Column
    private String path;
-
-//    @Column(name = "image_name")
-//    private String imageName;
-
-//    @Column(name = "content_type")
-//    private String contentType; // e.g., "image/jpeg"
-
-//    fetch = FetchType.LAZY optimizes performance by loading the product data only when needed
-    @ManyToOne(fetch = FetchType.LAZY)
+@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+//to build the dto ie convert the image into a dto with id and path
+    public ImageDTO toDTO(){
+        return ImageDTO.builder()
+                .imageId(id)
+                .imageUrl(path)
+                .build();
+    }
 }
