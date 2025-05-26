@@ -378,74 +378,47 @@
 												<!-- Edit Product Details Modal-->
 												<div class="modal fade" th:id="'editProductModal' + ${product.id}" aria-hidden="true" tabindex="-1">
 													<div class="modal-dialog modal-dialog-centered">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="modalToggleLabel2">Edit Product Details</h5>
-																<button
-																		type="button"
-																		class="btn-close"
-																		data-bs-dismiss="modal"
-																		aria-label="Close"></button>
-															</div>
-															<div class="modal-body">
-																<div class="row g-4">
-																	<div class="col mb-2">
-																		<div class="form-floating form-floating-outline">
-																			<input
-																					type="text"
-																					class="form-control"
-																					placeholder="Enter Name" th:value="${product.name}" required/>
-																			<label>Product Name</label>
-																		</div>
-																	</div>
-																	<div class="col mb-2">
-																		<div class="form-floating form-floating-outline">
-																			<input type="text" class="form-control" placeholder="Enter Brand" th:value="${product.brand}" required/>
-																			<label>Product Brand</label>
-																		</div>
-																	</div>
+														<form th:action="@{/update/{id}(id=${product.id})}" method="post" >
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title" id="modalToggleLabel2">Edit Product Details </h5>
+																	<button
+																			type="button"
+																			class="btn-close"
+																			data-bs-dismiss="modal"
+																			aria-label="Close"></button>
 																</div>
-																<div class="row">
-																	<div class="col mb-6 mt-2">
-																		<div class="form-floating form-floating-outline">
-																			<select th:field="${productform.category}" required>
-																				<option class="form-control" th:each="cat : ${cats}" th:value="${cat}" th:text="${cat}"></option>
-																			</select>
-																			<label>Product Category</label>
+																<div class="modal-body">
+																	<div class="row">
+																		<div class="col mb-6 mt-2">
+																			<div class="form-floating form-floating-outline">
+																				<div class="form-control" th:value="${product.name}">
+																				</div>
+																				<label>Product Name</label>
+																			</div>
 																		</div>
 																	</div>
-																</div>
-																<div class="row">
-																	<div class="col mb-6 mt-2">
-																		<div class="form-floating form-floating-outline">
-																			<input type="text" class="form-control" placeholder="Enter Provider" th:value="${product.stockQuantity}" required/>
-																			<label>Product Quantity</label>
-																		</div>
-																	</div>
-																</div>
+																	<div class="row">
+																		<div class="col mb-6 mt-2">
+																			<label>Stock Quantity</label>
+																			<div class="form-floating form-floating-outline">
+																				<input type="number" name="stockQuantity" min="0" th:value="${product.stockQuantity}" required/>
 
-																<div class="row">
-																	<div class="col mb-6 mt-2">
-																		<div class="form-floating form-floating-outline">
-									   <textarea
-											   class="form-control"
-											   placeholder="Hi, What would you like to request for?"
-											   aria-describedby="basic-icon-default-message2" th:value="${product.description}" required></textarea>
-																			<label>Product Details</label>
+																			</div>
 																		</div>
 																	</div>
 																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+																		Close
+																	</button>
+																	<button type="submit" class="btn btn-primary">
+																		Update Stock
+																	</button>
+																</div>
 															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-																	Close
-																</button>
-																<button
-																		class="btn btn-primary">
-																	Save Details
-																</button>
-															</div>
-														</div>
+														</form>
+
 													</div>
 												</div>
 												<!-- /Edit Product Details Modal-->
@@ -463,7 +436,7 @@
 																		aria-label="Close"></button>
 															</div>
 															<div class="modal-body fs-5">
-																<div th:each="image : ${images}">
+																<div th:each="image : ${images}" th:if="${image.getImageUrl().contains(product.getName())}">
 																	<img th:src="@{/{imageUrl}(imageUrl=${image.imageUrl})}" alt="Product Image"/>
 																</div>
 																<strong>Product Name</strong> <br>

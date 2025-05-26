@@ -146,5 +146,13 @@ public class ProductController {
         return "redirect:/admin/adminDashboard";
     }
 
+    @PostMapping("/update/{id}")
+    public String updateProductStock(@PathVariable Integer id,
+                                     @RequestParam int stockQuantity) {
+        productService.updateProduct(id, stockQuantity);
+        return "redirect:/admin/adminDashboard";
+    }
+
+
 
 }

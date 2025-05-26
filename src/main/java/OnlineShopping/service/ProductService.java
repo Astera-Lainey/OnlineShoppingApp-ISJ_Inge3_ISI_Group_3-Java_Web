@@ -25,6 +25,9 @@ public class ProductService {
     private ProductImageService productImageService;
 
     public Product createProduct( String name, String description, String brand, Category category, double price, int stock){
+        if(productRepository.existsByName(name)){
+            throw new RuntimeException("Product already exists");
+        }
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);
@@ -65,6 +68,11 @@ public class ProductService {
             }
 
             productRepository.delete(product);
+    }
+    public Product updateProduct(Integer productId, int stockQuantity){
+        Product product = productRepository.findById(productId);
+        product.setStockQuantity(stockQuantity);
+        return productRepository.save(product);
     }
 
 }
