@@ -84,6 +84,16 @@ public class DashboardController {
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/api/auth/login";
         }
+//        Models
+        List<Product> products = productService.getAllProducts();
+        List<ProductImage> images = productImageService.getAllImages();
+        List<ImageDTO> imagedto = new ArrayList<>();
+        for (ProductImage image : images) {
+            imagedto.add(image.toDTO());
+        }
+        model.addAttribute("products", products);
+        model.addAttribute("cats", Category.values());
+        model.addAttribute("images", imagedto );
 
         Optional<User> currentUserOpt = userRepository.findByEmail(authentication.getName());
         if (currentUserOpt.isEmpty()) {

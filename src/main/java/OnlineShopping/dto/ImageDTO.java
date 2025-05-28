@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class ImageDTO {
     private Integer imageId;
     private String imageUrl;
+    private Integer productId;
 
 }
