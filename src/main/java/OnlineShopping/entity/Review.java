@@ -16,10 +16,20 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer Id;
-    public String comment;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerId")
+    @JoinColumn(name = "customer_id" , nullable = false)
     public Customer customer;
-    public int rating;
-    public LocalDate reviewDate;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    @Column(nullable = false)
+    private Integer rating;
+
+    private String comment;
+
+    @Column(nullable = false)
+    private String status;
 }

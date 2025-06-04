@@ -319,7 +319,7 @@
 											<td>
 													<h6 class="mt-3"><span th:text="${product.getName()}"></span> </h6>
 											</td>
-											<td th:text="${product.getCategory.name()}"></td>
+											<td th:text="${product.category != null ? product.getCategory.name() : 'N/A'}"></td>
 											<td th:text="${product.getPrice()}"></td>
 											<td th:text="${product.getStockQuantity()}"></td>
 											<td>

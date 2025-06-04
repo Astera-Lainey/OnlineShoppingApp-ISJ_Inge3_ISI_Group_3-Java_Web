@@ -54,7 +54,7 @@ public class DashboardController {
         }
         model.addAttribute("products", allProducts);
         model.addAttribute("productform", new ProductDTO());
-        model.addAttribute("cats", Category.values());
+        model.addAttribute("cats", Category.CategoryStatus.values());
         model.addAttribute("images", imagedto );
 
         // Add admin-specific statistics
@@ -92,7 +92,7 @@ public class DashboardController {
             imagedto.add(image.toDTO());
         }
         model.addAttribute("products", products);
-        model.addAttribute("cats", Category.values());
+        model.addAttribute("cats", Category.CategoryStatus.values());
         model.addAttribute("images", imagedto );
 
         Optional<User> currentUserOpt = userRepository.findByEmail(authentication.getName());
