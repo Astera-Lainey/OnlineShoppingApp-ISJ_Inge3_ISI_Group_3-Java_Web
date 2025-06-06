@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,17 +46,10 @@ public class DashboardController {
         if (currentUser.isEmpty()) {
             return "redirect:/api/auth/login";
         }
-//        product Models
         List<Product> allProducts = productService.getAllProducts();
-        List<ProductImage> images = productImageService.getAllImages();
-        List<ImageDTO> imagedto = new ArrayList<>();
-        for (ProductImage image : images) {
-            imagedto.add(image.toDTO());
-        }
         model.addAttribute("products", allProducts);
         model.addAttribute("productform", new ProductDTO());
         model.addAttribute("cats", Category.values());
-        model.addAttribute("images", imagedto );
 
         // Add admin-specific statistics
         model.addAttribute("totalUsers", userRepository.count());
@@ -126,6 +120,19 @@ public class DashboardController {
         return "/user/single-product";
     }
 
+    //        product Models
+    @GetMapping("/view")
+    public String productsAndImages(@RequestParam("ProductId") int ProductId, Model model){
+        List<ProductImage> images = productImageService.getImagesByProductId(ProductId);
+        List<ImageDTO> imagedto = new ArrayList<>();
+        for (ProductImage image : images) {
+            imagedto.add(image.toDTO());
+        }
+
+        model.addAttribute("images", imagedto);
+
+        return "admin/adminDashboard";
+    }
 
 
   }

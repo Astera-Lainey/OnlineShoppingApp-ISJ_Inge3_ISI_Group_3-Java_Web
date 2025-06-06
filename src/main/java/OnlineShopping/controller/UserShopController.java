@@ -1,4 +1,4 @@
-package OnlineShopping.entity.repository;
+package OnlineShopping.controller;
 
 import OnlineShopping.entity.Product;
 import OnlineShopping.service.ProductService;
@@ -17,14 +17,14 @@ import java.util.List;
         @Autowired
         private ProductService productService;
 
-        @GetMapping("/shop")
+        @GetMapping("/shop-page")
         public String showShop(Model model) {
             List<Product> products = productService.getAllProducts();
             model.addAttribute("products", products);
             return "shop"; // returns shop.html
         }
 
-        @GetMapping("/main")
+        @GetMapping("/main-page")
         public String showMainPage(Model model) {
             // Get featured products or latest products for main page
             List<Product> featuredProducts = productService.getFeaturedProducts(); // or getLatestProducts()

@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -40,9 +41,11 @@ public class ProductService {
     public Product getProductByName(String name) {
         return productRepository.findByName(name);
     }
-    public Product getProductById(int id) {
-        return productRepository.findById(id);
+    public Product getProductById(Integer id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
     }
+
     public Product updateProduct(Product product){
         return productRepository.save(product);
     }
@@ -66,6 +69,12 @@ public class ProductService {
 
             productRepository.delete(product);
     }
+
+    public List<Product> searchProducts(String name, Category category){
+        return productRepository.searchProducts(name, category);
+    }
+
+    public List<Product> getFeaturedProducts() { return productRepository.findTop8ByOrderByIdDesc(); }// Return first 8 products or featured ones
 
 }
 

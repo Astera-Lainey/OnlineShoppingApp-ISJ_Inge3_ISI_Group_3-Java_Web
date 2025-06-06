@@ -1,6 +1,7 @@
 package OnlineShopping.controller;
 
 import OnlineShopping.dto.ProductDTO;
+import OnlineShopping.entity.Category;
 import OnlineShopping.entity.Product;
 import OnlineShopping.entity.ProductImage;
 import OnlineShopping.service.ProductImageService;
@@ -8,11 +9,14 @@ import OnlineShopping.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,6 +31,7 @@ public class ProductController {
 
     @Autowired
     private ProductImageService productImageService;
+    private ProductController cartItemService;
 
 
     @PostMapping("/add")
@@ -125,6 +130,24 @@ public class ProductController {
         return "redirect:/admin/adminDashboard";
     }
 
+    @PostMapping("/add-to-cart")
+    public String addToCart(@RequestParam("productId") Integer productId,
+                            @RequestParam("quantity") Integer quantity,
+                            org.springframework.security.core.Authentication authentication,
+                            RedirectAttributes redirectAttributes) {
+        try {
+            String userEmail = authentication.getName();
+            cartItemService.addToCart(userEmail, productId, quantity != null ? quantity : 1);
+            redirectAttributes.addFlashAttribute("successMessage", "Product added to cart");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to add to cart: " + e.getMessage());
+        }
+        return "redirect:/user/shop";
+    }
+
+    private void addToCart(String userEmail, Integer productId, int i) {
+    }
+
     @PostMapping("/updatePhotos")
     public String updatePhotos(@RequestParam("productId") Integer productId,
                                @RequestParam("images") List<MultipartFile> images,
@@ -146,5 +169,50 @@ public class ProductController {
         return "redirect:/admin/adminDashboard";
     }
 
+    @GetMapping("/products/search")
+    public String searchProducts(@RequestParam(required = false) String name,
+                                 @RequestParam(required = false) Category category,
+                                 Model model) {
+        List<Product> products = productService.searchProducts(name, category);
+        model.addAttribute("products", products);
+        return "shop";
+    }
+    @GetMapping("/shop")
+    public String showShop(@RequestParam(required = false) String name,
+                           @RequestParam(required = false) Category category,
+                           Model model) {
+        List<Product> products;
 
+        if (name != null || category != null) {
+            // Search was performed
+            products = productService.searchProducts(name, category);
+        } else {
+            // No search parameters, show all products
+            products = productService.getAllProducts();
+        }
+
+        model.addAttribute("products", products);
+        return "shop"; // returns shop.html
+    }
+
+    @GetMapping("/main")
+    public String showMainPage(Model model) {
+        // Get featured products or latest products for main page
+        List<Product> featuredProducts = productService.getFeaturedProducts();
+        model.addAttribute("products", featuredProducts);
+        return "shop"; // your main page template
+    }
 }
+    //@GetMapping("/shop/search")
+   // public String shop(@RequestParam(required = false) String name,
+                      // @RequestParam(required = false) Category category,
+                    //   Model model) {
+       // if (name != null || category != null) {
+            // Search was performed
+            //List<Product> products = productService.searchProducts(name, category);
+          //  model.addAttribute("products", products);
+       // }
+        // If no search parameters, products will be null and default products will show
+       // return "shop";
+   // }
+

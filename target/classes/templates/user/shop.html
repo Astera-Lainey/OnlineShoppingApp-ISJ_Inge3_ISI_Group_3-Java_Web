@@ -32,409 +32,652 @@
 		.breadcrumb-section{
 			padding-top: 80px;
 		}
+
+		.search-section {
+			background: #f8f9fa;
+			padding: 30px 0;
+			margin-bottom: 50px;
+		}
+
+		.search-form {
+			background: white;
+			border-radius: 15px;
+			padding: 30px;
+			box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+		}
+
+		.search-input {
+			border: 2px solid #e9ecef;
+			border-radius: 25px;
+			padding: 12px 20px;
+			font-size: 16px;
+			transition: all 0.3s ease;
+		}
+
+		.search-input:focus {
+			border-color: #007bff;
+			box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+		}
+
+		.search-btn {
+			background: linear-gradient(45deg, #007bff, #0056b3);
+			border: none;
+			border-radius: 25px;
+			padding: 12px 30px;
+			color: white;
+			font-weight: 600;
+			transition: all 0.3s ease;
+		}
+
+		.search-btn:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+		}
+
+		.category-select {
+			border: 2px solid #e9ecef;
+			border-radius: 25px;
+			padding: 12px 20px;
+			font-size: 16px;
+		}
+
+		.clear-btn {
+			background: #6c757d;
+			border: none;
+			border-radius: 25px;
+			padding: 12px 25px;
+			color: white;
+			transition: all 0.3s ease;
+		}
+
+		.clear-btn:hover {
+			background: #5a6268;
+		}
+
+		.search-results-info {
+			background: #e3f2fd;
+			border-left: 4px solid #2196f3;
+			padding: 15px 20px;
+			margin-bottom: 30px;
+			border-radius: 5px;
+		}
+
+		.no-results {
+			text-align: center;
+			padding: 60px 20px;
+			color: #6c757d;
+		}
+
+		.no-results i {
+			font-size: 4rem;
+			margin-bottom: 20px;
+			color: #dee2e6;
+		}
 	</style>
 </head>
 <body>
-	
-	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
-	
-	<!-- header -->
-	<div class="top-header-area" id="sticker">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-sm-12 text-center">
-					<div class="main-menu-wrap">
-						<!-- logo -->
-						<div class="site-logo">
-							<a th:href="@{/user/main}">
-								<img th:src="@{/assets/img/logo.png}" alt="">
-							</a>
-						</div>
-						<!-- logo -->
 
-						<!-- menu start -->
-						<nav class="main-menu">
-							<ul>
-								<li><a th:href="@{/user/main}">Home</a>
-								</li>
-								<li class="current-list-item"><a>Shop</a>
-									<ul class="sub-menu">
-										<li><a th:href="@{/user/shop}">Shop</a></li>
-										<li><a th:href="@{/user/checkout}">Check Out</a></li>
-									
-									</ul>
-								</li>
-								<li><a th:href="@{/user/contact}">Contact</a></li>
-								
-								<li>
-									<div class="header-icons">
-										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-										<!--Profile Settings added -->
-										<div class="profile" style="position: relative; bottom: 90px;left: 60px;">
-											<a>
-												<ul class="navbar-nav flex-row align-items-center ms-auto" >
-													<!-- User -->
-													<li class="nav-item navbar-dropdown dropdown-user dropdown">
-														<a
-																class="nav-link dropdown-toggle hide-arrow p-0"
-																href="javascript:void(0);"
-																data-bs-toggle="dropdown" style="justify-content: end">
-															<div class="avatar avatar-online">
-																<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
-																	<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-																</svg>                    </div>
-														</a>
-														<ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:20px; border-radius: 10px; padding-block: 10px;" >
-															<li>
-																<a class="dropdown-item" href="#">
-																	<div class="d-flex align-items-center">
-																		<div class="flex-shrink-0 me-2">
-																			<div class="avatar avatar-online">
-																				<img th:src="@{../assets/img/user (1).png}" alt class="w-px-40 h-auto rounded-circle"  style="width: 12%; position: relative; left: 20px;"/>
-																			</div>
-																			<div>
-																				<button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
-																			</div>
+<!--PreLoader-->
+<div class="loader">
+	<div class="loader-inner">
+		<div class="circle"></div>
+	</div>
+</div>
+<!--PreLoader Ends-->
+
+<!-- header -->
+<div class="top-header-area" id="sticker">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-sm-12 text-center">
+				<div class="main-menu-wrap">
+					<!-- logo -->
+					<div class="site-logo">
+						<a th:href="@{/user/main}">
+							<img th:src="@{/assets/img/logo.png}" alt="">
+						</a>
+					</div>
+					<!-- logo -->
+
+					<!-- menu start -->
+					<nav class="main-menu">
+						<ul>
+							<li><a th:href="@{/user/main}">Home</a>
+							</li>
+							<li class="current-list-item"><a>Shop</a>
+								<ul class="sub-menu">
+									<li><a th:href="@{/user/shop}">Shop</a></li>
+									<li><a th:href="@{/user/checkout}">Check Out</a></li>
+
+								</ul>
+							</li>
+							<li><a th:href="@{/user/contact}">Contact</a></li>
+
+							<li>
+								<div class="header-icons">
+									<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
+									<a class="mobile-hide search-bar-icon" href="#" onclick="toggleSearch()"><i class="fas fa-search"></i></a>
+									<!--Profile Settings added -->
+									<div class="profile" style="position: relative; bottom: 90px;left: 60px;">
+										<a>
+											<ul class="navbar-nav flex-row align-items-center ms-auto" >
+												<!-- User -->
+												<li class="nav-item navbar-dropdown dropdown-user dropdown">
+													<a
+															class="nav-link dropdown-toggle hide-arrow p-0"
+															href="javascript:void(0);"
+															data-bs-toggle="dropdown" style="justify-content: end">
+														<div class="avatar avatar-online">
+															<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
+																<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+															</svg>                    </div>
+													</a>
+													<ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:20px; border-radius: 10px; padding-block: 10px;" >
+														<li>
+															<a class="dropdown-item" href="#">
+																<div class="d-flex align-items-center">
+																	<div class="flex-shrink-0 me-2">
+																		<div class="avatar avatar-online">
+																			<img th:src="@{../assets/img/user (1).png}" alt class="w-px-40 h-auto rounded-circle"  style="width: 12%; position: relative; left: 20px;"/>
+																		</div>
+																		<div>
+																			<button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
 																		</div>
 																	</div>
-																</a>
-															</li>
-															<li>
-																<div class="dropdown-divider"></div>
-															</li>
-															<li>
-																<a class="dropdown-item" href="#">
-																	<i class="ri-user-3-line ri-22px me-2"></i>
-																	<span class="align-middle" style="color: black">Username</span>
-																	<div class="form-control">babygirl</div>
-																</a>
-																<a class="dropdown-item" href="#">
-																	<i class="ri-user-3-line ri-22px me-2"></i>
-																	<span class="align-middle" style="color: black">Email</span>
-																	<div class="form-control">forbin@gmail.com</div>
-																</a>
-															</li>
-
-															<li>
-																<div class="dropdown-divider"></div>
-															</li>
-															<li>
-																<div class="d-grid px-4 pt-2 pb-1 me-5">
-																	<a class="btn btn-danger d-flex" href="#">
-																		<small class="align-middle">Logout</small>
-																		<i class="ri-logout-box-r-line ms-2 ri-16px"></i>
-																	</a>
 																</div>
-															</li>
-														</ul>
-													</li>
-													<!--/ User -->
-												</ul>
-											</a>
-										</div>
+															</a>
+														</li>
+														<li>
+															<div class="dropdown-divider"></div>
+														</li>
+														<li>
+															<a class="dropdown-item" href="#">
+																<i class="ri-user-3-line ri-22px me-2"></i>
+																<span class="align-middle" style="color: black">Username</span>
+																<div class="form-control">babygirl</div>
+															</a>
+															<a class="dropdown-item" href="#">
+																<i class="ri-user-3-line ri-22px me-2"></i>
+																<span class="align-middle" style="color: black">Email</span>
+																<div class="form-control">forbin@gmail.com</div>
+															</a>
+														</li>
+
+														<li>
+															<div class="dropout-divider"></div>
+														</li>
+														<li>
+															<div class="d-grid px-4 pt-2 pb-1 me-5">
+																<a class="btn btn-danger d-flex" href="#">
+																	<small class="align-middle">Logout</small>
+																	<i class="ri-logout-box-r-line ms-2 ri-16px"></i>
+																</a>
+															</div>
+														</li>
+													</ul>
+												</li>
+												<!--/ User -->
+											</ul>
+										</a>
 									</div>
-								</li>
-							</ul>
-						</nav>
-						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-						<div class="mobile-menu"></div>
-						<!-- menu end -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end header -->
-
-	
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg" style="margin-top: 0;">
-		<div class="container" style="height: 0;">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<h1>Shop</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
-
-	<!-- products -->
-	<div class="product-section mt-150 mb-150">
-		<div class="container">
-
-			<div class="row">
-                <div class="col-md-12">
-                    <div class="product-filters">
-                        <ul>
-                            <li class="active" data-filter="*">All</li>
-                            <li data-filter=".strawberry">Fashion</li>
-                            <li data-filter=".berry">Electronics</li>
-                            <li data-filter=".lemon">Home & Furniture</li>
-							<li data-filter=".lemon">Toys</li>
-							<li data-filter=".lemon">Sports & Fitness</li>
-							<li data-filter=".lemon">Shoes</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-			<div class="row product-lists">
-				<div class="col-lg-3 col-md-6 text-center strawberry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
-						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"> 8500XAF </p>
-						<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center berry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
-						</div>
-						<h3>Berry</h3>
-						<p class="product-price"> 7000XAF </p>
-						<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center lemon">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"> 3500XAF </p>
-						<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-4.jpg}" alt=""></a>
-						</div>
-						<h3>Avocado</h3>
-						<p class="product-price">5000XAF </p>
-						<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-5.jpg}" alt=""></a>
-						</div>
-						<h3>Green Apple</h3>
-						<p class="product-price">4500XAF </p>
-						<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center strawberry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-6.jpg}" alt=""></a>
-						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price">8000XAF </p>
-						<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="pagination-wrap">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a class="active" href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">Next</a></li>
+								</div>
+							</li>
 						</ul>
-					</div>
+					</nav>
+					<a class="mobile-show search-bar-icon" href="#" onclick="toggleSearch()"><i class="fas fa-search"></i></a>
+					<div class="mobile-menu"></div>
+					<!-- menu end -->
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end products -->
+</div>
+<!-- end header -->
 
-	<!-- Edit User Settings Modal -->
-	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
-					<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"></button>
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg" style="margin-top: 0;">
+	<div class="container" style="height: 0;">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<h1>Shop</h1>
 				</div>
-				<div class="modal-body">
-					<br>
-					<div class="row g-4">
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input
-										type="text"
-										class="form-control"
-										placeholder="Enter First Name" />
-								<label>Full Name</label>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- Search Section -->
+<div class="search-section" id="searchSection" style="display: none;">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<div class="search-form">
+					<form action="/products/search" method="GET" id="searchForm">
+						<div class="row align-items-end g-3">
+							<div class="col-md-5">
+								<label for="searchName" class="form-label fw-bold">Search Products</label>
+								<input type="text"
+									   class="form-control search-input"
+									   id="searchName"
+									   name="name"
+									   placeholder="Enter product name..."
+									   th:value="${param.name}">
+							</div>
+							<div class="col-md-4">
+								<label for="searchCategory" class="form-label fw-bold">Category</label>
+								<select class="form-select category-select" id="searchCategory" name="category">
+									<option value="">All Categories</option>
+									<option value="FASHION" th:selected="${param.category == 'FASHION'}">Fashion</option>
+									<option value="ELECTRONICS" th:selected="${param.category == 'ELECTRONICS'}">Electronics</option>
+									<option value="HOME_FURNITURE" th:selected="${param.category == 'HOME_FURNITURE'}">Home & Furniture</option>
+									<option value="TOYS" th:selected="${param.category == 'TOYS'}">Toys</option>
+									<option value="SPORTS_FITNESS" th:selected="${param.category == 'SPORTS_FITNESS'}">Sports & Fitness</option>
+									<option value="SHOES" th:selected="${param.category == 'SHOES'}">Shoes</option>
+								</select>
+							</div>
+							<div class="col-md-3">
+								<div class="d-flex gap-2">
+									<button type="submit" class="btn search-btn flex-fill" id="searchButton">
+										<i class="fas fa-search me-2"></i>Search
+									</button>
+									<button type="button" class="btn clear-btn" onclick="clearSearch()">
+										<i class="fas fa-times"></i>
+									</button>
+								</div>
 							</div>
 						</div>
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input type="text" class="form-control" placeholder="Enter Last Name" />
-								<label>Last Name</label>
-							</div>
-						</div>
-					</div>
-					<br>
-					<div class="row g-4">
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input
-										type="text"
-										class="form-control"
-										placeholder="Enter Username" />
-								<label >Username</label>
-							</div>
-						</div>
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input type="password" class="form-control" placeholder="..........." />
-								<label>Password</label>
-							</div>
-						</div>
-					</div>
-					<br>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-						Cancel
-					</button>
-					<button type="button" class="btn btn-primary">Save Settings</button>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- /Edit User Settings Modal -->
+</div>
+<!-- End Search Section -->
 
+<!-- Search Results Info -->
+<div th:if="${param.name != null or param.category != null}" class="container">
+	<div class="search-results-info">
+		<div class="d-flex align-items-center">
+			<i class="fas fa-info-circle me-3"></i>
+			<div>
+				<strong>Search Results</strong>
+				<span th:if="${param.name != null and param.name != ''}">
+						for "<span th:text="${param.name}"></span>"
+					</span>
+				<span th:if="${param.category != null and param.category != ''}">
+						in category "<span th:text="${param.category}"></span>"
+					</span>
+				<br>
+				<small class="text-muted">
+					<span th:text="${products != null ? products.size() : 0}"></span> products found
+				</small>
+			</div>
+		</div>
+	</div>
+</div>
 
-	<!-- footer -->
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a few clicks. <br> Sign Up and start clicking today!!! </p>
-					</div>
+<!-- products -->
+<div class="product-section mt-150 mb-150">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="product-filters">
+					<ul>
+						<li class="active" data-filter="*" onclick="filterProducts('all')">All</li>
+						<li data-filter=".fashion" onclick="filterProducts('FASHION')">Fashion</li>
+						<li data-filter=".electronics" onclick="filterProducts('ELECTRONICS')">Electronics</li>
+						<li data-filter=".home" onclick="filterProducts('HOME_FURNITURE')">Home & Furniture</li>
+						<li data-filter=".toys" onclick="filterProducts('TOYS')">Toys</li>
+						<li data-filter=".sports" onclick="filterProducts('SPORTS_FITNESS')">Sports & Fitness</li>
+						<li data-filter=".shoes" onclick="filterProducts('SHOES')">Shoes</li>
+					</ul>
 				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-							<li>Eyang, Cameroon</li>
-							<li>ClicknCollect@gmail.com</li>
-							<li>+237 658381975</li>
-						</ul>
+			</div>
+		</div>
+
+		<!-- Products List - Dynamic from Backend -->
+		<div class="row product-lists" th:if="${products != null and not #lists.isEmpty(products)}">
+			<div th:each="product : ${products}"
+				 class="col-lg-3 col-md-6 text-center product-item"
+				 th:classappend="${product.category.name().toLowerCase()}">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{/user/single-product(id=${product.id})}">
+							<img th:if="${product.productImages != null and not #lists.isEmpty(product.productImages)}"
+								 th:src="@{${product.productImages[0].path}}"
+								 alt=""
+								 onerror="this.src='/assets/img/products/default-product.jpg'">
+							<img th:unless="${product.productImages != null and not #lists.isEmpty(product.productImages)}"
+								 th:src="@{/assets/img/products/default-product.jpg}"
+								 alt="">
+						</a>
 					</div>
+					<h3 th:text="${product.name}">Product Name</h3>
+					<p class="product-price" th:text="${product.price + 'XAF'}">Price</p>
+					<a class="cart-btn" th:onclick="'addToCart(' + ${product.id} + ')'">
+						<i class="fas fa-shopping-cart"></i> Add to Cart
+					</a>
 				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box pages">
-						<h2 class="widget-title">Navigation</h2>
-						<ul>
-							<li><a th:href="@{/user/main}">Home</a></li>
-							<li><a th:href="@{/user/shop}">Shop</a></li>
-							<li><a th:href="@{/user/contact}">Contact Us</a></li>
-						</ul>
+			</div>
+		</div>
+
+		<!-- Default Products (when no search is performed) -->
+		<div class="row product-lists" th:if="${products == null}">
+			<div class="col-lg-3 col-md-6 text-center fashion">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
 					</div>
+					<h3>Strawberry</h3>
+				<p class="product-price"> 8500XAF </p>
+					<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates on sales.</p>
-						<form action="#">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
+			</div>
+			<div class="col-lg-3 col-md-6 text-center electronics">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
 					</div>
+					<h3>Berry</h3>
+					<p class="product-price"> 7000XAF </p>
+					<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 text-center home">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+					</div>
+					<h3>Lemon</h3>
+					<p class="product-price"> 3500XAF </p>
+					<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 text-center">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-4.jpg}" alt=""></a>
+					</div>
+					<h3>Avocado</h3>
+					<p class="product-price">5000XAF </p>
+					<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 text-center">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-5.jpg}" alt=""></a>
+					</div>
+					<h3>Green Apple</h3>
+					<p class="product-price">4500XAF </p>
+					<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 text-center fashion">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/products/product-img-6.jpg}" alt=""></a>
+					</div>
+					<h3>Strawberry</h3>
+					<p class="product-price">8000XAF </p>
+					<a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- No Results Message -->
+		<div th:if="${products != null and #lists.isEmpty(products)}" class="row">
+			<div class="col-12">
+				<div class="no-results">
+					<i class="fas fa-search"></i>
+					<h3>No products found</h3>
+					<p class="mb-4">Try adjusting your search criteria or browse all products.</p>
+					<a href="/user/shop" class="btn btn-primary">View All Products</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<div class="pagination-wrap">
+					<ul>
+						<li><a href="#">Prev</a></li>
+						<li><a href="#">1</a></li>
+						<li><a class="active" href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">Next</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end footer -->
+</div>
+<!-- end products -->
 
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>&copy; Copyright Click 'n' Collect
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-					</p>
-				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-						</ul>
+<!-- Edit User Settings Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
+				<button
+						type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<br>
+				<div class="row g-4">
+					<div class="col mb-2">
+						<div class="form-floating form-floating-outline">
+							<input
+									type="text"
+									class="form-control"
+									placeholder="Enter First Name" />
+							<label>Full Name</label>
+						</div>
 					</div>
+					<div class="col mb-2">
+						<div class="form-floating form-floating-outline">
+							<input type="text" class="form-control" placeholder="Enter Last Name" />
+							<label>Last Name</label>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row g-4">
+					<div class="col mb-2">
+						<div class="form-floating form-floating-outline">
+							<input
+									type="text"
+									class="form-control"
+									placeholder="Enter Username" />
+							<label >Username</label>
+						</div>
+					</div>
+					<div class="col mb-2">
+						<div class="form-floating form-floating-outline">
+							<input type="password" class="form-control" placeholder="..........." />
+							<label>Password</label>
+						</div>
+					</div>
+				</div>
+				<br>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+					Cancel
+				</button>
+				<button type="button" class="btn btn-primary">Save Settings</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /Edit User Settings Modal -->
+
+
+<!-- footer -->
+<div class="footer-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+				<div class="footer-box about-widget">
+					<h2 class="widget-title">About us</h2>
+					<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a few clicks. <br> Sign Up and start clicking today!!! </p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="footer-box get-in-touch">
+					<h2 class="widget-title">Get in Touch</h2>
+					<ul>
+						<li>Eyang, Cameroon</li>
+						<li>ClicknCollect@gmail.com</li>
+						<li>+237 658381975</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="footer-box pages">
+					<h2 class="widget-title">Navigation</h2>
+					<ul>
+						<li><a th:href="@{/user/main}">Home</a></li>
+						<li><a th:href="@{/user/shop}">Shop</a></li>
+						<li><a th:href="@{/user/contact}">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="footer-box subscribe">
+					<h2 class="widget-title">Subscribe</h2>
+					<p>Subscribe to our mailing list to get the latest updates on sales.</p>
+					<form action="#">
+						<input type="email" placeholder="Email">
+						<button type="submit"><i class="fas fa-paper-plane"></i></button>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end copyright -->
+</div>
+<!-- end footer -->
 
+<!-- copyright -->
+<div class="copyright">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12">
+				<p>&copy; Copyright Click 'n' Collect
+					<script>
+						document.write(new Date().getFullYear());
+					</script>
+				</p>
+			</div>
+			<div class="col-lg-6 text-right col-md-12">
+				<div class="social-icons">
+					<ul>
+						<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+						<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+						<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+						<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+						<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end copyright -->
 
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
-	<!-- jquery -->
-	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-	<!-- bootstrap -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<!-- count down -->
-	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-	<!-- isotope -->
-	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-	<!-- waypoints -->
-	<script th:src="@{/assets/js/waypoints.js}"></script>
-	<!-- owl carousel -->
-	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-	<!-- magnific popup -->
-	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-	<!-- mean menu -->
-	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-	<!-- sticker js -->
-	<script th:src="@{/assets/js/sticker.js}"></script>
-	<!-- main js -->
-	<script th:src="@{/assets/js/main.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+<!-- Scripts -->
+<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+<script th:src="@{/assets/js/waypoints.js}"></script>
+<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+<script th:src="@{/assets/js/sticker.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
 
+<script>
+	// Toggle search section
+	function toggleSearch() {
+		const searchSection = document.getElementById('searchSection');
+		if (searchSection.style.display === 'none' || searchSection.style.display === '') {
+			searchSection.style.display = 'block';
+			searchSection.scrollIntoView({ behavior: 'smooth' });
+		} else {
+			searchSection.style.display = 'none';
+		}
+	}
+
+	// Clear search form
+	function clearSearch() {
+		document.getElementById('searchName').value = '';
+		document.getElementById('searchCategory').value = '';
+		// Redirect to shop page without search parameters
+		window.location.href = '/user/shop';
+	}
+
+	// Filter products by category
+	function filterProducts(category) {
+		if (category === 'all') {
+			window.location.href = '/user/shop';
+		} else {
+			window.location.href = '/products/search?category=' + category;
+		}
+	}
+
+	// Add to cart function (placeholder)
+	function addToCart(productId) {
+		// Implement your add to cart logic here
+		console.log('Adding product ' + productId + ' to cart');
+		// You might want to make an AJAX call to your backend
+		alert('Product added to cart!');
+	}
+
+	// Auto-show search if there are search parameters
+	document.addEventListener('DOMContentLoaded', function() {
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.has('name') || urlParams.has('category')) {
+			document.getElementById('searchSection').style.display = 'block';
+		}
+	});
+
+	// Enhanced search form validation and submission
+	document.getElementById('searchForm').addEventListener('submit', function(e) {
+		const searchName = document.getElementById('searchName').value.trim();
+		const searchCategory = document.getElementById('searchCategory').value;
+
+		// Validate that at least one field has a value
+		if (!searchName && !searchCategory) {
+			e.preventDefault();
+			alert('Please enter a product name or select a category to search.');
+			return false;
+		}
+
+		// Show loading state
+		const searchButton = document.getElementById('searchButton');
+		searchButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Searching...';
+		searchButton.disabled = true;
+
+		// Allow form to submit normally to your backend
+		return true;
+	});
+
+	// Reset button state on page load
+	document.addEventListener('DOMContentLoaded', function() {
+		const searchButton = document.getElementById('searchButton');
+		searchButton.innerHTML = '<i class="fas fa-search me-2"></i>Search';
+		searchButton.disabled = false;
+	});
+</script>
 
 </body>
 </html>
