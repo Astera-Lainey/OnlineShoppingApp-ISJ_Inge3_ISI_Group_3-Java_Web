@@ -34,62 +34,17 @@ public class ProductController {
         System.out.println("Product Details received for: " + productDTO.getName());
             try{
                 //creates a product
-                Product newProduct = productService.createProduct(productDTO.getName(),productDTO.getDescription(),productDTO.getBrand(),productDTO.getCategory(), productDTO.getPrice(), productDTO.getStock());
+                Product newProduct = productService.createProduct(productDTO.getName(),productDTO.getDescription(),productDTO.getBrand(),productDTO.getCategory(), productDTO.getPrice(), productDTO.getStock(), productDTO.getClothesSize(), productDTO.getShoeSize(), productDTO.getColor());
 
                 //creates an image for each image sent for a specific product
                 List<MultipartFile> images = productDTO.getImage();
                 productImageService.addProductImages(images,newProduct);
-//                for (MultipartFile image : images) {
-//                    try {
-//                        //setting the name of the image to the product name
-//                        String fileName = productDTO.getName() + "_Image_" + System.currentTimeMillis();
-//                        String uploadDir = "uploads/products/images/";
-//                        Path uploadPath = Paths.get(uploadDir);
-//
-//                        //creates the product/images folder in the file system
-//                        if (!Files.exists(uploadPath)) {
-//                            Files.createDirectories(uploadPath);
-//                        }
-//
-//                        //saves the picture in the folder
-//                        try {
-//                            // Get file extension from original filename
-//                            String originalFilename = image.getOriginalFilename();
-//                            String fileExtension = "";
-//                            if (originalFilename != null && originalFilename.contains(".")) {
-//                                fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-//                            }
-//
-//                            String fullFileName = fileName + fileExtension;
-//                            Path filePath = uploadPath.resolve(fullFileName);
-//                            Files.write(filePath, image.getBytes());
-//
-//                            log.info("Image saved successfully: {}", filePath.toString());
-//
-//                            //creates the corresponding image for each images
-//                            ProductImage productImage = new ProductImage();
-//                            productImage.setPath(uploadDir + fullFileName);
-//                            productImage.setProduct(newProduct);
-//                            productImageService.saveProductImage(productImage);
-//
-//                        }catch (Exception e){
-//                            log.error(e.getMessage());
-//                        }
-//
-//                    }catch (Exception e){
-//                        log.error(e.getMessage());
-//                    }
-//                }
                 System.out.println("Product created successfully");
                 redirectAttributes.addFlashAttribute("successMessage", "Product created successfully");
                 return "redirect:/admin/adminDashboard";
             } catch (Exception e) {
                 redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             }
-//        }
-//        else {
-//            redirectAttributes.addFlashAttribute("errorMessage", "Product name already exists");
-//        }
 
         return "redirect:/admin/adminDashboard";    }
 

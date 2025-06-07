@@ -134,8 +134,10 @@
 
 								<li>
 									<div class="header-icons d-flex">
-										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<a class="shopping-cart pt-4" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
+										<a th:href="@{/user/wishlist}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="22" fill="currentColor" class="bi bi-bag-heart" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+										</svg></a>
 										<!--Profile Settings added -->
 										<a>
 											<ul class="navbar-nav flex-row align-items-center ms-auto" >
@@ -377,15 +379,6 @@
 			<div class="row" id="products-container">
 				<div class="col-lg-3 col-md-6 text-center" ></div>
 				<div  th:each="product : ${products}">
-
-<!--						<div class="product-image">-->
-<!--							<a th:href="@{/user/single-product}">-->
-<!--								-->
-<!--							</a>-->
-<!--						</div>-->
-<!--						<h3 th:text="${product.name}"></h3>-->
-<!--						<p class="product-price" th:text="${product.price}"> XAF</p>-->
-<!--						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>-->
 				</div>
 			</div>
 		</div>
@@ -575,37 +568,6 @@
 
 
 
-	<script>
-		const container = document.getElementById('products-container');
-
-		products.forEach(product => {
-			// Find first image for this product
-			const productImages = images.filter(img => img.productId === product.id);
-			const firstImageFile = productImages.length > 0 ? productImages[0].imageUrl : null;
-
-			// Construct full image URL using your resource handler path
-			const firstImageUrl = firstImageFile
-					? `/${firstImageFile}`
-					: '/images/default-product.jpg'; // fallback image
-
-			// Create product card HTML
-			const productDiv = document.createElement('div');
-			productDiv.className = "col-lg-3 col-md-6 text-center";
-			productDiv.innerHTML = `
-<div class="single-product-item">
-<a href="/user/single-product">
-        <img src="${firstImageUrl}" alt="${product.name}" style="height: 200px; width: 308px;" />
-      </a>
-      <h3>${product.name}</h3>
-      <p>Price: ${product.price} XAF</p>
-      <a href="/user/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-</div>
-
-    `;
-			container.appendChild(productDiv);
-		});
-	</script>
-
 
 	<!-- copyright -->
 	<div class="copyright">
@@ -657,6 +619,7 @@
 	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
 	<!-- sticker js -->
 	<script th:src="@{/assets/js/sticker.js}"></script>
+	<script th:src="@{/assets/js/loadProducts.js}"></script>
 	<!-- main js -->
 	<script th:src="@{/assets/js/main.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>

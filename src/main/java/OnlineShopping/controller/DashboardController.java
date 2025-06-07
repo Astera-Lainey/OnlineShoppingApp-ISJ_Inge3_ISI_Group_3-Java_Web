@@ -2,10 +2,7 @@ package OnlineShopping.controller;
 
 import OnlineShopping.dto.ImageDTO;
 import OnlineShopping.dto.ProductDTO;
-import OnlineShopping.entity.Category;
-import OnlineShopping.entity.Product;
-import OnlineShopping.entity.ProductImage;
-import OnlineShopping.entity.User;
+import OnlineShopping.entity.*;
 import OnlineShopping.entity.repository.ProductRepository;
 import OnlineShopping.entity.repository.UserRepository;
 import OnlineShopping.service.ProductImageService;
@@ -56,6 +53,8 @@ public class DashboardController {
         model.addAttribute("productform", new ProductDTO());
         model.addAttribute("cats", Category.values());
         model.addAttribute("images", imagedto );
+        model.addAttribute("shoes", ShoeSize.values());
+        model.addAttribute("clothes", ClothesSize.values());
 
         // Add admin-specific statistics
         model.addAttribute("totalUsers", userRepository.count());
@@ -112,6 +111,21 @@ public class DashboardController {
         return "/user/cart";
     }
 
+    @GetMapping("user/wishlist")
+    public String usersWishlist(Authentication authentication, Model model) {
+        //        Models
+        List<Product> products = productService.getAllProducts();
+        List<ProductImage> images = productImageService.getAllImages();
+        List<ImageDTO> imagedto = new ArrayList<>();
+        for (ProductImage image : images) {
+            imagedto.add(image.toDTO());
+        }
+        model.addAttribute("products", products);
+        model.addAttribute("cats", Category.values());
+        model.addAttribute("images", imagedto );
+        return "/user/wishlist";
+    }
+
     @GetMapping("user/checkout")
     public String usersCheckout(Authentication authentication, Model model) {
 
@@ -126,7 +140,16 @@ public class DashboardController {
 
     @GetMapping("user/shop")
     public String usersShop(Authentication authentication, Model model) {
-
+        //        Models
+        List<Product> products = productService.getAllProducts();
+        List<ProductImage> images = productImageService.getAllImages();
+        List<ImageDTO> imagedto = new ArrayList<>();
+        for (ProductImage image : images) {
+            imagedto.add(image.toDTO());
+        }
+        model.addAttribute("products", products);
+        model.addAttribute("cats", Category.values());
+        model.addAttribute("images", imagedto );
         return "/user/shop";
     }
 

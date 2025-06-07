@@ -1,8 +1,6 @@
 package OnlineShopping.service;
 
-import OnlineShopping.entity.Category;
-import OnlineShopping.entity.Product;
-import OnlineShopping.entity.ProductImage;
+import OnlineShopping.entity.*;
 import OnlineShopping.entity.repository.ProductImageRepository;
 import OnlineShopping.entity.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ public class ProductService {
     @Autowired
     private ProductImageService productImageService;
 
-    public Product createProduct( String name, String description, String brand, Category category, double price, int stock){
+    public Product createProduct(String name, String description, String brand, Category category, double price, int stock, ClothesSize clothesSize, ShoeSize shoeSize, String color){
         if(productRepository.existsByName(name)){
             throw new RuntimeException("Product already exists");
         }
@@ -35,6 +33,10 @@ public class ProductService {
         product.setCategory(category);
         product.setPrice(price);
         product.setStockQuantity(stock);
+        product.setClothesSize(clothesSize);
+        product.setShoeSize(shoeSize);
+        product.setColor(color);
+
         return productRepository.save(product);
     };
     public List<Product> getAllProducts( ){

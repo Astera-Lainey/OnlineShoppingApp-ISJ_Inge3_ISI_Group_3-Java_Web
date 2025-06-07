@@ -634,24 +634,13 @@
 							</div>
 						</div>
 						<br>
-						<div class="row">
-							<div class="col mb-6 mt-2">
+						<div class="row g-4">
+							<div class="col mb-2">
 								<div class="form-floating form-floating-outline">
 									<select class="form-control" th:field="${productform.category}" required style="height: 60px;">
-										<option th:each="cat : ${cats}" th:value="${cat}" th:text="${cat}"></option>
+										<option th:each="cat : ${cats}" th:value="${cat.name()}" th:text="${cat.displayName}"></option>
 									</select>
 									<label>Product Category</label>
-								</div>
-							</div>
-						</div><br>
-						<div class="row g-4">
-							<div class="col-5 mb-2">
-								<div class="form-floating form-floating-outline">
-									<input
-											type="number"
-											class="form-control"
-											placeholder="Enter Price of Product" th:field="${productform.price}" required style="height: 60px; width: 100%"/>
-									<label>Unit Price</label>
 								</div>
 							</div>
 							<div class="col mb-2">
@@ -660,6 +649,25 @@
 									<label>Stock Quantity</label>
 								</div>
 							</div>
+						</div><br>
+						<div class="row g-4">
+							<div class="col mb-2">
+								<div class="form-floating form-floating-outline">
+									<select class="form-control" id="clothesSizeSelect" th:field="${productform.clothesSize}" required style="height: 60px;">
+										<option th:each="clothe : ${clothes}" th:value="${clothe}" th:text="${clothe}" ></option>
+									</select>
+									<label>Clothes Size</label>
+								</div>
+							</div>
+							<div class="col mb-2">
+								<div class="form-floating form-floating-outline">
+									<select class="form-control" id="shoeSizeSelect" th:field="${productform.shoeSize}" required style="height: 60px;">
+										<option th:each="shoe : ${shoes}" th:value="${shoe}" th:text="${shoe}"></option>
+									</select>
+									<label>Shoe Size</label>
+								</div>
+							</div>
+
 						</div>
 
 						<div class="row">
@@ -673,7 +681,17 @@
 							</div>
 						</div>
 
-
+						<div class="row">
+							<div class="col mb-6 mt-2">
+								<div class="form-floating form-floating-outline">
+										<textarea
+												class="form-control"
+												placeholder="Enter Product Description"
+												aria-describedby="basic-icon-default-message2" th:field="${productform.color}" required style="height: 80px;"></textarea>
+									<label>Product Color</label>
+								</div>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="col mb-6 mt-2">
@@ -888,6 +906,44 @@
 		});
 
 	</script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		document.addEventListener('DOMContentLoaded', function () {
+			const categorySelect = document.querySelector('select[th\\:field="${productform.category}"], select[name="category"], #categorySelect');
+			const clothesSizeSelect = document.getElementById('clothesSizeSelect');
+			const shoeSizeSelect = document.getElementById('shoeSizeSelect');
+
+			function updateSizeSelects() {
+				const selectedCategory = categorySelect.value;
+
+				// Categories that represent shoes (based on your enum names)
+				const shoeCategories = ['MENS_SHOES', 'WOMENS_SHOES'];
+
+				// Categories that represent clothes
+				const clothesCategories = ['MENS_CLOTHES', 'WOMENS_CLOTHES'];
+
+				if (shoeCategories.includes(selectedCategory)) {
+					clothesSizeSelect.disabled = true;
+					shoeSizeSelect.disabled = false;
+				} else if (clothesCategories.includes(selectedCategory)) {
+					clothesSizeSelect.disabled = false;
+					shoeSizeSelect.disabled = true;
+				} else {
+					// For other categories, enable both or disable both as needed
+					clothesSizeSelect.disabled = true;
+					shoeSizeSelect.disabled = true;
+				}
+			}
+
+			// Initial update on page load
+			updateSizeSelects();
+
+			// Update on category change
+			categorySelect.addEventListener('change', updateSizeSelects);
+		});
+		/*]]>*/
+	</script>
+
 	<!-- end copyright -->
 	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
