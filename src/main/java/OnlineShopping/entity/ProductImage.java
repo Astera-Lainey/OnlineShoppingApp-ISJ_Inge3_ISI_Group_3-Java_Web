@@ -25,6 +25,7 @@ public class ProductImage {
         return ImageDTO.builder()
                 .imageId(id)
                 .imageUrl(path)
+                .productId(product.getId())
                 .build();
     }
 }

@@ -31,6 +31,7 @@
 	<style>
 		.dropdown-menu,.dropdown,.dropdown-item{
 			z-index: 2;
+			font-size: 15px;
 		}
         table{
             img{
@@ -66,6 +67,9 @@
 			margin-bottom: 30px;
 			border: 2px solid #49C8FC;
 			padding: 5px;
+		}
+		p{
+			font-size: 18px;
 		}
 	</style>
 </head>
@@ -194,7 +198,7 @@
 					<img th:src="@{/assets/img/user (1).png}" alt="">
 					<div class="text">
 					<h4 class="pl-5">Active Users</h4>
-					<p class="pl-5">7</p>	
+					<p class="pl-5">7</p>
 					</div>
 					</div>
 					<a href="#" class="boxed-btn">View</a>
@@ -206,7 +210,7 @@
 					<img th:src="@{/assets/img/user (1).png}" alt="">
 					<div class="text">
 					<h4 class="pl-5">Total Users</h4>
-					<p class="pl-5">7</p>	
+					<p class="pl-5"><span th:text="${totalUsers}"></span></p>
 					</div>
 					</div>
 					<a href="#" class="boxed-btn">View</a>
@@ -218,7 +222,7 @@
 					<img th:src="@{/assets/img/user (1).png}" alt="">
 					<div class="text">
 					<h4 class="pl-5">All Products</h4>
-					<p class="pl-5">7</p>	
+					<p class="pl-5"> <span th:text="${#lists.size(products)}"></span></p>
 					</div>
 					</div>
 					<a href="#" class="boxed-btn">View</a>
@@ -290,8 +294,8 @@
 								<div class="row">
 									<div class="col-12">
 										<form action="#" method="post">
-											<input type="search" name="search" placeholder="Search for Products...">
-											<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+											<input type="text" name="keyword" id="keyword" placeholder="Search for Products..." th:value="${keyword}">
+											<button type="button" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
 										</form>
 									</div>
 								</div>
@@ -352,13 +356,13 @@
 															<div class="modal-body">
 																<div class="row">
 																	<div class="col">
-																		<p class="fs-4">Delete Product?</p>
-																		<p>This action cannot be undone</p>
+																		<h4 class="fs-4">Delete Product?</h4>
+																		<p>This action cannot be undone!</p>
 																	</div>
 																</div>
 															</div>
 															<div class="modal-footer modal-dialog-centered">
-																<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+																<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
 																	Cancel
 																</button>
 																<form th:action="@{/delete/{name}(name=${product.name})}"  method="post">
@@ -376,82 +380,51 @@
 
 
 												<!-- Edit Product Details Modal-->
-												<div class="modal fade" th:id="'editProductModal' + ${product.id}" aria-hidden="true" tabindex="-1">
+												<div class="modal modal-top" th:id="'editProductModal' + ${product.id}" aria-hidden="true" tabindex="-1" >
 													<div class="modal-dialog modal-dialog-centered">
 														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title" id="modalToggleLabel2">Edit Product Details</h5>
-																<button
-																		type="button"
-																		class="btn-close"
-																		data-bs-dismiss="modal"
-																		aria-label="Close"></button>
-															</div>
-															<div class="modal-body">
-																<div class="row g-4">
-																	<div class="col mb-2">
-																		<div class="form-floating form-floating-outline">
-																			<input
-																					type="text"
-																					class="form-control"
-																					placeholder="Enter Name" th:value="${product.name}" required/>
+														<form th:action="@{/update/{id}(id=${product.id})}" method="post" >
+																<div class="modal-header">
+																	<h5 class="modal-title" id="modalToggleLabel2">Edit Stock Quantity </h5>
+																	<button
+																			type="button"
+																			class="btn-close"
+																			data-bs-dismiss="modal"
+																			aria-label="Close"></button>
+																</div>
+																<div class="modal-body">
+																	<div class="row">
+																		<div class="col mb-6 mt-2">
 																			<label>Product Name</label>
+																			<div class="form-control" th:text="${product.name}" style="font-size: 24px;"></div>
 																		</div>
 																	</div>
-																	<div class="col mb-2">
-																		<div class="form-floating form-floating-outline">
-																			<input type="text" class="form-control" placeholder="Enter Brand" th:value="${product.brand}" required/>
-																			<label>Product Brand</label>
-																		</div>
-																	</div>
-																</div>
-																<div class="row">
-																	<div class="col mb-6 mt-2">
-																		<div class="form-floating form-floating-outline">
-																			<select th:field="${productform.category}" required>
-																				<option class="form-control" th:each="cat : ${cats}" th:value="${cat}" th:text="${cat}"></option>
-																			</select>
-																			<label>Product Category</label>
-																		</div>
+																	<div class="row">
+																		<div class="col-12 mb-6 mt-2">
+																			<label>Stock Quantity</label>
+																			<div>
+																				<input type="number" name="stockQuantity" min="0" th:value="${product.stockQuantity}" required style="height: 60px; width: 100%"/>
+																			</div>
+																			</div>
 																	</div>
 																</div>
-																<div class="row">
-																	<div class="col mb-6 mt-2">
-																		<div class="form-floating form-floating-outline">
-																			<input type="text" class="form-control" placeholder="Enter Provider" th:value="${product.stockQuantity}" required/>
-																			<label>Product Quantity</label>
-																		</div>
-																	</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+																		Cancel
+																	</button>
+																	<button type="submit" class="btn btn-primary">
+																		Update Stock
+																	</button>
 																</div>
 
-																<div class="row">
-																	<div class="col mb-6 mt-2">
-																		<div class="form-floating form-floating-outline">
-									   <textarea
-											   class="form-control"
-											   placeholder="Hi, What would you like to request for?"
-											   aria-describedby="basic-icon-default-message2" th:value="${product.description}" required></textarea>
-																			<label>Product Details</label>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="modal-footer">
-																<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-																	Close
-																</button>
-																<button
-																		class="btn btn-primary">
-																	Save Details
-																</button>
-															</div>
-														</div>
+														</form>
+													</div>
 													</div>
 												</div>
 												<!-- /Edit Product Details Modal-->
 
 												<!-- View Product Details Modal-->
-												<div class="modal fade" th:id="'viewProductModal' + ${product.id}" tabindex="-1" style="display: none" aria-hidden="true">
+												<div class="modal modal-top" th:id="'viewProductModal' + ${product.id}" tabindex="-1" style="display: none" aria-hidden="true">
 													<div class="modal-dialog modal-dialog-centered">
 														<div class="modal-content">
 															<div class="modal-header">
@@ -462,15 +435,18 @@
 																		data-bs-dismiss="modal"
 																		aria-label="Close"></button>
 															</div>
-															<div class="modal-body fs-5">
-																<div th:each="image : ${images}">
-																	<img th:src="@{/{imageUrl}(imageUrl=${image.imageUrl})}" alt="Product Image"/>
+															<div class="modal-body fs-4">
+																<div class="row d-flex" style="display: flex; flex-wrap: wrap; flex-direction: row">
+																		<img th:each="image : ${images}" th:if="${image.getImageUrl().contains(product.getName())}" th:src="@{/{imageUrl}(imageUrl=${image.imageUrl})}" alt="Product Image" style="width: 30%; height: 100px; margin-right: 10px; margin-top: 10px; border-radius: 10px; border: solid 2px #F0CB46"/>
 																</div>
-																<strong>Product Name</strong> <br>
-																<strong>Brand</strong><br>
-																<strong>Category</strong><br>
-																<strong>Description</strong><br>
-																<strong>Quantity</strong>
+																<div>
+																<p style="font-size: 21px; font-weight: 900">Product Name: <span th:text="${product.name}" style="font-size: 19px;"></span></p>
+																<p style="font-size: 21px; font-weight: 900">Brand: <span th:text="${product.brand}" style="font-size: 19px;"></span></p>
+																<p style="font-size: 21px; font-weight: 900">Category: <span th:text="${product.category.name()}" style="font-size: 19px;"></span></p>
+																<p style="font-size: 21px; font-weight: 900">Description: <span th:text="${product.description}" style="font-size: 19px;"></span></p>
+																<p style="font-size: 21px; font-weight: 900">Quantity: <span th:text="${product.stockQuantity}" style="font-size: 19px;"></span> </p>
+																</div>
+
 															</div>
 															<div class="modal-footer">
 																<button
@@ -631,12 +607,12 @@
 
 
 	<!-- Add New Product Modal -->
-	<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal" id="addModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 				<form th:action="@{/add}" method="post" enctype="multipart/form-data" th:object="${productform}">
 					<div class="modal-header">
-						<h5 class="modal-title">Add Product</h5>
+						<h5 class="modal-title">Create A New Product</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
@@ -646,13 +622,13 @@
 									<input
 											type="text"
 											class="form-control"
-											placeholder="Enter Name"  th:field="${productform.name}" required/>
+											placeholder="Enter Name"  th:field="${productform.name}" required style="height: 60px;"/>
 									<label>Product Name</label>
 								</div>
 							</div>
 							<div class="col mb-2">
 								<div class="form-floating form-floating-outline">
-									<input type="text" class="form-control" placeholder="Enter Brand" th:field="${productform.brand}" required/>
+									<input type="text" class="form-control" placeholder="Enter Brand" th:field="${productform.brand}" required style="height: 60px;"/>
 									<label>Product Brand</label>
 								</div>
 							</div>
@@ -661,7 +637,7 @@
 						<div class="row">
 							<div class="col mb-6 mt-2">
 								<div class="form-floating form-floating-outline">
-									<select th:field="${productform.category}" required>
+									<select class="form-control" th:field="${productform.category}" required style="height: 60px;">
 										<option th:each="cat : ${cats}" th:value="${cat}" th:text="${cat}"></option>
 									</select>
 									<label>Product Category</label>
@@ -669,18 +645,18 @@
 							</div>
 						</div><br>
 						<div class="row g-4">
-							<div class="col mb-2">
+							<div class="col-5 mb-2">
 								<div class="form-floating form-floating-outline">
 									<input
 											type="number"
 											class="form-control"
-											placeholder="Enter Price of Product" th:field="${productform.price}" required/>
+											placeholder="Enter Price of Product" th:field="${productform.price}" required style="height: 60px; width: 100%"/>
 									<label>Unit Price</label>
 								</div>
 							</div>
 							<div class="col mb-2">
 								<div class="form-floating form-floating-outline">
-									<input type="text" class="form-control" placeholder="How much is in stock" th:field="${productform.stock}" required/>
+									<input type="text" class="form-control" placeholder="How much is in stock" th:field="${productform.stock}" required style="height: 60px;"/>
 									<label>Stock Quantity</label>
 								</div>
 							</div>
@@ -706,7 +682,7 @@
 												id="basic-icon-default-message"
 												class="form-control"
 												placeholder="Enter Product Description"
-												aria-describedby="basic-icon-default-message2" th:field="${productform.description}" required></textarea>
+												aria-describedby="basic-icon-default-message2" th:field="${productform.description}" required style="height: 80px;"></textarea>
 									<label>Product Details</label>
 								</div>
 							</div>
@@ -860,7 +836,31 @@
 			</div>
 		</div>
 	</div>
+<!--	Search Filter -->
+	<script>
+		function search() {
+			const input = document.getElementById("keyword");
+			const filter = input.value.toLowerCase();
+			const table = document.querySelector("table");
+			const rows = table.getElementsByTagName("tr");
 
+			for (let i = 1; i < rows.length; i++) {
+				const row = rows[i];
+				let found = false;
+				const cells = row.getElementsByTagName("td");
+
+				for (let j = 0; j < cells.length; j++) {
+					const cell = cells[j];
+					if (cell && cell.textContent.toLowerCase().includes(filter)) {
+						found = true;
+						break;
+					}
+				}
+
+				row.style.display = found ? "" : "none";
+			}
+		}
+	</script>
 <!--	Display Images script-->
 	<script>
 		const fileInput = document.getElementById("file-input");
@@ -868,7 +868,7 @@
 
 		function loadFile() {
 			container.innerHTML +=
-					`<img src="${this.result}" width="100"/>`;
+					`<img src="${this.result}" width="150" height="100"/>`;
 		}
 
 
