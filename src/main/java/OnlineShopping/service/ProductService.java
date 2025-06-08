@@ -3,12 +3,10 @@ package OnlineShopping.service;
 import OnlineShopping.entity.Category;
 import OnlineShopping.entity.Product;
 import OnlineShopping.entity.ProductImage;
-import OnlineShopping.entity.repository.ProductImageRepository;
 import OnlineShopping.entity.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -43,7 +41,7 @@ public class ProductService {
     public Product getProductByName(String name) {
         return productRepository.findByName(name);
     }
-    public Product getProductById(int id) {
+    public Object getProductById(int id) {
         return productRepository.findById(id);
     }
     public Product updateProduct(Product product){
@@ -70,7 +68,8 @@ public class ProductService {
             productRepository.delete(product);
     }
     public Product updateProduct(Integer productId, int stockQuantity){
-        Product product = productRepository.findById(productId);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
         product.setStockQuantity(stockQuantity);
         return productRepository.save(product);
     }

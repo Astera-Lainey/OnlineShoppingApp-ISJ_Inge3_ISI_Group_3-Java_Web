@@ -188,7 +188,14 @@
 			<div class="row">
 				<div class="col-md-5">
 					<div class="single-product-img">
-						<img th:src="@{/assets/img/products/product-img-5.jpg}" alt="">
+						<div class="product-img">
+							<img th:src="@{/assets/img/products/}${product.imageUrl}" alt="">
+							<div class="product-action">
+								<a class="wishlist-btn" th:data-product-id="${product.id}" onclick="toggleWishlist(this)">
+									<i class="ri-heart-line"></i>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-7">
@@ -472,6 +479,125 @@
 	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
 
+	<script th:inline="javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+			// Check wishlist status for the product
+			const wishlistButton = document.querySelector('.wishlist-btn');
+			if (wishlistButton) {
+				const productId = wishlistButton.dataset.productId;
+				checkWishlistStatus(productId, wishlistButton);
+			}
+		});
+
+		function checkWishlistStatus(productId, button) {
+			fetch(`/api/wishlist/check/${productId}`)
+				.then(response => response.json())
+				.then(data => {
+					const icon = button.querySelector('i');
+					if (data.inWishlist) {
+						icon.classList.remove('ri-heart-line');
+						icon.classList.add('ri-heart-fill');
+						icon.style.color = '#dc3545';
+					} else {
+						icon.classList.remove('ri-heart-fill');
+						icon.classList.add('ri-heart-line');
+						icon.style.color = '';
+					}
+				})
+				.catch(error => console.error('Error checking wishlist status:', error));
+		}
+
+		function toggleWishlist(button) {
+			const productId = button.dataset.productId;
+			const icon = button.querySelector('i');
+			const isInWishlist = icon.classList.contains('ri-heart-fill');
+
+			if (isInWishlist) {
+				// Remove from wishlist
+				fetch(`/api/wishlist/remove/${productId}`, {
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						icon.classList.remove('ri-heart-fill');
+						icon.classList.add('ri-heart-line');
+						icon.style.color = '';
+					} else {
+						alert('Error removing from wishlist');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					alert('Error removing from wishlist');
+				});
+			} else {
+				// Add to wishlist
+				fetch(`/api/wishlist/add/${productId}`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						icon.classList.remove('ri-heart-line');
+						icon.classList.add('ri-heart-fill');
+						icon.style.color = '#dc3545';
+					} else {
+						alert('Error adding to wishlist');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					alert('Error adding to wishlist');
+				});
+			}
+		}
+	</script>
+
+	<style>
+		.wishlist-btn {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			background: white;
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			z-index: 1;
+		}
+
+		.wishlist-btn:hover {
+			transform: scale(1.1);
+		}
+
+		.wishlist-btn i {
+			font-size: 24px;
+			transition: all 0.3s ease;
+		}
+
+		.wishlist-btn i.ri-heart-fill {
+			color: #dc3545;
+		}
+
+		.product-action {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 20px;
+		}
+	</style>
 
 </body>
 </html>
