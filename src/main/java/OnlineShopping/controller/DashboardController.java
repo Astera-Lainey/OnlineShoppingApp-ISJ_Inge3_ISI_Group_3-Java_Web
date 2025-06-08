@@ -2,12 +2,14 @@ package OnlineShopping.controller;
 
 import OnlineShopping.dto.ImageDTO;
 import OnlineShopping.dto.ProductDTO;
+import OnlineShopping.entity.CartItem;
 import OnlineShopping.entity.Category;
 import OnlineShopping.entity.Product;
 import OnlineShopping.entity.ProductImage;
 import OnlineShopping.entity.User;
 import OnlineShopping.entity.repository.ProductRepository;
 import OnlineShopping.entity.repository.UserRepository;
+import OnlineShopping.service.CartService;
 import OnlineShopping.service.ProductImageService;
 import OnlineShopping.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class DashboardController {
 
     @Autowired
     private ProductImageService productImageService;
+
+    @Autowired
+    private CartService cartService;
 
     //admin getMappings
     @GetMapping("admin/adminDashboard")
@@ -133,14 +138,48 @@ public class DashboardController {
 
     @GetMapping("user/cart")
     public String usersCart(Authentication authentication, Model model) {
+        try {
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return "redirect:/api/auth/login";
+            }
 
-        return "/user/cart";
+            Optional<User> currentUser = userRepository.findByEmail(authentication.getName());
+            if (currentUser.isEmpty()) {
+                return "redirect:/api/auth/login";
+            }
+
+            User user = currentUser.get();
+            
+            // Get cart items for the user
+            List<CartItem> cartItems = cartService.getCartItems(user.getId());
+            
+            // Calculate totals
+            double subtotal = cartItems.stream()
+                    .mapToDouble(item -> item.getPrice() * item.getQuantity())
+                    .sum();
+            double shipping = subtotal > 0 ? 45.0 : 0.0; // Example shipping cost
+            double total = subtotal + shipping;
+
+            model.addAttribute("cartItems", cartItems);
+            model.addAttribute("subtotal", subtotal);
+            model.addAttribute("shipping", shipping);
+            model.addAttribute("total", total);
+            
+            return "user/cart";
+        } catch (Exception e) {
+            // Log the error
+            e.printStackTrace();
+            // Add error message to model
+            model.addAttribute("error", "An error occurred while loading the cart. Please try again later.");
+            // Return the template with error message
+            return "user/cart";
+        }
     }
 
     @GetMapping("user/checkout")
     public String usersCheckout(Authentication authentication, Model model) {
 
-        return "/user/checkout";
+        return "user/checkout";
     }
 
     @GetMapping("user/contact")

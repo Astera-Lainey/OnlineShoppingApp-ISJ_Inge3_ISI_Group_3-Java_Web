@@ -13,8 +13,20 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer cartItemId;
-    @OneToOne(fetch = FetchType.LAZY)
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id")
+    public Cart cart;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     public Product product;
+    
     public int quantity;
     public double price;
+    
+    // Helper method to calculate total price
+    public double getTotalPrice() {
+        return price * quantity;
+    }
 }

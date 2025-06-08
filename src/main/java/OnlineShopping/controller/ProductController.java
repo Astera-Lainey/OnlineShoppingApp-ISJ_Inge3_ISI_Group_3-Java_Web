@@ -130,7 +130,7 @@ public class ProductController {
                                @RequestParam("images") List<MultipartFile> images,
                                RedirectAttributes redirectAttributes) {
         try {
-            Product product = productService.getProductById(productId);
+            Product product = (Product) productService.getProductById   (productId);
             productImageService.addProductImages(images,product);
             redirectAttributes.addFlashAttribute("successMessage", "Product photos updated successfully");
         } catch (Exception e) {
