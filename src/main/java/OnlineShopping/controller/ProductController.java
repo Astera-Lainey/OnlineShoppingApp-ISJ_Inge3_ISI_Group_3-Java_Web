@@ -46,18 +46,21 @@ public class ProductController {
     @PostMapping("/add")
     public String CreateProduct(@ModelAttribute("productform") ProductDTO productDTO, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         System.out.println("Product Details received for: " + productDTO.getName());
-        try {
-            Product newProduct = productService.createProduct(productDTO.getName(), productDTO.getDescription(), productDTO.getBrand(), productDTO.getCategory(), productDTO.getPrice(), productDTO.getStock(), productDTO.getClothesSize(), productDTO.getShoeSize(), productDTO.getColor());
-            List<MultipartFile> images = productDTO.getImage();
-            productImageService.addProductImages(images, newProduct);
-            System.out.println("Product created successfully");
-            redirectAttributes.addFlashAttribute("successMessage", "Product created successfully");
-            return "redirect:/admin/adminDashboard";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-        }
-        return "redirect:/admin/adminDashboard";
-    }
+            try{
+                //creates a product
+                Product newProduct = productService.createProduct(productDTO.getName(),productDTO.getDescription(),productDTO.getBrand(),productDTO.getCategory(), productDTO.getPrice(), productDTO.getStock(), productDTO.getClothesSize(), productDTO.getShoeSize(), productDTO.getColor());
+
+                //creates an image for each image sent for a specific product
+                List<MultipartFile> images = productDTO.getImage();
+                productImageService.addProductImages(images,newProduct);
+                System.out.println("Product created successfully");
+                redirectAttributes.addFlashAttribute("successMessage", "Product created successfully");
+                return "redirect:/admin/adminDashboard/{userId}";
+            } catch (Exception e) {
+                redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            }
+
+        return "redirect:/admin/adminDashboard/{userId}";}
 
     @PostMapping("/delete/{name}")
     public String deleteProduct(@PathVariable String name, RedirectAttributes redirectAttributes) {
@@ -65,7 +68,7 @@ public class ProductController {
             Product product = productService.getProductByName(name);
             if (product == null) {
                 redirectAttributes.addFlashAttribute("errorMessage", "Product not found");
-                return "redirect:/admin/adminDashboard";
+                return "redirect:/admin/adminDashboard/{userId}";
             }
             productService.deleteProduct(product);
             redirectAttributes.addFlashAttribute("successMessage", "Product and images deleted successfully");
@@ -85,20 +88,20 @@ public class ProductController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Failed to update photos: " + e.getMessage());
         }
-        return "redirect:/admin/adminDashboard";
+        return "redirect:/admin/adminDashboard/{userId}";
     }
 
     @PostMapping("/deleteImage/{id}")
     public String deleteImage(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         productImageService.deleteImage(id);
         redirectAttributes.addFlashAttribute("successMessage", "Image deleted successfully");
-        return "redirect:/admin/adminDashboard";
+        return "redirect:/admin/adminDashboard/{userId}";
     }
 
     @PostMapping("/update/{id}")
     public String updateProductStock(@PathVariable Integer id, @RequestParam int stockQuantity) {
         productService.updateProduct(id, stockQuantity);
-        return "redirect:/admin/adminDashboard";
+        return "redirect:/admin/adminDashboard/{userId}";
     }
 
     @GetMapping("/user/single-product/{productId}")
