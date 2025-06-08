@@ -15,7 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     @Autowired

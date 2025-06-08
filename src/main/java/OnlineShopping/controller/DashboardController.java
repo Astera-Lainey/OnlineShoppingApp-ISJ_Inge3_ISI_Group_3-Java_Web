@@ -155,18 +155,18 @@ public class DashboardController {
         return "/user/shop";
     }
 
-    @GetMapping("user/single-product/{productId}")
-    public String usersSingleProduct(Authentication authentication, Model model, @PathVariable Integer productId) {
-        Product p = productService.getProductById(productId);
-        List<ProductImage> images = productImageService.getImagesByProductId(productId);
-        List<ImageDTO> imagedto = new ArrayList<>();
-        for (ProductImage image : images) {
-            imagedto.add(image.toDTO());
-        }
-        model.addAttribute("product", p);
-        model.addAttribute("images", imagedto );
-        return "/user/single-product";
-    }
+//    @GetMapping("user/single-product/{productId}")
+//    public String usersSingleProduct(Authentication authentication, Model model, @PathVariable Integer productId) {
+//        Product p = productService.getProductById(productId);
+//        List<ProductImage> images = productImageService.getImagesByProductId(productId);
+//        List<ImageDTO> imagedto = new ArrayList<>();
+//        for (ProductImage image : images) {
+//            imagedto.add(image.toDTO());
+//        }
+//        model.addAttribute("product", p);
+//        model.addAttribute("images", imagedto );
+//        return "/user/single-product";
+//    }
 
 
 
