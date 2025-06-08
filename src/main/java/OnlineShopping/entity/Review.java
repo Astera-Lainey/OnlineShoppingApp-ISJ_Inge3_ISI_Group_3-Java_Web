@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Data
@@ -15,11 +14,19 @@ import java.util.Date;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer Id;
-    public String comment;
+    private Integer id;
+
+    private String comment;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerId")
-    public Customer customer;
-    public int rating;
-    public LocalDate reviewDate;
+    @JoinColumn(name = "userId", nullable = false)
+    private User user; // References the User entity
+
+    private int rating;
+
+    private LocalDate reviewDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "productId", nullable = false)
+    private Product product;
 }

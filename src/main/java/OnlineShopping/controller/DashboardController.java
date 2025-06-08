@@ -154,8 +154,8 @@ public class DashboardController {
         return "/user/shop";
     }
 
-    @GetMapping("user/single-product/{productId}")
-    public String usersSingleProduct(Authentication authentication, Model model, @PathVariable Integer productId) {
+    @GetMapping("user/single-product/{productId}/{userId}")
+    public String usersSingleProduct(Authentication authentication, Model model, @PathVariable Integer productId, @PathVariable Integer userId) {
         Product p = productService.getProductById(productId);
         List<ProductImage> images = productImageService.getImagesByProductId(productId);
         List<ImageDTO> imagedto = new ArrayList<>();
@@ -164,6 +164,7 @@ public class DashboardController {
         }
         model.addAttribute("product", p);
         model.addAttribute("images", imagedto );
+        model.addAttribute("userId", userId);
         return "/user/single-product";
     }
 

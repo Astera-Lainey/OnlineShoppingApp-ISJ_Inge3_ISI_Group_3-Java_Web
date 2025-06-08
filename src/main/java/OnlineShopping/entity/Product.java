@@ -17,6 +17,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer id;
+
     private String name;
     private String description;
     private String brand;
@@ -27,7 +28,8 @@ public class Product {
     private String color;
     private int stockQuantity;
 
-    public Product(int id, String name, String description, String brand, Category category, List<String> images, double price, ClothesSize clothesSize, ShoeSize shoeSize, String color) {
+    // Constructor without images (as it was commented out)
+    public Product(int id, String name, String description, String brand, Category category, double price, ClothesSize clothesSize, ShoeSize shoeSize, String color) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -37,8 +39,8 @@ public class Product {
         this.clothesSize = clothesSize;
         this.shoeSize = shoeSize;
         this.color = color;
-//        this.images = images;
-
     }
-}
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Review> reviews = new ArrayList<>(); // Collection of reviews for this product
+}
