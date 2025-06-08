@@ -202,29 +202,28 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></td>
-									<td class="product-name">Strawberry</td>
-									<td class="product-price">$85</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></td>
-									<td class="product-name">Berry</td>
-									<td class="product-price">$70</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></td>
-									<td class="product-name">Lemon</td>
-									<td class="product-price">$35</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
+								<tr class="table-body-row" th:each="item : ${cartItems}">
+									<td class="product-remove">
+										<a href="#" th:onclick="'removeFromCart(' + ${item.cartItemId} + ')'">
+											<i class="far fa-window-close"></i>
+										</a>
+									</td>
+									<td class="product-image">
+<!--										<img th:if="${item.product.productImageUrl != null}"-->
+<!--											 th:src="@{${item.product}}"-->
+<!--											 alt=""-->
+<!--											 onerror="this.src='/assets/img/products/default-product.jpg'">-->
+<!--										<img th:unless="${item.product.productImageUrl != null}"-->
+<!--											 th:src="@{/assets/img/products/default-product.jpg}"-->
+<!--											 alt="">-->
+									</td>
+									<td class="product-name" th:text="${item.product.name}">Product Name</td>
+									<td class="product-price" th:text="${item.product.price + ' XAF'}">Price</td>
+									<td class="product-quantity">
+										<input type="number" th:value="${item.quantity}" 
+											   th:onchange="'updateQuantity(' + ${item.cartItemId} + ', this.value)'">
+									</td>
+									<td class="product-total" th:text="${item.price + ' XAF'}">Total</td>
 								</tr>
 							</tbody>
 						</table>
@@ -243,21 +242,17 @@
 							<tbody>
 								<tr class="total-data">
 									<td><strong>Subtotal: </strong></td>
-									<td>$500</td>
-								</tr>
-								<tr class="total-data">
-									<td><strong>Shipping: </strong></td>
-									<td>$45</td>
+									<td th:text="${cartTotal + ' XAF'}">$85</td>
 								</tr>
 								<tr class="total-data">
 									<td><strong>Total: </strong></td>
-									<td>$545</td>
+									<td th:text="${cartTotal + ' XAF'}">$85</td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<a th:href="@{/user/cart}" class="boxed-btn">Update Cart</a>
-							<a th:href="@{/user/checkout}" class="boxed-btn black">Check Out</a>
+							<a href="/user/shop" class="boxed-btn">Continue Shopping</a>
+							<a href="/user/checkout" class="boxed-btn black">Check Out</a>
 						</div>
 					</div>
 

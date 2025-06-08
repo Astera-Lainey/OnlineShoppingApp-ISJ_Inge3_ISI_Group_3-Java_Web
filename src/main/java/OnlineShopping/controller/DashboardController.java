@@ -7,6 +7,8 @@ import OnlineShopping.entity.repository.ProductRepository;
 import OnlineShopping.entity.repository.UserRepository;
 import OnlineShopping.service.ProductImageService;
 import OnlineShopping.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/")
 public class DashboardController {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserRepository userRepository;
@@ -98,20 +103,18 @@ public class DashboardController {
 
         Optional<User> currentUserOpt = userRepository.findByEmail(authentication.getName());
         if (currentUserOpt.isEmpty()) {
+            logger.info("No user with email {}", authentication.getName());
             return "redirect:/api/auth/login";
+        } else {
+            logger.info("User found in db {}",  currentUserOpt.get());
+            model.addAttribute("user", currentUserOpt.get());
         }
 
 //        User currentUser = currentUserOpt.get();
 
-
         return "/user/main";
     }
 
-    @GetMapping("user/cart")
-    public String usersCart(Authentication authentication, Model model) {
-
-        return "/user/cart";
-    }
 
     @GetMapping("user/wishlist")
     public String usersWishlist(Authentication authentication, Model model) {
@@ -149,24 +152,14 @@ public class DashboardController {
         for (ProductImage image : images) {
             imagedto.add(image.toDTO());
         }
+        model.addAttribute("images", imagedto );
         model.addAttribute("products", products);
         model.addAttribute("cats", Category.values());
-        model.addAttribute("images", imagedto );
+
         return "/user/shop";
     }
 
-//    @GetMapping("user/single-product/{productId}")
-//    public String usersSingleProduct(Authentication authentication, Model model, @PathVariable Integer productId) {
-//        Product p = productService.getProductById(productId);
-//        List<ProductImage> images = productImageService.getImagesByProductId(productId);
-//        List<ImageDTO> imagedto = new ArrayList<>();
-//        for (ProductImage image : images) {
-//            imagedto.add(image.toDTO());
-//        }
-//        model.addAttribute("product", p);
-//        model.addAttribute("images", imagedto );
-//        return "/user/single-product";
-//    }
+
 
 
 

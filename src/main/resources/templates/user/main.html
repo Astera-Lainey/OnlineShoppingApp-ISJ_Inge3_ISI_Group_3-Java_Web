@@ -514,146 +514,169 @@
 </div>
 <!-- end logo carousel -->
 
-<!-- footer -->
-<div class="footer-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box about-widget">
-                    <h2 class="widget-title">About us</h2>
-                    <p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a
-                        few clicks. <br> Sign Up and start clicking today!!! </p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box get-in-touch">
-                    <h2 class="widget-title">Get in Touch</h2>
-                    <ul>
-                        <li>Eyang, Cameroon</li>
-                        <li>ClicknCollect@gmail.com</li>
-                        <li>+237 658381975</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box pages">
-                    <h2 class="widget-title">Navigation</h2>
-                    <ul>
-                        <li><a th:href="@{/user/main}">Home</a></li>
-                        <li><a th:href="@{/user/shop}">Shop</a></li>
-                        <li><a th:href="@{/user/contact}">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box subscribe">
-                    <h2 class="widget-title">Subscribe</h2>
-                    <p>Subscribe to our mailing list to get the latest updates on sales.</p>
-                    <form action="#">
-                        <input type="email" placeholder="Email">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end footer -->
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var products = /*[[${products}]]*/ [];
-    var images = /*[[${images}]]*/ [];
-    /*]]>*/
+	<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a few clicks. <br> Sign Up and start clicking today!!! </p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>Eyang, Cameroon</li>
+							<li>ClicknCollect@gmail.com</li>
+							<li>+237 658381975</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Navigation</h2>
+						<ul>
+							<li><a th:href="@{/user/main}">Home</a></li>
+							<li><a th:href="@{/user/shop}">Shop</a></li>
+							<li><a th:href="@{/user/contact}">Contact Us</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates on sales.</p>
+						<form action="#">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		let user = /*[[${user}]]*/ null;
+		console.log("Logged in user ",user);
+		var products = /*[[${products}]]*/ [];
+		var images = /*[[${images}]]*/ [];
+		/*]]>*/
+	</script>
 
-    const container = document.getElementById('products-container');
+	<script>
+		const container = document.getElementById('products-container');
+		container.innerHTML = ''; // Clear any existing content
 
     products.forEach(product => {
         // Find first image for this product
         const productImages = images.filter(img => img.productId === product.id);
         const firstImageFile = productImages.length > 0 ? productImages[0].imageUrl : null;
 
-        // Construct full image URL using your resource handler path
-        const firstImageUrl = firstImageFile
-            ? `/${firstImageFile}`
-            : '/images/default-product.jpg'; // fallback image
+			// Construct full image URL using your resource handler path
+			const firstImageUrl = firstImageFile
+					? `/${firstImageFile}`
+					: '/assets/img/products/default-product.jpg'; // fallback image
 
-        // Create product card HTML
-        const productDiv = document.createElement('div');
-        productDiv.className = "col-lg-3 col-md-6 text-center";
-        productDiv.innerHTML = `
-<div class="single-product-item">
-<a href="/user/single-product/${product.id}">
-        <img src="${firstImageUrl}" alt="${product.name}" style="height: 200px; width: 308px;" />
-      </a>
-      <h3>${product.name}</h3>
-      <p>Price: ${product.price} XAF</p>
-      <a href="/user/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-</div>
+			// Create product card HTML
+			const productDiv = document.createElement('div');
+			productDiv.className = "col-lg-3 col-md-6 text-center";
+			productDiv.innerHTML = `
+				<div class="single-product-item">
+					<a href="/user/single-product">
+						<img src="${firstImageUrl}" alt="${product.name}" style="height: 200px; width: 308px;" />
+					</a>
+					<h3>${product.name}</h3>
+					<p>Price: ${product.price} XAF</p>
+					<a href="javascript:void(0)" class="cart-btn" onclick="addToCart(${product.id})">
+						<i class="fas fa-shopping-cart"></i> Add to Cart
+					</a>
+				</div>
+			`;
+			container.appendChild(productDiv);
+		});
 
-    `;
-        container.appendChild(productDiv);
-    });
+		function addToCart(productId) {
+			fetch('/cart/add', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: `productId=${productId}&quantity=1`
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert('Product added to cart successfully!');
+					window.location.href = "/user/cart";
+				} else {
+					alert(data.message || "Failed to add to cart");
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert("Something went wrong");
+			});
+		}
+	</script>
 
-
-</script>
-
-
-<!-- copyright -->
-<div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <p>&copy; Copyright Click 'n' Collect
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                </p>
-            </div>
-            <div class="col-lg-6 text-right col-md-12">
-                <div class="social-icons">
-                    <ul>
-                        <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end copyright -->
-<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-<!-- end copyright -->
-<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
-<!-- jquery -->
-<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-<!-- bootstrap -->
-<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-<!-- count down -->
-<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-<!-- isotope -->
-<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-<!-- waypoints -->
-<script th:src="@{/assets/js/waypoints.js}"></script>
-<!-- owl carousel -->
-<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-<!-- magnific popup -->
-<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-<!-- mean menu -->
-<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-<!-- sticker js -->
-<script th:src="@{/assets/js/sticker.js}"></script>
-<!-- main js -->
-<script th:src="@{/assets/js/main.js}"></script>
-<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
-<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-
-
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>&copy; Copyright Click 'n' Collect
+						<script>
+							document.write(new Date().getFullYear());
+						</script>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
+	<!-- jquery -->
+	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+	<!-- bootstrap -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- count down -->
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<!-- isotope -->
+	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+	<!-- waypoints -->
+	<script th:src="@{/assets/js/waypoints.js}"></script>
+	<!-- owl carousel -->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<!-- magnific popup -->
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<!-- mean menu -->
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+	<!-- sticker js -->
+	<script th:src="@{/assets/js/sticker.js}"></script>
+	<!-- main js -->
+	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
 </body>
 </html>

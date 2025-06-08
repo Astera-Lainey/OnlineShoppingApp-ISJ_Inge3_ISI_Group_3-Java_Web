@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -45,9 +46,11 @@ public class ProductService {
     public Product getProductByName(String name) {
         return productRepository.findByName(name);
     }
-    public Product getProductById(int id) {
-        return productRepository.findById(id);
+    public Product getProductById(Integer id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
     }
+
     public Product updateProduct(Product product){
         return productRepository.save(product);
     }
@@ -72,10 +75,21 @@ public class ProductService {
             productRepository.delete(product);
     }
     public Product updateProduct(Integer productId, int stockQuantity){
-        Product product = productRepository.findById(productId);
-        product.setStockQuantity(stockQuantity);
-        return productRepository.save(product);
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            product.setStockQuantity(stockQuantity);
+            return productRepository.save(product);
+        } else {
+            throw new RuntimeException("Product not found with id: " + productId);
+        }
     }
+
+    public List<Product> searchProducts(String name, Category category){
+        return productRepository.searchProducts(name, category);
+    }
+
+    public List<Product> getFeaturedProducts() { return productRepository.findTop8ByOrderByIdDesc(); }// Return first 8 products or featured ones
 
 }
 
