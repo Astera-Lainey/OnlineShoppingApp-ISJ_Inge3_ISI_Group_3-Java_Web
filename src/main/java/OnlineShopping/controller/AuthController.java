@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +42,16 @@ public class AuthController {
     public String showLoginPage(@RequestParam(value = "error", required = false) String error,
                                 @RequestParam(value = "registrationSuccess", required = false) String registrationSuccess,
                                 Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
+        // Only redirect if user is fully authenticated (not anonymous)
+        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
+            String redirectUrl = determineRedirectUrl(auth);
+            if (!redirectUrl.equals("redirect:/api/auth/login")) {
+                return redirectUrl;
+            }
+        }
+
         if (error != null) {
             model.addAttribute("error", "Invalid username or password");
         }
@@ -52,8 +63,41 @@ public class AuthController {
         return "auth/login";
     }
 
+    @GetMapping("/dashboard")
+    public String showDashboard() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String redirectUrl = determineRedirectUrl(auth);
+        if (redirectUrl.equals("redirect:/api/auth/login")) {
+            return "redirect:/api/auth/login";
+        }
+        return redirectUrl;
+    }
+
+    private String determineRedirectUrl(Authentication auth) {
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
+            return "redirect:/api/auth/login";
+        }
+        
+        String redirectUrl;
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            redirectUrl = "/admin/adminDashboard";
+        } else if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+            redirectUrl = "/user/main";
+        } else {
+            redirectUrl = "/api/auth/login";
+        }
+        
+        return "redirect:" + redirectUrl;
+    }
+
     @GetMapping("/signup")
     public String showSignupPage(Model model) {
+        // If user is already authenticated, redirect to appropriate dashboard
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
+            return determineRedirectUrl(auth);
+        }
+
         model.addAttribute("user", new SignUpRequestDTO());
         return "auth/signup";
     }
@@ -118,6 +162,30 @@ public class AuthController {
     @GetMapping("/logout")
     public String logout() {
         SecurityContextHolder.clearContext();
+        return "redirect:/api/auth/login";
+    }
+
+    @GetMapping("/user/main")
+    public String userDashboard() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
+            return "redirect:/api/auth/login";
+        }
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
+            return "user/main";
+        }
+        return "redirect:/api/auth/login";
+    }
+
+    @GetMapping("/admin/adminDashboard")
+    public String adminDashboard() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
+            return "redirect:/api/auth/login";
+        }
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return "admin/adminDashboard";
+        }
         return "redirect:/api/auth/login";
     }
 }

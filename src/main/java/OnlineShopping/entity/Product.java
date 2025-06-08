@@ -24,6 +24,9 @@ public class Product {
     private double price;
     private int stockQuantity;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ProductImage> images = new ArrayList<>();
+
     public Product(int id, String name, String description, String brand, Category category, List<String> images, double price) {
         this.id = id;
         this.name = name;
@@ -33,6 +36,18 @@ public class Product {
         this.price = price;
 //        this.images = images;
 
+    }
+
+    // Helper method to add an image
+    public void addImage(ProductImage image) {
+        images.add(image);
+        image.setProduct(this);
+    }
+
+    // Helper method to remove an image
+    public void removeImage(ProductImage image) {
+        images.remove(image);
+        image.setProduct(null);
     }
 }
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -81,29 +82,53 @@ public class DashboardController {
     //user getMappings
     @GetMapping("user/main")
     public String userDashboard(Authentication authentication, Model model) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "redirect:/api/auth/login";
+        try {
+            // Authentication check
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return "redirect:/api/auth/login";
+            }
+
+            Optional<User> currentUserOpt = userRepository.findByEmail(authentication.getName());
+            if (currentUserOpt.isEmpty()) {
+                return "redirect:/api/auth/login";
+            }
+
+            // Initialize model attributes
+            model.addAttribute("currentUser", currentUserOpt.get());
+            model.addAttribute("categories", Category.values());
+
+            // Get products with their images
+            List<Product> products = productService.getAllProducts();
+            if (products != null) {
+                // Initialize empty images list for products that might not have images
+                products.forEach(product -> {
+                    if (product.getImages() == null) {
+                        product.setImages(new ArrayList<>());
+                    }
+                });
+                model.addAttribute("products", products);
+            } else {
+                model.addAttribute("products", new ArrayList<>());
+            }
+
+            // Get all product images
+            List<ProductImage> images = productImageService.getAllImages();
+            List<ImageDTO> imageDtos = images != null ? 
+                images.stream()
+                    .map(ProductImage::toDTO)
+                    .collect(Collectors.toList()) : 
+                new ArrayList<>();
+            model.addAttribute("images", imageDtos);
+
+            return "user/main";
+        } catch (Exception e) {
+            // Log the error
+            e.printStackTrace();
+            // Add error message to model
+            model.addAttribute("error", "An error occurred while loading the page. Please try again later.");
+            // Return the template with error message
+            return "user/main";
         }
-//        Models
-        List<Product> products = productService.getAllProducts();
-        List<ProductImage> images = productImageService.getAllImages();
-        List<ImageDTO> imagedto = new ArrayList<>();
-        for (ProductImage image : images) {
-            imagedto.add(image.toDTO());
-        }
-        model.addAttribute("products", products);
-        model.addAttribute("cats", Category.values());
-        model.addAttribute("images", imagedto );
-
-        Optional<User> currentUserOpt = userRepository.findByEmail(authentication.getName());
-        if (currentUserOpt.isEmpty()) {
-            return "redirect:/api/auth/login";
-        }
-
-//        User currentUser = currentUserOpt.get();
-
-
-        return "/user/main";
     }
 
     @GetMapping("user/cart")
@@ -134,6 +159,13 @@ public class DashboardController {
     public String usersSingleProduct(Authentication authentication, Model model) {
 
         return "/user/single-product";
+    }
+
+    @GetMapping("user/wishList")
+    public String usersWhisList(Authentication authentication, Model model) {
+
+        return "/user/wishlist";
+
     }
 
 

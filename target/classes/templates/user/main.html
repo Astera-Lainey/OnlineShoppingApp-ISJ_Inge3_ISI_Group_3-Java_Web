@@ -26,6 +26,8 @@
 	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
 	<!-- responsive -->
 	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
+	<!-- remixicon - using CDN instead of local file -->
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
 	<style>
 		.single-product-item{ 
@@ -34,39 +36,43 @@
 				font-weight: bold;
 			}}
 		.image {
-				height: 150px;
-				width: 200px;		
-			p{
-				color: white;
-				transition: 0.5s;
-				display: none;
-				position: relative;
-				bottom: 110px;
-			}
-			.shop{
-				position: relative;
-				display: none;
-				bottom: 100px;
-			}
-			.overlay {
-				position: absolute;
-				transition: all 0.3s ease;
-				opacity: 0;
-				left: 0px;
-				background-color: #003566 ;
-			}
-			img{
-				height: 150px;
-				width: 200px;
-				border-radius: 5%;
-			}
+				height: auto;
+				width: 100%;		
+				p{
+					color: white;
+					transition: 0.5s;
+					display: none;
+					position: relative;
+					bottom: 110px;
+				}
+				.shop{
+					position: relative;
+					display: none;
+					bottom: 100px;
+				}
+				.overlay {
+					position: absolute;
+					transition: all 0.3s ease;
+					opacity: 0;
+					left: 0px;
+					background-color: #003566;
+					width: 100%;
+					height: 100%;
+					top: 0;
+				}
+				img{
+					width: 100%;
+					height: auto;
+					border-radius: 5%;
+					object-fit: cover;
+				}
 			}
 			.overlayLeft{
 				height: 100%;
-				width: 0;
+				width: 100%;
 				top: 0;
-				left: 75px;
-				background-color: #003566 ;
+				left: 0;
+				background-color: #003566;
 				border-radius: 5%;
 			}
 			.image:hover{
@@ -76,9 +82,9 @@
 					opacity: 0.5;
 				}
 				.overlayLeft{
-					height: 150px;
-			width: 200px;
-			}
+					height: 100%;
+					width: 100%;
+				}
 				p{
 					font-size: 30px;
 					font-weight: bold;
@@ -88,16 +94,55 @@
 				.shop{
 					display: block;
 				}
-			
 			}
 		
-		
+			.wishlist-btn {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				background: white;
+				border-radius: 50%;
+				width: 35px;
+				height: 35px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 2;
+			}
+
+			.wishlist-btn:hover {
+				transform: scale(1.1);
+			}
+
+			.wishlist-btn i {
+				font-size: 20px;
+				transition: all 0.3s ease;
+			}
+
+			.wishlist-btn i.ri-heart-fill {
+				color: #dc3545;
+			}
+
+			.wishlist-btn i.ri-heart-line {
+				color: #666;
+			}
+
+			.single-product-item {
+				position: relative;
+			}
+
+			.product-image {
+				position: relative;
+			}
 		</style>
 </head>
 <body>
 	
 	<!--PreLoader-->
-    <div class="loader">
+    <div class="loader" id="page-loader">
         <div class="loader-inner">
             <div class="circle"></div>
         </div>
@@ -113,7 +158,7 @@
 						<!-- logo -->
 						<div class="site-logo">
 							<a th:href="@{/user/main}">
-								<img th:src="@{assets/img/logo.png}" alt="">
+								<img th:src="@{/assets/img/logo.png}" alt="">
 							</a>
 						</div>
 						<!-- logo -->
@@ -121,8 +166,7 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="#">Home</a>
-								</li>
+								<li class="current-list-item"><a th:href="@{/user/main}">Home</a></li>
 								<li><a>Shop</a>
 									<ul class="sub-menu" style="color:white;">
 										<li><a th:href="@{/user/shop}">Shop</a></li>
@@ -136,68 +180,8 @@
 									<div class="header-icons d-flex">
 										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-										<!--Profile Settings added -->
-										<a>
-											<ul class="navbar-nav flex-row align-items-center ms-auto" >
-												<!-- User -->
-												<li class="nav-item navbar-dropdown dropdown-user dropdown">
-													<a
-															class="nav-link dropdown-toggle hide-arrow p-0"
-															href="javascript:void(0);"
-															data-bs-toggle="dropdown" style="justify-content: end">
-														<div class="avatar avatar-online">
-															<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
-																<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-															</svg>                    </div>
-													</a>
-													<ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:20px; border-radius: 10px; padding-block: 10px;" >
-														<li>
-															<a class="dropdown-item" href="#">
-																<div class="d-flex align-items-center">
-																	<div class="flex-shrink-0 me-2">
-																		<div class="avatar avatar-online">
-																			<img th:src="@{../assets/img/user (1).png}" alt class="w-px-40 h-auto rounded-circle"  style="width: 12%; position: relative; left: 20px;"/>
-																		</div>
-																		<div>
-																			<button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
-																		</div>
-																	</div>
-																</div>
-															</a>
-														</li>
-														<li>
-															<div class="dropdown-divider"></div>
-														</li>
-														<li>
-															<a class="dropdown-item" href="#">
-																<i class="ri-user-3-line ri-22px me-2"></i>
-																<span class="align-middle" style="color: black">Username</span>
-																<div class="form-control">babygirl</div>
-															</a>
-															<a class="dropdown-item" href="#">
-																<i class="ri-user-3-line ri-22px me-2"></i>
-																<span class="align-middle" style="color: black">Email</span>
-																<div class="form-control">forbin@gmail.com</div>
-															</a>
-														</li>
-
-														<li>
-															<div class="dropdown-divider"></div>
-														</li>
-														<li>
-															<div class="d-grid px-4 pt-2 pb-1 me-5">
-																<a class="btn btn-danger d-flex" href="#">
-																	<small class="align-middle">Logout</small>
-																	<i class="ri-logout-box-r-line ms-2 ri-16px"></i>
-																</a>
-															</div>
-														</li>
-													</ul>
-												</li>
-												<!--/ User -->
-											</ul>
-										</a>
-
+										<!-- Include user dropdown fragment -->
+										<div th:replace="~{fragments/user-dropdown :: user-dropdown}"></div>
 									</div>
 								</li>
 							</ul>
@@ -298,7 +282,7 @@
 
   	<!-- Categories section -->
 	<div class="product-section mt-150 mb-150">
-		<div class="containers">
+		<div class="container">
 			<div class="row">
 					<div class="section-title text-center m-5" style="display: block; margin: 0 auto;">
 						<center>
@@ -308,56 +292,54 @@
 			</div>
 
 			<div class="row m-5">
-				<div class="col-lg-2 col-md-6 text-center">
+				<div class="col-lg-2 col-md-6 text-center mb-4">
 						<div class="image" id="overlay">
-							<a href="#"><img th:src="@{/assets/img/pexels-kaip-996329.jpg}" width="90%" alt=""></a>
+							<a href="#"><img th:src="@{/assets/img/pexels-kaip-996329.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>FASHION</p>
 							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
-				<div class="col-lg-2 col-md-6 text-center">
+				<div class="col-lg-2 col-md-6 text-center mb-4">
 						<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-garrettmorrow-682933.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-garrettmorrow-682933.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>ELECTRONICS</p>
 							<a th:href="@{/user/shop}"  class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
-				<div class="col-lg-2 col-md-6 text-center">
+				<div class="col-lg-2 col-md-6 text-center mb-4">
 					<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/cat (5).jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/cat (5).jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>HOME</p>
 							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
-				<div class="col-lg-2 col-md-6 text-center">
+				<div class="col-lg-2 col-md-6 text-center mb-4">
 					<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-kovyrina-12211.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-kovyrina-12211.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>TOYS</p>
 							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
-				<div class="col-lg-2 col-md-6 text-center">
+				<div class="col-lg-2 col-md-6 text-center mb-4">
 					<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-416717.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-416717.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>SPORT</p>
 							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
 				</div>
-				<div class="col-lg-2 col-md-6 text-center">
+				<div class="col-lg-2 col-md-6 text-center mb-4">
 					<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-267202.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-267202.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
 							<div class="overlay overlayLeft"></div>
 							<p>SHOES</p>
 							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 						</div>
-
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -374,18 +356,33 @@
 				</div>
 			</div>
 
-			<div class="row" id="products-container">
-				<div class="col-lg-3 col-md-6 text-center" ></div>
-				<div  th:each="product : ${products}">
-
-<!--						<div class="product-image">-->
-<!--							<a th:href="@{/user/single-product}">-->
-<!--								-->
-<!--							</a>-->
-<!--						</div>-->
-<!--						<h3 th:text="${product.name}"></h3>-->
-<!--						<p class="product-price" th:text="${product.price}"> XAF</p>-->
-<!--						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>-->
+			<div class="row">
+				<div class="col-lg-3 col-md-6 text-center" th:each="product : ${products != null ? products : #lists.emptyList()}">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a th:href="@{/user/single-product/{id}(id=${product.id})}">
+								<img th:if="${product.images != null and !product.images.empty and product.images[0].path != null}" 
+									 th:src="@{/assets/img/products/{url}(url=${product.images[0].path})}" 
+									 th:alt="${product.name != null ? product.name : 'Product'}"
+									 style="height: 200px; width: 308px; object-fit: cover;">
+								<img th:unless="${product.images != null and !product.images.empty and product.images[0].path != null}" 
+									 th:src="@{/assets/img/default-product.jpg}" 
+									 th:alt="${product.name != null ? product.name : 'Product'}"
+									 style="height: 200px; width: 308px; object-fit: cover;">
+							</a>
+							<button class="wishlist-btn" 
+									th:data-product-id="${product.id}"
+									onclick="toggleWishlist(this)"
+									title="Add to wishlist">
+								<i class="ri-heart-line"></i>
+							</button>
+						</div>
+						<h3 th:text="${product.name != null ? product.name : 'Product Name'}">Product Name</h3>
+						<p class="product-price" th:text="${product.price != null ? #numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + ' XAF' : 'Price not available'}">Price</p>
+						<a class="cart-btn" th:onclick="'addToCart(' + ${product.id} + ')'">
+							<i class="fas fa-shopping-cart"></i> Add to Cart
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -566,46 +563,167 @@
 		</div>
 	</div>
 	<!-- end footer -->
+
+	<!-- Error message display -->
+	<div th:if="${error}" class="alert alert-danger" role="alert" style="margin: 20px;">
+		<span th:text="${error}"></span>
+	</div>
+
+	<!-- Scripts -->
+	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+	<script th:src="@{/assets/js/waypoints.js}"></script>
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+	<script th:src="@{/assets/js/sticker.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+
+	<!-- Loader handling script -->
 	<script th:inline="javascript">
-		/*<![CDATA[*/
-		var products = /*[[${products}]]*/ [];
-		var images = /*[[${images}]]*/ [];
-		/*]]>*/
+		// Hide loader when page is fully loaded
+		window.addEventListener('load', function() {
+			const loader = document.getElementById('page-loader');
+			if (loader) {
+				loader.style.display = 'none';
+			}
+		});
+
+		// Fallback to hide loader after 3 seconds if load event doesn't fire
+		setTimeout(function() {
+			const loader = document.getElementById('page-loader');
+			if (loader) {
+				loader.style.display = 'none';
+			}
+		}, 3000);
 	</script>
 
+	<!-- Wishlist functionality -->
+	<script th:inline="javascript">
+		// Function to check if a product is in wishlist
+		async function checkWishlistStatus(productId) {
+			try {
+				const response = await fetch(`/api/wishlist/check/${productId}`, {
+					credentials: 'include'
+				});
+				if (!response.ok) {
+					if (response.status === 401) {
+						window.location.href = '/api/auth/login';
+						return false;
+					}
+					throw new Error('Network response was not ok');
+				}
+				const data = await response.json();
+				return data.inWishlist;
+			} catch (error) {
+				console.error('Error checking wishlist status:', error);
+				return false;
+			}
+		}
 
+		// Function to toggle wishlist status
+		async function toggleWishlist(button) {
+			const productId = button.dataset.productId;
+			const icon = button.querySelector('i');
+			
+			try {
+				// First check if user is logged in
+				const response = await fetch('/api/auth/check', {
+					credentials: 'include'
+				});
+				
+				if (!response.ok) {
+					window.location.href = '/api/auth/login';
+					return;
+				}
 
-	<script>
-		const container = document.getElementById('products-container');
+				const isInWishlist = await checkWishlistStatus(productId);
+				const method = isInWishlist ? 'DELETE' : 'POST';
+				const url = `/api/wishlist/${isInWishlist ? 'remove' : 'add'}/${productId}`;
+				
+				const wishlistResponse = await fetch(url, {
+					method: method,
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					credentials: 'include'
+				});
 
-		products.forEach(product => {
-			// Find first image for this product
-			const productImages = images.filter(img => img.productId === product.id);
-			const firstImageFile = productImages.length > 0 ? productImages[0].imageUrl : null;
+				if (!wishlistResponse.ok) {
+					if (wishlistResponse.status === 401) {
+						window.location.href = '/api/auth/login';
+						return;
+					}
+					throw new Error('Failed to update wishlist');
+				}
 
-			// Construct full image URL using your resource handler path
-			const firstImageUrl = firstImageFile
-					? `/${firstImageFile}`
-					: '/images/default-product.jpg'; // fallback image
+				const data = await wishlistResponse.json();
+				
+				if (data.success) {
+					// Toggle icon
+					if (isInWishlist) {
+						icon.classList.remove('ri-heart-fill');
+						icon.classList.add('ri-heart-line');
+						icon.style.color = '';
+						// Show removed message
+						Swal.fire({
+							icon: 'success',
+							title: 'Removed from Wishlist',
+							text: 'Product has been removed from your wishlist!',
+							timer: 2000,
+							showConfirmButton: false
+						});
+					} else {
+						icon.classList.remove('ri-heart-line');
+						icon.classList.add('ri-heart-fill');
+						icon.style.color = '#dc3545';
+						// Show added message
+						Swal.fire({
+							icon: 'success',
+							title: 'Added to Wishlist',
+							text: 'Product has been added to your wishlist!',
+							timer: 2000,
+							showConfirmButton: false
+						});
+					}
+				} else {
+					throw new Error(data.error || 'Operation failed');
+				}
 
-			// Create product card HTML
-			const productDiv = document.createElement('div');
-			productDiv.className = "col-lg-3 col-md-6 text-center";
-			productDiv.innerHTML = `
-<div class="single-product-item">
-<a href="/user/single-product">
-        <img src="${firstImageUrl}" alt="${product.name}" style="height: 200px; width: 308px;" />
-      </a>
-      <h3>${product.name}</h3>
-      <p>Price: ${product.price} XAF</p>
-      <a href="/user/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-</div>
+			} catch (error) {
+				console.error('Error toggling wishlist:', error);
+				Swal.fire({
+					icon: 'error',
+					title: 'Error',
+					text: error.message || 'Failed to update wishlist'
+				});
+			}
+		}
 
-    `;
-			container.appendChild(productDiv);
+		// Initialize wishlist buttons on page load
+		document.addEventListener('DOMContentLoaded', async function() {
+			const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+			for (const button of wishlistButtons) {
+				const productId = button.dataset.productId;
+				const icon = button.querySelector('i');
+				try {
+					const isInWishlist = await checkWishlistStatus(productId);
+					if (isInWishlist) {
+						icon.classList.remove('ri-heart-line');
+						icon.classList.add('ri-heart-fill');
+						icon.style.color = '#dc3545';
+					}
+				} catch (error) {
+					console.error('Error initializing wishlist button:', error);
+				}
+			}
 		});
 	</script>
 
+	<!-- Add SweetAlert2 for better notifications -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
 	<!-- copyright -->
 	<div class="copyright">
@@ -633,36 +751,6 @@
 		</div>
 	</div>
 	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
-	<!-- jquery -->
-	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-	<!-- bootstrap -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<!-- count down -->
-	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-	<!-- isotope -->
-	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-	<!-- waypoints -->
-	<script th:src="@{/assets/js/waypoints.js}"></script>
-	<!-- owl carousel -->
-	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-	<!-- magnific popup -->
-	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-	<!-- mean menu -->
-	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-	<!-- sticker js -->
-	<script th:src="@{/assets/js/sticker.js}"></script>
-	<!-- main js -->
-	<script th:src="@{/assets/js/main.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-
 
 </body>
 </html>
