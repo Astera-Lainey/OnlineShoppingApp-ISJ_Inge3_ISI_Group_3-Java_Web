@@ -209,13 +209,13 @@
 										</a>
 									</td>
 									<td class="product-image">
-										<img th:if="${item.product.productImageUrl != null}"
-											 th:src="@{${item.product.productImageUrl}}"
-											 alt=""
-											 onerror="this.src='/assets/img/products/default-product.jpg'">
-										<img th:unless="${item.product.productImageUrl != null}"
-											 th:src="@{/assets/img/products/default-product.jpg}"
-											 alt="">
+<!--										<img th:if="${item.product.productImageUrl != null}"-->
+<!--											 th:src="@{${item.product}}"-->
+<!--											 alt=""-->
+<!--											 onerror="this.src='/assets/img/products/default-product.jpg'">-->
+<!--										<img th:unless="${item.product.productImageUrl != null}"-->
+<!--											 th:src="@{/assets/img/products/default-product.jpg}"-->
+<!--											 alt="">-->
 									</td>
 									<td class="product-name" th:text="${item.product.name}">Product Name</td>
 									<td class="product-price" th:text="${item.product.price + ' XAF'}">Price</td>

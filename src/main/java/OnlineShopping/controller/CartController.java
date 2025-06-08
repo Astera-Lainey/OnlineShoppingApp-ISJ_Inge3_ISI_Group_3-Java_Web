@@ -43,7 +43,7 @@ public class CartController {
         model.addAttribute("cartTotal", cartTotal);
         model.addAttribute("cartCount", cartCount);
 
-        return "/user/cart";
+        return "user/cart";
     }
 
     // Add item to cart (AJAX endpoint)

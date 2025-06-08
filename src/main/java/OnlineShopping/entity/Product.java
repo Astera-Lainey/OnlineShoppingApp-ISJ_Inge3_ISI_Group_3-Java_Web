@@ -28,6 +28,7 @@ public class Product {
     private String color;
     private int stockQuantity;
 
+
     public Product(int id, String name, String description, String brand, Category category, List<String> images, double price, ClothesSize clothesSize, ShoeSize shoeSize, String color) {
         this.id = id;
         this.name = name;

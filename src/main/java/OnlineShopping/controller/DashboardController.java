@@ -127,7 +127,7 @@ public class DashboardController {
         model.addAttribute("products", products);
         model.addAttribute("cats", Category.values());
         model.addAttribute("images", imagedto );
-        return "/user/wishlist";
+        return "/user/Wishlist";
     }
 
     @GetMapping("user/checkout")
@@ -151,24 +151,14 @@ public class DashboardController {
         for (ProductImage image : images) {
             imagedto.add(image.toDTO());
         }
+        model.addAttribute("images", imagedto );
         model.addAttribute("products", products);
         model.addAttribute("cats", Category.values());
-        model.addAttribute("images", imagedto );
-        return "/user/shop";
+
+        return "user/shop";
     }
 
-//    @GetMapping("user/single-product/{productId}")
-//    public String usersSingleProduct(Authentication authentication, Model model, @PathVariable Integer productId) {
-//        Product p = productService.getProductById(productId);
-//        List<ProductImage> images = productImageService.getImagesByProductId(productId);
-//        List<ImageDTO> imagedto = new ArrayList<>();
-//        for (ProductImage image : images) {
-//            imagedto.add(image.toDTO());
-//        }
-//        model.addAttribute("product", p);
-//        model.addAttribute("images", imagedto );
-//        return "/user/single-product";
-//    }
+
 
     //        product Models
     @GetMapping("/view")

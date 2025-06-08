@@ -139,28 +139,29 @@
 					</div>
 					<!-- logo -->
 
-					<!-- menu start -->
-					<nav class="main-menu">
-						<ul>
-							<li><a th:href="@{/user/main}">Home</a>
-							</li>
-							<li class="current-list-item"><a>Shop</a>
-								<ul class="sub-menu">
-									<li><a th:href="@{/user/shop}">Shop</a></li>
-									<li><a th:href="@{/user/checkout}">Check Out</a></li>
-
-								</ul>
-							</li>
-							<li><a th:href="@{/user/contact}">Contact</a></li>
-
-							<li>
-								<div class="header-icons">
-									<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
-									<a class="mobile-hide search-bar-icon" href="#" onclick="toggleSearch()"><i class="fas fa-search"></i></a>
-									<!--Profile Settings added -->
-									<div class="profile" style="position: relative; bottom: 90px;left: 60px;">
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li><a th:href="@{/user/main}">Home</a>
+								</li>
+								<li class="current-list-item"><a>Shop</a>
+									<ul class="sub-menu">
+										<li><a th:href="@{/user/shop}">Shop</a></li>
+										<li><a th:href="@{/user/checkout}">Check Out</a></li>
+									
+									</ul>
+								</li>
+								<li><a th:href="@{/user/contact}">Contact</a></li>
+								
+								<li>
+									<div class="header-icons">
+										<a class="shopping-cart pt-3" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
+										<a th:href="@{/user/wishlist}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-bag-heart" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+										</svg></a>
+										<!--Profile Settings added -->
 										<a>
-											<ul class="navbar-nav flex-row align-items-center ms-auto" >
+											<ul style="position: absolute; left: 60px; bottom: 7px" >
 												<!-- User -->
 												<li class="nav-item navbar-dropdown dropdown-user dropdown">
 													<a
@@ -204,7 +205,7 @@
 														</li>
 
 														<li>
-															<div class="dropout-divider"></div>
+															<div class="dropdown-divider"></div>
 														</li>
 														<li>
 															<div class="d-grid px-4 pt-2 pb-1 me-5">
@@ -220,19 +221,18 @@
 											</ul>
 										</a>
 									</div>
-								</div>
-							</li>
-						</ul>
-					</nav>
-					<a class="mobile-show search-bar-icon" href="#" onclick="toggleSearch()"><i class="fas fa-search"></i></a>
-					<div class="mobile-menu"></div>
-					<!-- menu end -->
+								</li>
+							</ul>
+						</nav>
+						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+						<div class="mobile-menu"></div>
+						<!-- menu end -->
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- end header -->
+	<!-- end header -->
 
 
 <!-- breadcrumb-section -->
@@ -322,7 +322,36 @@
 <!-- products -->
 <div class="product-section mt-150 mb-150">
 	<div class="container">
+	<!-- product section -->
+	<div class="product-section mt-80 mb-80">
+		<div class="container">
 
+			<div class="row text-center">
+				<!-- Search Wrapper -->
+				<div class="search-wrapper mb-80">
+
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<form action="#" method="post">
+									<input type="text" name="keyword" id="keyword" placeholder="Search for Products...">
+									<button type="button" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row" id="products-container">
+				<div class="col-lg-3 col-md-6 text-center" ></div>
+				<div  th:each="product : ${products}">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end product section -->
 		<div class="row">
 			<div class="col-md-12">
 				<div class="product-filters">
@@ -339,31 +368,6 @@
 			</div>
 		</div>
 
-		<!-- Products List - Dynamic from Backend -->
-		<div class="row product-lists" th:if="${products != null and not #lists.isEmpty(products)}">
-			<div th:each="product : ${products}"
-				 class="col-lg-3 col-md-6 text-center product-item"
-				 th:classappend="${product.category.name().toLowerCase()}">
-				<div class="single-product-item">
-					<div class="product-image">
-						<a th:href="@{/user/single-product(id=${product.id})}">
-							<img th:if="${product.productImages != null and not #lists.isEmpty(product.productImages)}"
-								 th:src="@{${product.productImages[0].path}}"
-								 alt=""
-								 onerror="this.src='/assets/img/products/default-product.jpg'">
-							<img th:unless="${product.productImages != null and not #lists.isEmpty(product.productImages)}"
-								 th:src="@{/assets/img/products/default-product.jpg}"
-								 alt="">
-						</a>
-					</div>
-					<h3 th:text="${product.name}">Product Name</h3>
-					<p class="product-price" th:text="${product.price + 'XAF'}">Price</p>
-					<a class="cart-btn" th:onclick="'addToCart(' + ${product.id} + ')'">
-						<i class="fas fa-shopping-cart"></i> Add to Cart
-					</a>
-				</div>
-			</div>
-		</div>
 
 		<!-- Default Products (when no search is performed) -->
 		<div class="row product-lists" th:if="${products == null}">
@@ -593,6 +597,45 @@
 </div>
 <!-- end copyright -->
 
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var products = /*[[${products}]]*/ [];
+		var images = /*[[${images}]]*/ [];
+		/*]]>*/
+	</script>
+
+
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
+	<!-- jquery -->
+	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+	<!-- bootstrap -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- count down -->
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<!-- isotope -->
+	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+	<!-- waypoints -->
+	<script th:src="@{/assets/js/waypoints.js}"></script>
+	<!-- owl carousel -->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<!-- magnific popup -->
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<!-- mean menu -->
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+	<!-- sticker js -->
+	<script th:src="@{/assets/js/sticker.js}"></script>
+	<!-- main js -->
+	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/assets/js/loadProducts.js}"></script>
 <!-- Scripts -->
 <script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
 <script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -622,13 +665,13 @@
 		document.getElementById('searchName').value = '';
 		document.getElementById('searchCategory').value = '';
 		// Redirect to shop page without search parameters
-		window.location.href = '/user/shop';
+		// window.location.href = '/user/shop';
 	}
 
 	// Filter products by category
 	function filterProducts(category) {
 		if (category === 'all') {
-			window.location.href = '/user/shop';
+			// window.location.href = '/user/shop';
 		} else {
 			window.location.href = '/products/search?category=' + category;
 		}
