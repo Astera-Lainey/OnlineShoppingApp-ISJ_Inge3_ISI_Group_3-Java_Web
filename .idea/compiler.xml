@@ -7,7 +7,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="construction-management" />
         <module name="OnlineShopping" />
       </profile>
     </annotationProcessing>
@@ -15,7 +14,6 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="OnlineShopping" options="-parameters" />
-      <module name="construction-management" options="-parameters" />
     </option>
   </component>
 </project>

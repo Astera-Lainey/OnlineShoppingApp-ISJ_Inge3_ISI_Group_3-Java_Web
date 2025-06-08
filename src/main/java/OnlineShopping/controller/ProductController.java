@@ -63,7 +63,10 @@ public class ProductController {
         return "redirect:/admin/adminDashboard/{userId}";}
 
     @PostMapping("/delete/{name}")
-    public String deleteProduct(@PathVariable String name, RedirectAttributes redirectAttributes) {
+    public String deleteProduct(
+            @PathVariable String name,
+            RedirectAttributes redirectAttributes
+    ) {
         try {
             Product product = productService.getProductByName(name);
             if (product == null) {
@@ -71,19 +74,29 @@ public class ProductController {
                 return "redirect:/admin/adminDashboard/{userId}";
             }
             productService.deleteProduct(product);
-            redirectAttributes.addFlashAttribute("successMessage", "Product and images deleted successfully");
-        } catch (Exception e) {
+
+            redirectAttributes.addFlashAttribute(
+                    "successMessage",
+                    "Product and images deleted successfully"
+            );
+        } catch (Exception e) {  // Combined exception handling
             log.error("Delete failed for product '{}'", name, e);
-            redirectAttributes.addFlashAttribute("errorMessage", "Deletion error: " + e.getMessage());
+            redirectAttributes.addFlashAttribute(
+                    "errorMessage",
+                    "Deletion error: " + e.getMessage()
+            );
         }
-        return "redirect:/admin/adminDashboard";
+
+        return "redirect:/admin/adminDashboard/{userId}";
     }
 
     @PostMapping("/updatePhotos")
-    public String updatePhotos(@RequestParam("productId") Integer productId, @RequestParam("images") List<MultipartFile> images, RedirectAttributes redirectAttributes) {
+    public String updatePhotos(@RequestParam("productId") Integer productId,
+                               @RequestParam("images") List<MultipartFile> images,
+                               RedirectAttributes redirectAttributes) {
         try {
             Product product = productService.getProductById(productId);
-            productImageService.addProductImages(images, product);
+            productImageService.addProductImages(images,product);
             redirectAttributes.addFlashAttribute("successMessage", "Product photos updated successfully");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Failed to update photos: " + e.getMessage());
@@ -99,7 +112,8 @@ public class ProductController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateProductStock(@PathVariable Integer id, @RequestParam int stockQuantity) {
+    public String updateProductStock(@PathVariable Integer id,
+                                     @RequestParam int stockQuantity) {
         productService.updateProduct(id, stockQuantity);
         return "redirect:/admin/adminDashboard/{userId}";
     }
