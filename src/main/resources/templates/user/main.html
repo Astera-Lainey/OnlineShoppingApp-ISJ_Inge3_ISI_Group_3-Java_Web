@@ -1,122 +1,135 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
-	<!-- title -->
-	<title>Click n Collect</title>
-	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
-	<!-- fontawesome -->
-	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
-	<!-- bootstrap -->
-	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
-	<!-- owl carousel -->
-	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
-	<!-- magnific popup -->
-	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
-	<!-- animate css -->
-	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
-	<!-- mean menu css -->
-	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
-	<!-- main style -->
-	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
-	<!-- responsive -->
-	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
+    <!-- title -->
+    <title>Click n Collect</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
+    <!-- fontawesome -->
+    <link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
+    <!-- bootstrap -->
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    <!-- owl carousel -->
+    <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
+    <!-- magnific popup -->
+    <link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+    <!-- animate css -->
+    <link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+    <!-- mean menu css -->
+    <link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
+    <!-- main style -->
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}">
+    <!-- responsive -->
+    <link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
 
-	<style>
-		.single-product-item{
-			p{
-				font-size: 20px;
-				font-weight: bold;
-			}}
-		.image {
-				height: 150px;
-				width: 200px;
-			p{
-				color: white;
-				transition: 0.5s;
-				display: none;
-				position: relative;
-				bottom: 110px;
-			}
-			.shop{
-				position: relative;
-				display: none;
-				bottom: 100px;
-			}
-			.overlay {
-				position: absolute;
-				transition: all 0.3s ease;
-				opacity: 0;
-				left: 0px;
-				background-color: #003566 ;
-			}
-			img{
-				height: 150px;
-				width: 200px;
-				border-radius: 5%;
-			}
-			}
-			.overlayLeft{
-				height: 100%;
-				width: 0;
-				top: 0;
-				left: 75px;
-				background-color: #003566 ;
-				border-radius: 5%;
-			}
-			.image:hover{
-				transform: translate3d(0,-10px,0);
-				box-shadow: 0px 21px 44px rgba(0, 0, 0, 0.08);
-				.overlay{
-					opacity: 0.5;
-				}
-				.overlayLeft{
-					height: 150px;
-			width: 200px;
-			}
-				p{
-					font-size: 30px;
-					font-weight: bold;
-					transition: 0.5s;
-					display: block;
-				}
-				.shop{
-					display: block;
-				}
+    <style>
+        .single-product-item {
+            p {
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
 
-			}
+        .image {
+            height: 150px;
+            width: 200px;
+
+            p {
+                color: white;
+                transition: 0.5s;
+                display: none;
+                position: relative;
+                bottom: 110px;
+            }
+
+            .shop {
+                position: relative;
+                display: none;
+                bottom: 100px;
+            }
+
+            .overlay {
+                position: absolute;
+                transition: all 0.3s ease;
+                opacity: 0;
+                left: 0px;
+                background-color: #003566;
+            }
+
+            img {
+                height: 150px;
+                width: 200px;
+                border-radius: 5%;
+            }
+        }
+
+        .overlayLeft {
+            height: 100%;
+            width: 0;
+            top: 0;
+            left: 75px;
+            background-color: #003566;
+            border-radius: 5%;
+        }
+
+        .image:hover {
+            transform: translate3d(0, -10px, 0);
+            box-shadow: 0px 21px 44px rgba(0, 0, 0, 0.08);
+
+            .overlay {
+                opacity: 0.5;
+            }
+
+            .overlayLeft {
+                height: 150px;
+                width: 200px;
+            }
+
+            p {
+                font-size: 30px;
+                font-weight: bold;
+                transition: 0.5s;
+                display: block;
+            }
+
+            .shop {
+                display: block;
+            }
+
+        }
 
 
-		</style>
+    </style>
 </head>
 <body>
-	
-	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
+
+<!--PreLoader-->
+<div class="loader">
+    <div class="loader-inner">
+        <div class="circle"></div>
     </div>
-    <!--PreLoader Ends-->
-	
-	<!-- header -->
-	<div class="top-header-area" id="sticker">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-sm-12 text-center">
-					<div class="main-menu-wrap">
-						<!-- logo -->
-						<div class="site-logo">
-							<a th:href="@{/user/main}">
-								<img th:src="@{assets/img/logo.png}" alt="">
-							</a>
-						</div>
-						<!-- logo -->
+</div>
+<!--PreLoader Ends-->
+
+<!-- header -->
+<div class="top-header-area" id="sticker">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 text-center">
+                <div class="main-menu-wrap">
+                    <!-- logo -->
+                    <div class="site-logo">
+                        <a th:href="@{/user/main}">
+                            <img th:src="@{assets/img/logo.png}" alt="">
+                        </a>
+                    </div>
+                    <!-- logo -->
 
 						<!-- menu start -->
 						<nav class="main-menu">
@@ -132,54 +145,73 @@
 								</li>
 								<li><a th:href="@{/user/contact}">Contact</a></li>
 
-								<li>
-									<div class="header-icons d-flex">
-										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-										<!--Profile Settings added -->
-										<a>
-											<ul class="navbar-nav flex-row align-items-center ms-auto" >
-												<!-- User -->
-												<li class="nav-item navbar-dropdown dropdown-user dropdown">
-													<a
-															class="nav-link dropdown-toggle hide-arrow p-0"
-															href="javascript:void(0);"
-															data-bs-toggle="dropdown" style="justify-content: end">
-														<div class="avatar avatar-online">
-															<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
-																<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-															</svg>                    </div>
-													</a>
-													<ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:20px; border-radius: 10px; padding-block: 10px;" >
-														<li>
-															<a class="dropdown-item" href="#">
-																<div class="d-flex align-items-center">
-																	<div class="flex-shrink-0 me-2">
-																		<div class="avatar avatar-online">
-																			<img th:src="@{../assets/img/user (1).png}" alt class="w-px-40 h-auto rounded-circle"  style="width: 12%; position: relative; left: 20px;"/>
-																		</div>
-																		<div>
-																			<button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
-																		</div>
-																	</div>
-																</div>
-															</a>
-														</li>
-														<li>
-															<div class="dropdown-divider"></div>
-														</li>
-														<li>
-															<a class="dropdown-item" href="#">
-																<i class="ri-user-3-line ri-22px me-2"></i>
-																<span class="align-middle" style="color: black">Username</span>
-																<div class="form-control">babygirl</div>
-															</a>
-															<a class="dropdown-item" href="#">
-																<i class="ri-user-3-line ri-22px me-2"></i>
-																<span class="align-middle" style="color: black">Email</span>
-																<div class="form-control">forbin@gmail.com</div>
-															</a>
-														</li>
+                            <li>
+                                <div class="header-icons d-flex">
+                                    <a class="shopping-cart pt-4" th:href="@{/user/cart}"><i
+                                            class="fas fa-shopping-cart"></i></a>
+                                    <a th:href="@{/user/wishlist}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="22"
+                                             fill="currentColor" class="bi bi-bag-heart" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                  d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M14 14V5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1M8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+                                        </svg>
+                                    </a>
+                                    <!--Profile Settings added -->
+                                    <a>
+                                        <ul class="navbar-nav flex-row align-items-center ms-auto">
+                                            <!-- User -->
+                                            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                                <a
+                                                        class="nav-link dropdown-toggle hide-arrow p-0"
+                                                        href="javascript:void(0);"
+                                                        data-bs-toggle="dropdown" style="justify-content: end">
+                                                    <div class="avatar avatar-online">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                             fill="currentColor" class="bi bi-person-fill mb-2"
+                                                             viewBox="0 0 16 16">
+                                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                                        </svg>
+                                                    </div>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end mt-3"
+                                                    style="padding-inline:20px; border-radius: 10px; padding-block: 10px;">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="flex-shrink-0 me-2">
+                                                                    <div class="avatar avatar-online">
+                                                                        <img th:src="@{../assets/img/user (1).png}" alt
+                                                                             class="w-px-40 h-auto rounded-circle"
+                                                                             style="width: 12%; position: relative; left: 20px;"/>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button class="bordered-btn mt-3"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#editModal"
+                                                                                style="border-radius: 40px; color: black; background-color: white;">
+                                                                            Edit Profile
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <div class="dropdown-divider"></div>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="ri-user-3-line ri-22px me-2"></i>
+                                                            <span class="align-middle"
+                                                                  style="color: black">Username</span>
+                                                            <div class="form-control">babygirl</div>
+                                                        </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i class="ri-user-3-line ri-22px me-2"></i>
+                                                            <span class="align-middle" style="color: black">Email</span>
+                                                            <div class="form-control">forbin@gmail.com</div>
+                                                        </a>
+                                                    </li>
 
 														<li>
 															<div class="dropdown-divider"></div>
@@ -198,482 +230,505 @@
 											</ul>
 										</a>
 
-									</div>
-								</li>
-							</ul>
-						</nav>
-						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-						<div class="mobile-menu"></div>
-						<!-- menu end -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end header -->
-
-	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end search area -->
-
-	<!-- hero area -->
-	<div class="hero-area hero-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-9 offset-lg-2 text-center">
-					<div class="hero-text">
-						<div class="hero-text-tablecell">
-							<p class="subtitle">Discover amazing deals on all products</p>
-							<h1>At Click n Collect</h1>
-							<div class="hero-btns">
-								<a th:href="@{/user/shop}" class="boxed-btn">Shop Now</a>
-								<a th:href="@{/user/contact}" class="bordered-btn">Contact Us</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end hero area -->
-
-	<!-- features list section -->
-	<div class="list-section pt-80 pb-80">
-		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-shipping-fast"></i>
-						</div>
-						<div class="content">
-							<h3>Free Shipping</h3>
-							<p>When order over 100,000XAF</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-phone-volume"></i>
-						</div>
-						<div class="content">
-							<h3>24/7 Support</h3>
-							<p>Get support all day</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="list-box d-flex justify-content-start align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-sync"></i>
-						</div>
-						<div class="content">
-							<h3>Refund</h3>
-							<p>Get refund within 3 days!</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<!-- end features list section -->
-
-  	<!-- Categories section -->
-	<div class="product-section mt-150 mb-150">
-		<div class="containers">
-			<div class="row">
-					<div class="section-title text-center m-5" style="display: block; margin: 0 auto;">
-						<center>
-						<h3> Shop by  <span class="orange-text"> Category</span> </h3>
-						</center>
-					</div>
-			</div>
-
-			<div class="row m-5">
-				<div class="col-lg-2 col-md-6 text-center">
-						<div class="image" id="overlay">
-							<a href="#"><img th:src="@{/assets/img/pexels-kaip-996329.jpg}" width="90%" alt=""></a>
-							<div class="overlay overlayLeft"></div>
-							<p>FASHION</p>
-							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
-						</div>
-				</div>
-				<div class="col-lg-2 col-md-6 text-center">
-						<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-garrettmorrow-682933.jpg}" alt=""></a>
-							<div class="overlay overlayLeft"></div>
-							<p>ELECTRONICS</p>
-							<a th:href="@{/user/shop}"  class="shop boxed-btn">Shop Now</a>
-						</div>
-				</div>
-				<div class="col-lg-2 col-md-6 text-center">
-					<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/cat (5).jpg}" alt=""></a>
-							<div class="overlay overlayLeft"></div>
-							<p>HOME</p>
-							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
-						</div>
-				</div>
-				<div class="col-lg-2 col-md-6 text-center">
-					<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-kovyrina-12211.jpg}" alt=""></a>
-							<div class="overlay overlayLeft"></div>
-							<p>TOYS</p>
-							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
-						</div>
-				</div>
-				<div class="col-lg-2 col-md-6 text-center">
-					<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-416717.jpg}" alt=""></a>
-							<div class="overlay overlayLeft"></div>
-							<p>SPORT</p>
-							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
-						</div>
-				</div>
-				<div class="col-lg-2 col-md-6 text-center">
-					<div class="image">
-							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-267202.jpg}" alt=""></a>
-							<div class="overlay overlayLeft"></div>
-							<p>SHOES</p>
-							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
-						</div>
-
-				</div>
-
-			</div>
-		</div>
-	</div>
-	 <!-- End categories section -->
-
-	<!-- product section -->
-	<div class="product-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">
-						<h3><span class="orange-text">Featured</span> Products</h3>
-					</div>
-				</div>
-			</div>
-
-			<div class="row" id="products-container">
-				<!-- Products will be dynamically added here -->
-			</div>
-		</div>
-	</div>
-	<!-- end product section -->
-
-	<!-- cart banner section -->
-	<section class="cart-banner pt-100 pb-100">
-    	<div class="container">
-        	<div class="row clearfix">
-            	<!--Image Column-->
-            	<div class="image-column col-lg-6">
-                	<div class="image">
-                    	<div class="price-box">
-                        	<div class="inner-price">
-                                <span class="price">
-                                    <strong>30%</strong> <br> off per kg
-                                </span>
-                            </div>
-                        </div>
-                    	<img th:src="@{/assets/img/a.jpg}" alt="">
-                    </div>
-                </div>
-                <!--Content Column-->
-                <div class="content-column col-lg-6">
-					<h3><span class="orange-text">Deal</span> of the day</h3>
-                    <h4>Limited Time Offer!</h4>
-                    <div class="text">Premium Wireless Noise Cancelling Headphones with superior sound quality,
-                        30-hour battery life, and comfortable over-ear design. Perfect for work,
-                        travel, or relaxation.</div>
-                    <!--Countdown Timer-->
-                    <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
-                	<a th:href="@{/user/cart}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                    <div class="mobile-menu"></div>
+                    <!-- menu end -->
                 </div>
             </div>
         </div>
-    </section>
-    <!-- end cart banner section -->
+    </div>
+</div>
+<!-- end header -->
 
-	<!-- Edit User Settings Modal -->
-	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
-					<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<br>
-					<div class="row g-4">
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input
-										type="text"
-										class="form-control"
-										placeholder="Enter First Name" />
-								<label>Full Name</label>
-							</div>
-						</div>
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input type="text" class="form-control" placeholder="Enter Last Name" />
-								<label>Last Name</label>
-							</div>
-						</div>
-					</div>
-					<br>
-					<div class="row g-4">
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input
-										type="text"
-										class="form-control"
-										placeholder="Enter Username" />
-								<label >Username</label>
-							</div>
-						</div>
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input type="password" class="form-control" placeholder="..........." />
-								<label>Password</label>
-							</div>
-						</div>
-					</div>
-					<br>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-						Cancel
-					</button>
-					<button type="button" class="btn btn-primary">Save Settings</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Edit User Settings Modal -->
+<!-- search area -->
+<div class="search-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="close-btn"><i class="fas fa-window-close"></i></span>
+                <div class="search-bar">
+                    <div class="search-bar-tablecell">
+                        <h3>Search For:</h3>
+                        <input type="text" placeholder="Keywords">
+                        <button type="submit">Search <i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end search area -->
+
+<!-- hero area -->
+<div class="hero-area hero-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 offset-lg-2 text-center">
+                <div class="hero-text">
+                    <div class="hero-text-tablecell">
+                        <p class="subtitle">Discover amazing deals on all products</p>
+                        <h1>At Click n Collect</h1>
+                        <div class="hero-btns">
+                            <a th:href="@{/user/shop}" class="boxed-btn">Shop Now</a>
+                            <a th:href="@{/user/contact}" class="bordered-btn">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end hero area -->
+
+<!-- features list section -->
+<div class="list-section pt-80 pb-80">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <div class="list-box d-flex align-items-center">
+                    <div class="list-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="content">
+                        <h3>Free Shipping</h3>
+                        <p>When order over 100,000XAF</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <div class="list-box d-flex align-items-center">
+                    <div class="list-icon">
+                        <i class="fas fa-phone-volume"></i>
+                    </div>
+                    <div class="content">
+                        <h3>24/7 Support</h3>
+                        <p>Get support all day</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="list-box d-flex justify-content-start align-items-center">
+                    <div class="list-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <div class="content">
+                        <h3>Refund</h3>
+                        <p>Get refund within 3 days!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end features list section -->
+
+<!-- Categories section -->
+<div class="product-section mt-150 mb-150">
+    <div class="containers">
+        <div class="row">
+            <div class="section-title text-center m-5" style="display: block; margin: 0 auto;">
+                <center>
+                    <h3> Shop by <span class="orange-text"> Category</span></h3>
+                </center>
+            </div>
+        </div>
+
+        <div class="row m-5">
+            <div class="col-lg-2 col-md-6 text-center">
+                <div class="image" id="overlay">
+                    <a href="#"><img th:src="@{/assets/img/pexels-kaip-996329.jpg}" width="90%" alt=""></a>
+                    <div class="overlay overlayLeft"></div>
+                    <p>FASHION</p>
+                    <a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 text-center">
+                <div class="image">
+                    <a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-garrettmorrow-682933.jpg}"
+                                                              alt=""></a>
+                    <div class="overlay overlayLeft"></div>
+                    <p>ELECTRONICS</p>
+                    <a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 text-center">
+                <div class="image">
+                    <a th:href="@{/user/single-product}"><img th:src="@{/assets/img/cat (5).jpg}" alt=""></a>
+                    <div class="overlay overlayLeft"></div>
+                    <p>HOME</p>
+                    <a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 text-center">
+                <div class="image">
+                    <a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-kovyrina-12211.jpg}" alt=""></a>
+                    <div class="overlay overlayLeft"></div>
+                    <p>TOYS</p>
+                    <a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 text-center">
+                <div class="image">
+                    <a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-416717.jpg}" alt=""></a>
+                    <div class="overlay overlayLeft"></div>
+                    <p>SPORT</p>
+                    <a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 text-center">
+                <div class="image">
+                    <a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-267202.jpg}" alt=""></a>
+                    <div class="overlay overlayLeft"></div>
+                    <p>SHOES</p>
+                    <a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End categories section -->
+
+<!-- product section -->
+<div class="product-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="section-title">
+                    <h3><span class="orange-text">Featured</span> Products</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="products-container">
+            <div class="col-lg-3 col-md-6 text-center"></div>
+            <div th:each="product : ${products}">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end product section -->
+
+<!-- cart banner section -->
+<section class="cart-banner pt-100 pb-100">
+    <div class="container">
+        <div class="row clearfix">
+            <!--Image Column-->
+            <div class="image-column col-lg-6">
+                <div class="image">
+                    <div class="price-box">
+                        <div class="inner-price">
+                                <span class="price">
+                                    <strong>30%</strong> <br> off per kg
+                                </span>
+                        </div>
+                    </div>
+                    <img th:src="@{/assets/img/a.jpg}" alt="">
+                </div>
+            </div>
+            <!--Content Column-->
+            <div class="content-column col-lg-6">
+                <h3><span class="orange-text">Deal</span> of the day</h3>
+                <h4>Limited Time Offer!</h4>
+                <div class="text">Premium Wireless Noise Cancelling Headphones with superior sound quality,
+                    30-hour battery life, and comfortable over-ear design. Perfect for work,
+                    travel, or relaxation.
+                </div>
+                <!--Countdown Timer-->
+                <div class="time-counter">
+                    <div class="time-countdown clearfix" data-countdown="2020/2/01">
+                        <div class="counter-column">
+                            <div class="inner"><span class="count">00</span>Days</div>
+                        </div>
+                        <div class="counter-column">
+                            <div class="inner"><span class="count">00</span>Hours</div>
+                        </div>
+                        <div class="counter-column">
+                            <div class="inner"><span class="count">00</span>Mins</div>
+                        </div>
+                        <div class="counter-column">
+                            <div class="inner"><span class="count">00</span>Secs</div>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/user/cart}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end cart banner section -->
+
+<!-- Edit User Settings Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <br>
+                <div class="row g-4">
+                    <div class="col mb-2">
+                        <div class="form-floating form-floating-outline">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Enter First Name"/>
+                            <label>Full Name</label>
+                        </div>
+                    </div>
+                    <div class="col mb-2">
+                        <div class="form-floating form-floating-outline">
+                            <input type="text" class="form-control" placeholder="Enter Last Name"/>
+                            <label>Last Name</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row g-4">
+                    <div class="col mb-2">
+                        <div class="form-floating form-floating-outline">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Enter Username"/>
+                            <label>Username</label>
+                        </div>
+                    </div>
+                    <div class="col mb-2">
+                        <div class="form-floating form-floating-outline">
+                            <input type="password" class="form-control" placeholder="..........."/>
+                            <label>Password</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary">Save Settings</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Edit User Settings Modal -->
 
 
-	<!-- logo carousel -->
-	<div class="logo-carousel-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="logo-carousel-inner">
-						<div class="single-logo-item">
-							<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img th:src="@{/assets/img/company-logos/sam.png}" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img th:src="@{/assets/img/company-logos/kapp.png}" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img th:src="@{/assets/img/company-logos/addi.png}" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img th:src="@{/assets/img/company-logos/nikes.png}" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img th:src="@{/assets/img/company-logos/hnm.png}" alt="">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end logo carousel -->
+<!-- logo carousel -->
+<div class="logo-carousel-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="logo-carousel-inner">
+                    <div class="single-logo-item">
+                        <img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{/assets/img/company-logos/sam.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{/assets/img/company-logos/kapp.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{/assets/img/company-logos/addi.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{/assets/img/company-logos/nikes.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{/assets/img/company-logos/hnm.png}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end logo carousel -->
 
-	<!-- footer -->
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a few clicks. <br> Sign Up and start clicking today!!! </p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-							<li>Eyang, Cameroon</li>
-							<li>ClicknCollect@gmail.com</li>
-							<li>+237 658381975</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box pages">
-						<h2 class="widget-title">Navigation</h2>
-						<ul>
-							<li><a th:href="@{/user/main}">Home</a></li>
-							<li><a th:href="@{/user/shop}">Shop</a></li>
-							<li><a th:href="@{/user/contact}">Contact Us</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates on sales.</p>
-						<form action="#">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end footer -->
-	<script th:inline="javascript">
-		/*<![CDATA[*/
-		let user = /*[[${user}]]*/ null;
-		console.log("Logged in user ",user);
-		var products = /*[[${products}]]*/ [];
-		var images = /*[[${images}]]*/ [];
-		/*]]>*/
-	</script>
+<!-- footer -->
+<div class="footer-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box about-widget">
+                    <h2 class="widget-title">About us</h2>
+                    <p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a
+                        few clicks. <br> Sign Up and start clicking today!!! </p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box get-in-touch">
+                    <h2 class="widget-title">Get in Touch</h2>
+                    <ul>
+                        <li>Eyang, Cameroon</li>
+                        <li>ClicknCollect@gmail.com</li>
+                        <li>+237 658381975</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box pages">
+                    <h2 class="widget-title">Navigation</h2>
+                    <ul>
+                        <li><a th:href="@{/user/main}">Home</a></li>
+                        <li><a th:href="@{/user/shop}">Shop</a></li>
+                        <li><a th:href="@{/user/contact}">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box subscribe">
+                    <h2 class="widget-title">Subscribe</h2>
+                    <p>Subscribe to our mailing list to get the latest updates on sales.</p>
+                    <form action="#">
+                        <input type="email" placeholder="Email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end footer -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var products = /*[[${products}]]*/ [];
+    var images = /*[[${images}]]*/ [];
+    /*]]>*/
 
-	<script>
-		const container = document.getElementById('products-container');
-		container.innerHTML = ''; // Clear any existing content
+    const container = document.getElementById('products-container');
 
-		products.forEach(product => {
-			// Find first image for this product
-			const productImages = images.filter(img => img.productId === product.id);
-			const firstImageFile = productImages.length > 0 ? productImages[0].imageUrl : null;
+    products.forEach(product => {
+        // Find first image for this product
+        const productImages = images.filter(img => img.productId === product.id);
+        const firstImageFile = productImages.length > 0 ? productImages[0].imageUrl : null;
 
-			// Construct full image URL using your resource handler path
-			const firstImageUrl = firstImageFile
-					? `/${firstImageFile}`
-					: '/assets/img/products/default-product.jpg'; // fallback image
+        // Construct full image URL using your resource handler path
+        const firstImageUrl = firstImageFile
+            ? `/${firstImageFile}`
+            : '/images/default-product.jpg'; // fallback image
 
 			// Create product card HTML
 			const productDiv = document.createElement('div');
 			productDiv.className = "col-lg-3 col-md-6 text-center";
 			productDiv.innerHTML = `
-				<div class="single-product-item">
-					<a href="/user/single-product">
-						<img src="${firstImageUrl}" alt="${product.name}" style="height: 200px; width: 308px;" />
-					</a>
-					<h3>${product.name}</h3>
-					<p>Price: ${product.price} XAF</p>
-					<a href="javascript:void(0)" class="cart-btn" onclick="addToCart(${product.id})">
-						<i class="fas fa-shopping-cart"></i> Add to Cart
-					</a>
-				</div>
-			`;
+<div class="single-product-item">
+<a href="/user/single-product">
+        <img src="${firstImageUrl}" alt="${product.name}" style="height: 200px; width: 308px;" />
+      </a>
+      <h3>${product.name}</h3>
+      <p>Price: ${product.price} XAF</p>
+      <div class="d-flex justify-content-center gap-2">
+        <a href="/user/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+        <button class="cart-btn" style="background-color: #ff6b6b;" 
+                onclick="addToWishlist(${product.id})">
+            <i class="fas fa-heart"></i> Wishlist
+        </button>
+      </div>
+</div>
+    `;
 			container.appendChild(productDiv);
 		});
-
-		function addToCart(productId) {
-			fetch('/cart/add', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded',
-				},
-				body: `productId=${productId}&quantity=1`
-			})
-			.then(response => response.json())
-			.then(data => {
-				if (data.success) {
-					alert('Product added to cart successfully!');
-					window.location.href = "/user/cart";
-				} else {
-					alert(data.message || "Failed to add to cart");
-				}
-			})
-			.catch(error => {
-				console.error('Error:', error);
-				alert("Something went wrong");
-			});
-		}
 	</script>
 
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>&copy; Copyright Click 'n' Collect
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-					</p>
-				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
-	<!-- jquery -->
-	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-	<!-- bootstrap -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<!-- count down -->
-	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-	<!-- isotope -->
-	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-	<!-- waypoints -->
-	<script th:src="@{/assets/js/waypoints.js}"></script>
-	<!-- owl carousel -->
-	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-	<!-- magnific popup -->
-	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-	<!-- mean menu -->
-	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-	<!-- sticker js -->
-	<script th:src="@{/assets/js/sticker.js}"></script>
-	<!-- main js -->
-	<script th:src="@{/assets/js/main.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<!-- Add JavaScript for wishlist functionality -->
+	<script th:inline="javascript">
+	function addToWishlist(productId) {
+		fetch('/wishlist/add', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: 'productId=' + productId
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				alert('Product added to wishlist!');
+			} else {
+				alert('Error: ' + data.message);
+			}
+		})
+		.catch(error => {
+			console.error('Error:', error);
+			alert('An error occurred while adding to wishlist');
+		});
+	}
+	</script>
+
+<!-- copyright -->
+<div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <p>&copy; Copyright Click 'n' Collect
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                </p>
+            </div>
+            <div class="col-lg-6 text-right col-md-12">
+                <div class="social-icons">
+                    <ul>
+                        <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end copyright -->
+<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+<!-- end copyright -->
+<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
+<!-- jquery -->
+<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+<!-- bootstrap -->
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<!-- count down -->
+<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+<!-- isotope -->
+<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+<!-- waypoints -->
+<script th:src="@{/assets/js/waypoints.js}"></script>
+<!-- owl carousel -->
+<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+<!-- magnific popup -->
+<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+<!-- mean menu -->
+<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+<!-- sticker js -->
+<script th:src="@{/assets/js/sticker.js}"></script>
+<!-- main js -->
+<script th:src="@{/assets/js/main.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
+<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+
+
 </body>
-</html> 
+</html>

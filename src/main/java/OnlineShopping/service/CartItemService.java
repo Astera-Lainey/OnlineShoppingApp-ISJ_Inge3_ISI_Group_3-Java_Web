@@ -70,16 +70,15 @@ public class CartItemService {
         return cartItems.stream().mapToDouble(CartItem::getPrice).sum();
     }
 
-//    public CartItem updateCartItemQuantity(Long cartId, Integer quantity) {
-//        CartItem cartItem = cartItemRepository.findById(cartItemId)
-//                .orElseThrow(() -> new RuntimeException("Cart item not found"));
-//
-//        if (quantity <= 0) {
-//            cartItemRepository.delete(cartItem);
-//            return null;
-//        }
-//
-//        cartItem.setQuantity(quantity);
-//        return cartItemRepository.save(cartItem);
-//    }
+    public CartItem updateCartItemQuantity(Long cartId, Integer quantity, Integer cartItemId) {
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new RuntimeException("Cart item not found"));
+
+        if (quantity <= 0) {
+            cartItemRepository.delete(cartItem);
+            return null;
+        }
+        cartItem.setQuantity(quantity);
+        return cartItemRepository.save(cartItem);
+    }
 }

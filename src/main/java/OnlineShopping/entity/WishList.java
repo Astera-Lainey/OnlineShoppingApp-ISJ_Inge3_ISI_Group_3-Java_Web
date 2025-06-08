@@ -1,9 +1,6 @@
 package OnlineShopping.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Stock {
+public class WishList {
     @Id
-    public String productId;
-    public int quantity;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer wishListId;
     @OneToOne(fetch = FetchType.LAZY)
     public Product product;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

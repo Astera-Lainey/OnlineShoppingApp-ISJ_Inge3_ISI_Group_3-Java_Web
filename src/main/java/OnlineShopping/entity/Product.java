@@ -23,6 +23,9 @@ public class Product {
     private String brand;
     private Category category;
     private double price;
+    private ClothesSize clothesSize;
+    private ShoeSize shoeSize;
+    private String color;
     private int stockQuantity;
 
     @ColumnDefault("/assets/img/logo.png")

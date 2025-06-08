@@ -1,6 +1,8 @@
 package OnlineShopping.dto;
 
 import OnlineShopping.entity.Category;
+import OnlineShopping.entity.ClothesSize;
+import OnlineShopping.entity.ShoeSize;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,13 @@ public class ProductDTO {
 
     @NotNull
     private int stock;
+
+    @NotNull
+    private ClothesSize clothesSize;
+    @NotNull
+    private ShoeSize shoeSize;
+    @NotNull
+    private String color;
 
     public @NotNull List<MultipartFile> getImage() {
         return images;
@@ -82,6 +91,30 @@ public class ProductDTO {
 
     public void setName(@NotBlank String name) {
         this.name = name;
+    }
+
+    public @NotNull ClothesSize getClothesSize() {
+        return clothesSize;
+    }
+
+    public void setClothesSize(@NotNull ClothesSize clothesSize) {
+        this.clothesSize = clothesSize;
+    }
+
+    public @NotNull String getColor() {
+        return color;
+    }
+
+    public void setColor(@NotNull String color) {
+        this.color = color;
+    }
+
+    public ShoeSize getShoeSize() {
+        return shoeSize;
+    }
+
+    public void setShoeSize(@NotNull ShoeSize shoeSize) {
+        this.shoeSize = shoeSize;
     }
 }
 
