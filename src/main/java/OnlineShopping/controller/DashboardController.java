@@ -125,7 +125,7 @@ public class DashboardController {
         model.addAttribute("products", products);
         model.addAttribute("cats", Category.values());
         model.addAttribute("images", imagedto );
-        return "/user/wishlist";
+        return "/user/Wishlist";
     }
 
     @GetMapping("user/checkout")
