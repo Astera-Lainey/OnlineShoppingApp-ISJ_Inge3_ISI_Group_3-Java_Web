@@ -614,7 +614,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="row g-4">
-							<div class="col mb-2">
+							<div class="col">
 								<div class="form-floating form-floating-outline">
 									<input
 											type="text"
@@ -623,7 +623,7 @@
 									<label>Product Name</label>
 								</div>
 							</div>
-							<div class="col mb-2">
+							<div class="col">
 								<div class="form-floating form-floating-outline">
 									<input type="text" class="form-control" placeholder="Enter Brand" th:field="${productform.brand}" required style="height: 60px;"/>
 									<label>Product Brand</label>
@@ -632,7 +632,7 @@
 						</div>
 						<br>
 						<div class="row g-4">
-							<div class="col mb-2">
+							<div class="col">
 								<div class="form-floating form-floating-outline">
 									<select class="form-control" th:field="${productform.category}" required style="height: 60px;">
 										<option th:each="cat : ${cats}" th:value="${cat.name()}" th:text="${cat.displayName}"></option>
@@ -640,7 +640,7 @@
 									<label>Product Category</label>
 								</div>
 							</div>
-							<div class="col mb-2">
+							<div class="col">
 								<div class="form-floating form-floating-outline">
 									<input type="text" class="form-control" placeholder="How much is in stock" th:field="${productform.stock}" required style="height: 60px;"/>
 									<label>Stock Quantity</label>
@@ -667,7 +667,7 @@
 
 						</div>
 						<div class="row g-4">
-							<div class="col mb-2">
+							<div class="col">
 								<div class="form-floating form-floating-outline">
 									<input
 											type="text"
@@ -676,9 +676,9 @@
 									<label>Product Color</label>
 								</div>
 							</div>
-							<div class="col-6 mb-6 mt-2">
+							<div class="col-6 mt-6">
 								<div class="form-floating form-floating-outline">
-									<input type="number" class="form-control" placeholder="Enter Brand" th:field="${productform.price}" min="500" required style="height: 60px;"/>
+									<input type="number" class="form-control" placeholder="Enter Brand" th:field="${productform.price}" min="500" required style="height: 60px; width: 100%"/>
 									<label>Product Price in XAF</label>
 								</div>
 							</div>

@@ -41,12 +41,12 @@ public class ProductController {
                 productImageService.addProductImages(images,newProduct);
                 System.out.println("Product created successfully");
                 redirectAttributes.addFlashAttribute("successMessage", "Product created successfully");
-                return "redirect:/admin/adminDashboard";
+                return "redirect:/admin/adminDashboard/{userId}";
             } catch (Exception e) {
                 redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             }
 
-        return "redirect:/admin/adminDashboard";    }
+        return "redirect:/admin/adminDashboard/{userId}";}
 
     @PostMapping("/delete/{name}")
     public String deleteProduct(
@@ -57,7 +57,7 @@ public class ProductController {
             Product product = productService.getProductByName(name);
             if (product == null) {
                 redirectAttributes.addFlashAttribute("errorMessage", "Product not found");
-                return "redirect:/admin/adminDashboard";
+                return "redirect:/admin/adminDashboard/{userId}";
             }
 
 
@@ -77,7 +77,7 @@ public class ProductController {
             );
         }
 
-        return "redirect:/admin/adminDashboard";
+        return "redirect:/admin/adminDashboard/{userId}";
     }
 
     @PostMapping("/updatePhotos")
@@ -91,21 +91,21 @@ public class ProductController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Failed to update photos: " + e.getMessage());
         }
-        return "redirect:/admin/adminDashboard";
+        return "redirect:/admin/adminDashboard/{userId}";
     }
 
     @PostMapping("/deleteImage/{id}")
     public String deleteImage(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         productImageService.deleteImage(id);
         redirectAttributes.addFlashAttribute("successMessage", "Image deleted successfully");
-        return "redirect:/admin/adminDashboard";
+        return "redirect:/admin/adminDashboard/{userId}";
     }
 
     @PostMapping("/update/{id}")
     public String updateProductStock(@PathVariable Integer id,
                                      @RequestParam int stockQuantity) {
         productService.updateProduct(id, stockQuantity);
-        return "redirect:/admin/adminDashboard";
+        return "redirect:/admin/adminDashboard/{userId}";
     }
 
 
