@@ -23,7 +23,7 @@ public class CartItemService {
     @Autowired
     private ProductService productService;
 
-    public void addToCart(String userEmail, Integer productId, int quantity) {
+    public CartItem addToCart(String userEmail, Integer productId, int quantity) {
         Optional<User> userOpt = userRepository.findByEmail(userEmail);
         if (userOpt.isEmpty()) {
             throw new RuntimeException("User not found");
@@ -43,7 +43,7 @@ public class CartItemService {
                 item.setQuantity(item.getQuantity() + quantity);
                 item.setPrice(product.getPrice() * item.getQuantity());
                 cartItemRepository.save(item);
-                return;
+                return item;
             }
         }
 
@@ -54,6 +54,7 @@ public class CartItemService {
         cartItem.setQuantity(quantity);
         cartItem.setPrice(product.getPrice() * quantity);
         cartItemRepository.save(cartItem);
+        return cartItem;
     }
 
     public List<CartItem> getCartItems(String userEmail) {
@@ -68,4 +69,17 @@ public class CartItemService {
         List<CartItem> cartItems = getCartItems(userEmail);
         return cartItems.stream().mapToDouble(CartItem::getPrice).sum();
     }
+
+//    public CartItem updateCartItemQuantity(Long cartId, Integer quantity) {
+//        CartItem cartItem = cartItemRepository.findById(cartItemId)
+//                .orElseThrow(() -> new RuntimeException("Cart item not found"));
+//
+//        if (quantity <= 0) {
+//            cartItemRepository.delete(cartItem);
+//            return null;
+//        }
+//
+//        cartItem.setQuantity(quantity);
+//        return cartItemRepository.save(cartItem);
+//    }
 }

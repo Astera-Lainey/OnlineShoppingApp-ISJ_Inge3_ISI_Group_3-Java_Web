@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,9 @@ public class Product {
     private Category category;
     private double price;
     private int stockQuantity;
+
+    @ColumnDefault("/assets/img/logo.png")
+    private String productImageUrl;
 
     public Product(int id, String name, String description, String brand, Category category, List<String> images, double price) {
         this.id = id;

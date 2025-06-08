@@ -1,4 +1,10 @@
 package OnlineShopping.entity.repository;
 
-public interface AdminRepository {
+import OnlineShopping.entity.AdminDashboard;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AdminDashboardRepository {
+
+    AdminDashboard findById(int id);
 }

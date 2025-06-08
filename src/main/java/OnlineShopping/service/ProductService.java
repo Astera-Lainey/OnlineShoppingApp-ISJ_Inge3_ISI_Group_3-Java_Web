@@ -73,9 +73,14 @@ public class ProductService {
             productRepository.delete(product);
     }
     public Product updateProduct(Integer productId, int stockQuantity){
-        Product product = productRepository.findById(productId);
-        product.setStockQuantity(stockQuantity);
-        return productRepository.save(product);
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            product.setStockQuantity(stockQuantity);
+            return productRepository.save(product);
+        } else {
+            throw new RuntimeException("Product not found with id: " + productId);
+        }
     }
 
     public List<Product> searchProducts(String name, Category category){

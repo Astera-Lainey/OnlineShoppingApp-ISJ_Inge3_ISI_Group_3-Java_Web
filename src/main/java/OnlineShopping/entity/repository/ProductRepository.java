@@ -34,5 +34,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> searchProducts(@Param("name") String name,
                                  @Param("category") Category category);
 
+    List<Product> findByNameContainingAndCategory(String name, Category category);
+
+    List<Product> findByNameContaining(String name);
+
+    List<Product> findByCategory(Category category);
 }
 

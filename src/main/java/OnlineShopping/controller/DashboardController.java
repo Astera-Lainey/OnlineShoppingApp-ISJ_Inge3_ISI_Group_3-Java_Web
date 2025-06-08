@@ -10,6 +10,8 @@ import OnlineShopping.entity.repository.ProductRepository;
 import OnlineShopping.entity.repository.UserRepository;
 import OnlineShopping.service.ProductImageService;
 import OnlineShopping.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/")
 public class DashboardController {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserRepository userRepository;
@@ -78,7 +82,21 @@ public class DashboardController {
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/api/auth/login";
         }
+//        Object user;
+//        if (authentication.getPrincipal() != null) {
+//            user = authentication.getPrincipal();
+//            if(user == null){
+//                logger.error("user principal is null");
+//            }
+//            assert user != null;
+//            logger.info("user principal is {}", user.toString());
+//            model.addAttribute("user", user);
+//            // Add other attributes as needed
+//        } else {
+//            logger.error("authentication.getPrincipal() is null");
+//        }
 //        Models
+
         List<Product> products = productService.getAllProducts();
         List<ProductImage> images = productImageService.getAllImages();
         List<ImageDTO> imagedto = new ArrayList<>();
@@ -91,20 +109,18 @@ public class DashboardController {
 
         Optional<User> currentUserOpt = userRepository.findByEmail(authentication.getName());
         if (currentUserOpt.isEmpty()) {
+            logger.info("No user with email {}", authentication.getName());
             return "redirect:/api/auth/login";
+        } else {
+            logger.info("User found in db {}",  currentUserOpt.get());
+            model.addAttribute("user", currentUserOpt.get());
         }
 
 //        User currentUser = currentUserOpt.get();
 
-
         return "/user/main";
     }
 
-    @GetMapping("user/cart")
-    public String usersCart(Authentication authentication, Model model) {
-
-        return "/user/cart";
-    }
 
     @GetMapping("user/checkout")
     public String usersCheckout(Authentication authentication, Model model) {

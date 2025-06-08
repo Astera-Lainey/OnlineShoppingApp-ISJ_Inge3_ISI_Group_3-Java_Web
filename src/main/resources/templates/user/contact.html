@@ -108,7 +108,7 @@
 																<a class="dropdown-item" href="#">
 																	<i class="ri-user-3-line ri-22px me-2"></i>
 																	<span class="align-middle" style="color: black">Username</span>
-																	<div class="form-control">babygirl</div>
+																	<div class="sub-control">babygirl</div>
 																</a>
 																<a class="dropdown-item" href="#">
 																	<i class="ri-user-3-line ri-22px me-2"></i>
@@ -193,14 +193,21 @@
 					</div>
 				 	<div id="form_status"></div>
 					<div class="contact-form">
-						<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+						<form th:action="@{/contactUs/submit}" th:object="${contactUs}" method="post" type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
 							<p>
-								<input type="text" placeholder="Name" name="name" id="name">
-								<input type="email" placeholder="Email" name="email" id="email">
+								<input type="text" placeholder="Name" name="name" id="name"
+								th:field="${Name}"
+								th:classappend="${#fields.hasErrors('name')}? 'is-invalid'" required>
+								<input type="email" placeholder="Email" name="email" id="email"
+								th:field="${Email}"
+								th:classappend="${#fields.hasErrors('email')}? 'is-invalid'" required>
 							</p>
 							<p>
-								<input type="tel" placeholder="Phone" name="phone" id="phone">
-								<input type="text" placeholder="Subject" name="subject" id="subject">
+								<input type="tel" placeholder="Phone" name="phone" id="phone"
+								th:field="${Phone}"
+								th:classappend="${#fields.hasErrors('phone')}? 'is-invalid'" required>>
+								<input type="text" placeholder="Subject" name="subject" id="subject"
+								th:field="${Subject}">
 							</p>
 							<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea></p>
 							<input type="hidden" name="token" value="FsWga4&@f6aw" />

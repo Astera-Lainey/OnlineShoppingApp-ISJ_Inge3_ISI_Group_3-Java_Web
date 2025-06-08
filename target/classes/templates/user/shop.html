@@ -654,7 +654,6 @@
 	document.getElementById('searchForm').addEventListener('submit', function(e) {
 		const searchName = document.getElementById('searchName').value.trim();
 		const searchCategory = document.getElementById('searchCategory').value;
-
 		// Validate that at least one field has a value
 		if (!searchName && !searchCategory) {
 			e.preventDefault();

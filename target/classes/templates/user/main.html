@@ -28,14 +28,14 @@
 	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
 
 	<style>
-		.single-product-item{ 
+		.single-product-item{
 			p{
 				font-size: 20px;
 				font-weight: bold;
 			}}
 		.image {
 				height: 150px;
-				width: 200px;		
+				width: 200px;
 			p{
 				color: white;
 				transition: 0.5s;
@@ -88,10 +88,10 @@
 				.shop{
 					display: block;
 				}
-			
+
 			}
-		
-		
+
+
 		</style>
 </head>
 <body>
@@ -375,18 +375,7 @@
 			</div>
 
 			<div class="row" id="products-container">
-				<div class="col-lg-3 col-md-6 text-center" ></div>
-				<div  th:each="product : ${products}">
-
-<!--						<div class="product-image">-->
-<!--							<a th:href="@{/user/single-product}">-->
-<!--								-->
-<!--							</a>-->
-<!--						</div>-->
-<!--						<h3 th:text="${product.name}"></h3>-->
-<!--						<p class="product-price" th:text="${product.price}"> XAF</p>-->
-<!--						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>-->
-				</div>
+				<!-- Products will be dynamically added here -->
 			</div>
 		</div>
 	</div>
@@ -568,15 +557,16 @@
 	<!-- end footer -->
 	<script th:inline="javascript">
 		/*<![CDATA[*/
+		let user = /*[[${user}]]*/ null;
+		console.log("Logged in user ",user);
 		var products = /*[[${products}]]*/ [];
 		var images = /*[[${images}]]*/ [];
 		/*]]>*/
 	</script>
 
-
-
 	<script>
 		const container = document.getElementById('products-container');
+		container.innerHTML = ''; // Clear any existing content
 
 		products.forEach(product => {
 			// Find first image for this product
@@ -586,26 +576,49 @@
 			// Construct full image URL using your resource handler path
 			const firstImageUrl = firstImageFile
 					? `/${firstImageFile}`
-					: '/images/default-product.jpg'; // fallback image
+					: '/assets/img/products/default-product.jpg'; // fallback image
 
 			// Create product card HTML
 			const productDiv = document.createElement('div');
 			productDiv.className = "col-lg-3 col-md-6 text-center";
 			productDiv.innerHTML = `
-<div class="single-product-item">
-<a href="/user/single-product">
-        <img src="${firstImageUrl}" alt="${product.name}" style="height: 200px; width: 308px;" />
-      </a>
-      <h3>${product.name}</h3>
-      <p>Price: ${product.price} XAF</p>
-      <a href="/user/cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-</div>
-
-    `;
+				<div class="single-product-item">
+					<a href="/user/single-product">
+						<img src="${firstImageUrl}" alt="${product.name}" style="height: 200px; width: 308px;" />
+					</a>
+					<h3>${product.name}</h3>
+					<p>Price: ${product.price} XAF</p>
+					<a href="javascript:void(0)" class="cart-btn" onclick="addToCart(${product.id})">
+						<i class="fas fa-shopping-cart"></i> Add to Cart
+					</a>
+				</div>
+			`;
 			container.appendChild(productDiv);
 		});
-	</script>
 
+		function addToCart(productId) {
+			fetch('/cart/add', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: `productId=${productId}&quantity=1`
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert('Product added to cart successfully!');
+					window.location.href = "/user/cart";
+				} else {
+					alert(data.message || "Failed to add to cart");
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert("Something went wrong");
+			});
+		}
+	</script>
 
 	<!-- copyright -->
 	<div class="copyright">
@@ -662,7 +675,5 @@
 	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-
-
 </body>
 </html> 
