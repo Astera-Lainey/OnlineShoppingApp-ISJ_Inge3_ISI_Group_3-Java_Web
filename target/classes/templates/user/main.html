@@ -29,6 +29,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
 
     <style>
+
         .single-product-item {
             p {
                 font-size: 20px;
@@ -285,7 +286,7 @@
 <!-- end hero area -->
 
 <!-- features list section -->
-<div class="list-section pt-80 pb-80">
+<div class="list-section" style="padding-top: 30px; padding-bottom: 30px;">
     <div class="container">
 
         <div class="row">
@@ -329,7 +330,7 @@
 <!-- end features list section -->
 
 <!-- Categories section -->
-<div class="product-section mt-150 mb-150">
+<div class="product-section" style="margin-top: 80px;">
     <div class="containers">
         <div class="row">
             <div class="section-title text-center m-5" style="display: block; margin: 0 auto;">
@@ -415,55 +416,6 @@
     </div>
 </div>
 <!-- end product section -->
-
-<!-- cart banner section -->
-<section class="cart-banner pt-100 pb-100">
-    <div class="container">
-        <div class="row clearfix">
-            <!--Image Column-->
-            <div class="image-column col-lg-6">
-                <div class="image">
-                    <div class="price-box">
-                        <div class="inner-price">
-                                <span class="price">
-                                    <strong>30%</strong> <br> off per kg
-                                </span>
-                        </div>
-                    </div>
-                    <img th:src="@{/assets/img/a.jpg}" alt="">
-                </div>
-            </div>
-            <!--Content Column-->
-            <div class="content-column col-lg-6">
-                <h3><span class="orange-text">Deal</span> of the day</h3>
-                <h4>Limited Time Offer!</h4>
-                <div class="text">Premium Wireless Noise Cancelling Headphones with superior sound quality,
-                    30-hour battery life, and comfortable over-ear design. Perfect for work,
-                    travel, or relaxation.
-                </div>
-                <!--Countdown Timer-->
-                <div class="time-counter">
-                    <div class="time-countdown clearfix" data-countdown="2020/2/01">
-                        <div class="counter-column">
-                            <div class="inner"><span class="count">00</span>Days</div>
-                        </div>
-                        <div class="counter-column">
-                            <div class="inner"><span class="count">00</span>Hours</div>
-                        </div>
-                        <div class="counter-column">
-                            <div class="inner"><span class="count">00</span>Mins</div>
-                        </div>
-                        <div class="counter-column">
-                            <div class="inner"><span class="count">00</span>Secs</div>
-                        </div>
-                    </div>
-                </div>
-                <a th:href="@{/user/cart}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end cart banner section -->
 
 <!-- Edit User Settings Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
