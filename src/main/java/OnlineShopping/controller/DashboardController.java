@@ -33,7 +33,7 @@ public class DashboardController {
     private ProductImageService productImageService;
 
     //admin getMappings
-    @GetMapping("admin/adminDashboard")
+    @GetMapping("admin/adminDashboard/{userId}")
     public String adminDashboard(Model model, Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return "redirect:/api/auth/login";
@@ -59,6 +59,7 @@ public class DashboardController {
 
         // Add admin-specific statistics
         model.addAttribute("totalUsers", userRepository.count());
+        model.addAttribute("totalCustomers", (long) userRepository.findByRole(User.Role.USER).size());
         return "admin/adminDashboard";
     }
 
