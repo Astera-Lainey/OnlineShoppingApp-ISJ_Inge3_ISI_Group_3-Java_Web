@@ -17,4 +17,8 @@ public class CartItem {
     public Product product;
     public int quantity;
     public double price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }
