@@ -4,133 +4,134 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <!-- User Dropdown Fragment -->
-    <div th:fragment="user-dropdown">
-        <div class="profile">
-            <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                    <a class="nav-link dropdown-toggle hide-arrow p-0"
-                       href="javascript:void(0);"
-                       data-bs-toggle="dropdown" 
-                       style="justify-content: end">
-                        <div class="avatar avatar-online">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                            </svg>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:20px; border-radius: 10px; padding-block: 10px;">
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 me-2">
-                                        <div class="avatar avatar-online">
-                                            <img th:src="@{/assets/img/profile.png}" alt="User Profile" class="w-px-40 h-auto rounded-circle" style="width: 40px; height: 40px; object-fit: cover; position: relative; left: 20px;"/>
-                                        </div>
-                                        <div>
-                                            <button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
-                                        </div>
+<!-- User Dropdown Fragment -->
+<div th:fragment="user-dropdown">
+    <div class="profile">
+        <ul class="navbar-nav flex-row align-items-center ms-auto">
+            <!-- User -->
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow p-0"
+                   href="javascript:void(0);"
+                   data-bs-toggle="dropdown"
+                   style="justify-content: end">
+                    <div class="avatar avatar-online">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:20px; border-radius: 10px; padding-block: 10px;">
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 me-2">
+                                    <div class="avatar avatar-online">
+                                        <img th:src="@{/assets/img/profile.png}" alt="User Profile" class="w-px-40 h-auto rounded-circle" style="width: 40px; height: 40px; object-fit: cover; position: relative; left: 20px;"/>
+                                    </div>
+                                    <div>
+                                        <button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editUserModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
                                     </div>
                                 </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li class="user-info">
+                        <div class="dropdown-item">
+                            <i class="ri-user-3-line ri-22px me-2"></i>
+                            <span class="align-middle" style="color: black">Username</span>
+                            <div class="form-control">
+                                <span th:text="${session.userInfo.username} ?: 'Not logged in'"></span>
+                            </div>
+                        </div>
+                        <div class="dropdown-item">
+                            <i class="ri-mail-line ri-22px me-2"></i>
+                            <span class="align-middle" style="color: black">Email</span>
+                            <div class="form-control">
+                                <span th:text="${session.userInfo.email} ?: 'Not logged in'"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/api/wishlist/page}">
+                            <i class="ri-heart-line ri-22px me-2"></i>
+                            <span class="align-middle" style="color: black">My Wishlist</span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                        <div class="d-grid px-4 pt-2 pb-1 me-5">
+                            <a class="btn btn-danger d-flex" th:href="@{/api/auth/logout}">
+                                <small class="align-middle">Logout</small>
+                                <i class="ri-logout-box-r-line ms-2 ri-16px"></i>
                             </a>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                        </li>
-                        <li class="user-info">
-                            <div class="dropdown-item">
-                                <i class="ri-user-3-line ri-22px me-2"></i>
-                                <span class="align-middle" style="color: black">Username</span>
-                                <div class="form-control" id="username-display">
-                                    <span class="loading-text">Loading...</span>
-                                </div>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="ri-mail-line ri-22px me-2"></i>
-                                <span class="align-middle" style="color: black">Email</span>
-                                <div class="form-control" id="email-display">
-                                    <span class="loading-text">Loading...</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/api/wishlist/page}">
-                                <i class="ri-heart-line ri-22px me-2"></i>
-                                <span class="align-middle" style="color: black">My Wishlist</span>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                        </li>
-                        <li>
-                            <div class="d-grid px-4 pt-2 pb-1 me-5">
-                                <a class="btn btn-danger d-flex" th:href="@{/api/auth/logout}">
-                                    <small class="align-middle">Logout</small>
-                                    <i class="ri-logout-box-r-line ms-2 ri-16px"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <!--/ User -->
-            </ul>
-        </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <!--/ User -->
+        </ul>
+    </div>
 
-        <!-- JavaScript to fetch and display user info -->
-        <script th:inline="javascript">
-            document.addEventListener('DOMContentLoaded', function() {
-                // Function to get cookie value by name
-                function getCookie(name) {
-                    const value = `; ${document.cookie}`;
-                    const parts = value.split(`; ${name}=`);
-                    if (parts.length === 2) return parts.pop().split(';').shift();
+    <!-- JavaScript to fetch and display user info -->
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to get cookie value by name
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+
+            // Function to decode JWT token
+            function parseJwt(token) {
+                try {
+                    const base64Url = token.split('.')[1];
+                    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                    return JSON.parse(jsonPayload);
+                } catch (e) {
+                    console.error('Error parsing JWT:', e);
+                    return null;
                 }
+            }
 
-                // Function to decode JWT token
-                function parseJwt(token) {
-                    try {
-                        const base64Url = token.split('.')[1];
-                        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                        }).join(''));
-                        return JSON.parse(jsonPayload);
-                    } catch (e) {
-                        console.error('Error parsing JWT:', e);
-                        return null;
-                    }
-                }
-
-                // Get token from cookie
-                const token = getCookie('jwt_token');
-                if (token) {
-                    const decodedToken = parseJwt(token);
-                    if (decodedToken) {
-                        // Update username and email displays
-                        const usernameDisplay = document.getElementById('username-display');
-                        const emailDisplay = document.getElementById('email-display');
-                        
-                        if (usernameDisplay) {
-                            usernameDisplay.textContent = decodedToken.sub || 'N/A';
-                        }
-                        if (emailDisplay) {
-                            emailDisplay.textContent = decodedToken.email || 'N/A';
-                        }
-                    }
-                } else {
-                    // Handle case where token is not found
+            // Get token from cookie
+            const token = getCookie('jwt_token');
+            if (token) {
+                const decodedToken = parseJwt(token);
+                if (decodedToken) {
+                    // Update username and email displays
                     const usernameDisplay = document.getElementById('username-display');
                     const emailDisplay = document.getElementById('email-display');
-                    
-                    if (usernameDisplay) usernameDisplay.textContent = 'Not logged in';
-                    if (emailDisplay) emailDisplay.textContent = 'Not logged in';
+
+                    if (usernameDisplay) {
+                        usernameDisplay.textContent = decodedToken.sub ||  'N/A';
+                    }
+                    if (emailDisplay) {
+                        emailDisplay.textContent = decodedToken.email ||  'N/A';
+                    }
                 }
-            });
-        </script>
-    </div>
+            } else {
+                // Handle case where token is not found
+                const usernameDisplay = document.getElementById('username-display');
+                const emailDisplay = document.getElementById('email-display');
+
+                if (usernameDisplay) usernameDisplay.textContent = 'Not logged in';
+                if (emailDisplay) emailDisplay.textContent = 'Not logged in';
+            }
+        });
+    </script>
+    <!--	user js-->
+</div>
 </body>
 </html> 

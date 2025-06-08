@@ -1,5 +1,6 @@
 package OnlineShopping.config.security;
 
+import OnlineShopping.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,6 +31,8 @@ public class JwtTokenProvider {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        User user = (User) userDetails;
+        claims.put("email", user.getEmail());
         return createToken(claims, userDetails.getUsername());
     }
 

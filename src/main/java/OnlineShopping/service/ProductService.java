@@ -41,8 +41,9 @@ public class ProductService {
     public Product getProductByName(String name) {
         return productRepository.findByName(name);
     }
-    public Object getProductById(int id) {
-        return productRepository.findById(id);
+    public Product getProductById(int id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
     }
     public Product updateProduct(Product product){
         return productRepository.save(product);

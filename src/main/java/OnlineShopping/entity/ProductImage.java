@@ -1,5 +1,6 @@
 package OnlineShopping.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import OnlineShopping.dto.ImageDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,8 @@ public class ProductImage {
 
    @Column
    private String path;
-@ManyToOne(fetch = FetchType.LAZY)
+@JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 //to build the dto ie convert the image into a dto with id and path
