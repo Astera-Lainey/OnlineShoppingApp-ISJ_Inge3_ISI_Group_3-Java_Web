@@ -1,8 +1,12 @@
 package OnlineShopping.config.security;
 
+import OnlineShopping.entity.User;
+import OnlineShopping.entity.repository.UserRepository;
+import OnlineShopping.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -14,6 +18,8 @@ import java.util.logging.Logger;
 
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+    @Autowired
+    private UserRepository userRepository;
     private static final Logger logger = Logger.getLogger(CustomAuthenticationSuccessHandler.class.getName());
 
     @Override
@@ -24,6 +30,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         logger.info("=== Authentication Success Handler ===");
         logger.info("Request URL: " + request.getRequestURL());
         logger.info("User authenticated: " + authentication.getName());
+        User user = userRepository.findByEmail(authentication.getName()).get();
+        logger.info("User: " + user);
         
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         logger.info("User authorities: " + authorities);
@@ -45,8 +53,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         
         logger.info("Final redirect URL: " + redirectUrl);
         logger.info("=== End Authentication Success Handler ===");
+        logger.info("User redirect path final:" + redirectUrl + user.getId());
         
-        response.sendRedirect(redirectUrl);
+        response.sendRedirect(redirectUrl + "/" + user.getId());
     }
 
     private String determineRedirectUrl(Collection<? extends GrantedAuthority> authorities) {
