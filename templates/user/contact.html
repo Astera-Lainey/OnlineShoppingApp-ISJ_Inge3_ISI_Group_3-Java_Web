@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Contact</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
+	<!-- fontawesome -->
+	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
+	<!-- bootstrap -->
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+	<!-- owl carousel -->
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
+	<!-- magnific popup -->
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+	<!-- animate css -->
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<!-- mean menu css -->
+	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
+	<!-- main style -->
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
+	<!-- responsive -->
+	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+	<!-- header -->
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a th:href="@{main}">
+								<img th:src="@{/assets/img/logo.png}" alt="">
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li><a th:href="@{/user/main}">Home</a>
+								</li>
+								<li><a>Shop</a>
+									<ul class="sub-menu">
+										<li><a th:href="@{/user/shop}">Shop</a></li>
+										<li><a th:href="@{/user/checkout}">Check Out</a></li>
+									
+									</ul>
+								</li>
+								<li class="current-list-item"><a href="#">Contact</a></li>
+								
+								<li>
+									<div class="header-icons">
+										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
+										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<!-- Include user dropdown fragment -->
+										<div th:replace="~{fragments/user-dropdown :: user-dropdown}"></div>
+									</div>
+								</li>
+							</ul>
+						</nav>
+						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+						<div class="mobile-menu"></div>
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end header -->
+
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end search arewa -->
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Get 24/7 Support</p>
+						<h1>Contact us</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- contact form -->
+	<div class="contact-from-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mb-5 mb-lg-0">
+					<div class="form-title">
+						<h2>Have you any question?</h2>
+						<p>Submit your questions here and recieve feedback ASAP!</p>
+					</div>
+				 	<div id="form_status"></div>
+					<div class="contact-form">
+						<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+							<p>
+								<input type="text" placeholder="Name" name="name" id="name">
+								<input type="email" placeholder="Email" name="email" id="email">
+							</p>
+							<p>
+								<input type="tel" placeholder="Phone" name="phone" id="phone">
+								<input type="text" placeholder="Subject" name="subject" id="subject">
+							</p>
+							<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea></p>
+							<input type="hidden" name="token" value="FsWga4&@f6aw" />
+							<p><input type="submit" class="boxed-btn" value="Submit"></p>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="contact-form-wrap">
+						<div class="contact-form-box">
+							<h4><i class="fas fa-map"></i> Shop Address</h4>
+							<p>Inge 3 ISI Eng<br> Eyang <br> Cameroon</p>
+						</div>
+						<div class="contact-form-box">
+							<h4><i class="far fa-clock"></i> Shop Hours</h4>
+							<p>MON - FRIDAY: 8AM to 9 PM <br> SAT - SUN: 10AM to 8 PM </p>
+						</div>
+						<div class="contact-form-box">
+							<h4><i class="fas fa-address-book"></i> Contact</h4>
+							<p>Phone: +237 658381975 <br> Email: ClicknCollect@gmail.com</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end contact form -->
+
+	<!-- find our location -->
+	<div class="find-location blue-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<p> <i class="fas fa-map-marker-alt"></i> Find Our Location</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end find our location -->
+
+	<!-- Edit User Settings Modal -->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
+					<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter First Name" />
+								<label>Full Name</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="text" class="form-control" placeholder="Enter Last Name" />
+								<label>Last Name</label>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter Username" />
+								<label >Username</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="password" class="form-control" placeholder="..........." />
+								<label>Password</label>
+							</div>
+						</div>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+						Cancel
+					</button>
+					<button type="button" class="btn btn-primary">Save Settings</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Edit User Settings Modal -->
+
+
+	<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a few clicks. <br> Sign Up and start clicking today!!! </p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>Eyang, Cameroon</li>
+							<li>ClicknCollect@gmail.com</li>
+							<li>+237 658381975</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Navigation</h2>
+						<ul>
+							<li><a th:href="@{/user/main}">Home</a></li>
+							<li><a th:href="@{/user/shop}">Shop</a></li>
+							<li><a th:href="@{/user/contact}">Contact Us</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates on sales.</p>
+						<form action="#">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>&copy; Copyright Click 'n' Collect
+						<script>
+							document.write(new Date().getFullYear());
+						</script>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+
+
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
+	<!-- jquery -->
+	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+	<!-- bootstrap -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- count down -->
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<!-- isotope -->
+	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+	<!-- waypoints -->
+	<script th:src="@{/assets/js/waypoints.js}"></script>
+	<!-- owl carousel -->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<!-- magnific popup -->
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<!-- mean menu -->
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+	<!-- sticker js -->
+	<script th:src="@{/assets/js/sticker.js}"></script>
+	<!-- main js -->
+	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+
+
+	
+</body>
+</html>
