@@ -1,35 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
-	<!-- title -->
 	<title>Shop</title>
 
-	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
-	<!-- fontawesome -->
 	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
-	<!-- bootstrap -->
 	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
-	<!-- owl carousel -->
 	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
-	<!-- magnific popup -->
 	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
-	<!-- animate css -->
 	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
-	<!-- mean menu css -->
 	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
-	<!-- main style -->
 	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
-	<!-- responsive -->
 	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
+	<!-- remixicon - using CDN instead of local file -->
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
 	<style>
-		.breadcrumb-section{
+		.breadcrumb-section {
 			padding-top: 80px;
 		}
 		.wishlist-btn {
@@ -48,80 +40,62 @@
 			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 			z-index: 2;
 		}
-
 		.wishlist-btn:hover {
 			transform: scale(1.1);
 		}
-
 		.wishlist-btn i {
 			font-size: 20px;
 			transition: all 0.3s ease;
 		}
-
 		.wishlist-btn i.ri-heart-fill {
 			color: #dc3545;
 		}
-
 		.wishlist-btn i.ri-heart-line {
 			color: #666;
 		}
-
 		.single-product-item {
 			position: relative;
 		}
-
 		.product-image {
 			position: relative;
 		}
 	</style>
-
-	<!-- Add this before the closing </head> tag -->
-	<link rel="stylesheet" th:href="@{/assets/css/remixicon.css}">
 </head>
 <body>
-
-<!--PreLoader-->
+<!-- PreLoader -->
 <div class="loader">
 	<div class="loader-inner">
 		<div class="circle"></div>
 	</div>
 </div>
-<!--PreLoader Ends-->
+<!-- PreLoader Ends -->
 
-<!-- header -->
+<!-- Header -->
 <div class="top-header-area" id="sticker">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 col-sm-12 text-center">
 				<div class="main-menu-wrap">
-					<!-- logo -->
 					<div class="site-logo">
 						<a th:href="@{/user/main}">
 							<img th:src="@{/assets/img/logo.png}" alt="">
 						</a>
 					</div>
-					<!-- logo -->
-
-					<!-- menu start -->
 					<nav class="main-menu">
 						<ul>
-							<li><a th:href="@{/user/main}">Home</a>
-							</li>
+							<li><a th:href="@{/user/main}">Home</a></li>
 							<li class="current-list-item"><a>Shop</a>
 								<ul class="sub-menu">
 									<li><a th:href="@{/user/shop}">Shop</a></li>
 									<li><a th:href="@{/user/checkout}">Check Out</a></li>
-
 								</ul>
 							</li>
 							<li><a th:href="@{/user/contact}">Contact</a></li>
 							<li><a th:href="@{/user/profile}">My Profile</a></li>
-
 							<li>
 								<div class="header-icons">
 									<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
 									<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-									<!-- Include user dropdown fragment -->
 									<div th:replace="~{fragments/user-dropdown :: user-dropdown}"></div>
 								</div>
 							</li>
@@ -129,14 +103,12 @@
 					</nav>
 					<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 					<div class="mobile-menu"></div>
-					<!-- menu end -->
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- end header -->
-
+<!-- End Header -->
 
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg" style="margin-top: 0;">
@@ -437,475 +409,6 @@
 <script th:src="@{/assets/bootstrap/js/popper.js}"></script>
 <script th:src="@{/assets/js/loadProducts.js}"></script>
 
-
-</body>
-</html>
-s/all.min.css}">
-	<!-- bootstrap -->
-	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
-	<!-- owl carousel -->
-	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
-	<!-- magnific popup -->
-	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
-	<!-- animate css -->
-	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
-	<!-- mean menu css -->
-	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
-	<!-- main style -->
-	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
-	<!-- responsive -->
-	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
-
-	<style>
-		.breadcrumb-section{
-			padding-top: 80px;
-		}
-		.wishlist-btn {
-			position: absolute;
-			top: 10px;
-			right: 10px;
-			background: white;
-			border-radius: 50%;
-			width: 35px;
-			height: 35px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-			z-index: 2;
-		}
-
-		.wishlist-btn:hover {
-			transform: scale(1.1);
-		}
-
-		.wishlist-btn i {
-			font-size: 20px;
-			transition: all 0.3s ease;
-		}
-
-		.wishlist-btn i.ri-heart-fill {
-			color: #dc3545;
-		}
-
-		.wishlist-btn i.ri-heart-line {
-			color: #666;
-		}
-
-		.single-product-item {
-			position: relative;
-		}
-
-		.product-image {
-			position: relative;
-		}
-	</style>
-
-	<!-- Add this before the closing </head> tag -->
-	<link rel="stylesheet" th:href="@{/assets/css/remixicon.css}">
-</head>
-<body>
-
-	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
-
-	<!-- header -->
-	<div class="top-header-area" id="sticker">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-sm-12 text-center">
-					<div class="main-menu-wrap">
-						<!-- logo -->
-						<div class="site-logo">
-							<a th:href="@{/user/main}">
-								<img th:src="@{/assets/img/logo.png}" alt="">
-							</a>
-						</div>
-						<!-- logo -->
-
-						<!-- menu start -->
-						<nav class="main-menu">
-							<ul>
-								<li><a th:href="@{/user/main}">Home</a>
-								</li>
-								<li class="current-list-item"><a>Shop</a>
-									<ul class="sub-menu">
-										<li><a th:href="@{/user/shop}">Shop</a></li>
-										<li><a th:href="@{/user/checkout}">Check Out</a></li>
-
-									</ul>
-								</li>
-								<li><a th:href="@{/user/contact}">Contact</a></li>
-								<li><a th:href="@{/user/profile}">My Profile</a></li>
-
-								<li>
-									<div class="header-icons">
-										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-										<!-- Include user dropdown fragment -->
-										<div th:replace="~{fragments/user-dropdown :: user-dropdown}"></div>
-									</div>
-								</li>
-							</ul>
-						</nav>
-						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-						<div class="mobile-menu"></div>
-						<!-- menu end -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end header -->
-
-
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg" style="margin-top: 0;">
-		<div class="container" style="height: 0;">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<h1>Shop</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
-
-	<!-- products -->
-	<div class="product-section mt-150 mb-150">
-		<div class="container">
-
-			<div class="row">
-                <div class="col-md-12">
-                    <div class="product-filters">
-                        <ul>
-                            <li class="active" data-filter="*">All</li>
-                            <li data-filter=".strawberry">Fashion</li>
-                            <li data-filter=".berry">Electronics</li>
-                            <li data-filter=".lemon">Home & Furniture</li>
-							<li data-filter=".lemon">Toys</li>
-							<li data-filter=".lemon">Sports & Fitness</li>
-							<li data-filter=".lemon">Shoes</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-			<div class="row product-lists">
-				<div th:each="product : ${products}" class="col-lg-3 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product/{id}(id=${product.id})}">
-								<img th:if="${product.images != null and !product.images.empty and product.images[0].path != null}"
-									 th:src="@{'/uploads/products/images/' + ${product.images[0].path}}"
-									 th:alt="${product.name}"
-									 style="height: 200px; width: 308px; object-fit: cover;">
-								<img th:unless="${product.images != null and !product.images.empty and product.images[0].path != null}"
-									 th:src="@{/assets/img/default-product.jpg}"
-									 th:alt="${product.name}"
-									 style="height: 200px; width: 308px; object-fit: cover;">
-							</a>
-							<button class="wishlist-btn"
-									th:data-product-id="${product.id}"
-									onclick="toggleWishlist(this)"
-									title="Add to wishlist">
-								<i class="ri-heart-line"></i>
-							</button>
-						</div>
-						<h3 th:text="${product.name}">Product Name</h3>
-						<p class="product-price" th:text="${product.price + ' XAF'}">Price</p>
-						<a class="cart-btn" th:onclick="'addToCart(' + ${product.id} + ')'">
-							<i class="fas fa-shopping-cart"></i> Add to Cart
-						</a>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="pagination-wrap">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a class="active" href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end products -->
-
-	<!-- Edit User Settings Modal -->
-	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
-					<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<br>
-					<div class="row g-4">
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input
-										type="text"
-										class="form-control"
-										placeholder="Enter First Name" />
-								<label>Full Name</label>
-							</div>
-						</div>
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input type="text" class="form-control" placeholder="Enter Last Name" />
-								<label>Last Name</label>
-							</div>
-						</div>
-					</div>
-					<br>
-					<div class="row g-4">
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input
-										type="text"
-										class="form-control"
-										placeholder="Enter Username" />
-								<label >Username</label>
-							</div>
-						</div>
-						<div class="col mb-2">
-							<div class="form-floating form-floating-outline">
-								<input type="password" class="form-control" placeholder="..........." />
-								<label>Password</label>
-							</div>
-						</div>
-					</div>
-					<br>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-						Cancel
-					</button>
-					<button type="button" class="btn btn-primary">Save Settings</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Edit User Settings Modal -->
-
-
-	<!-- footer -->
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a few clicks. <br> Sign Up and start clicking today!!! </p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-							<li>Eyang, Cameroon</li>
-							<li>ClicknCollect@gmail.com</li>
-							<li>+237 658381975</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box pages">
-						<h2 class="widget-title">Navigation</h2>
-						<ul>
-							<li><a th:href="@{/user/main}">Home</a></li>
-							<li><a th:href="@{/user/shop}">Shop</a></li>
-							<li><a th:href="@{/user/contact}">Contact Us</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates on sales.</p>
-						<form action="#">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end footer -->
-
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>&copy; Copyright Click 'n' Collect
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-					</p>
-				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end copyright -->
-
-
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
-	<!-- jquery -->
-	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-	<!-- bootstrap -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<!-- count down -->
-	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-	<!-- isotope -->
-	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-	<!-- waypoints -->
-	<script th:src="@{/assets/js/waypoints.js}"></script>
-	<!-- owl carousel -->
-	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-	<!-- magnific popup -->
-	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-	<!-- mean menu -->
-	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-	<!-- sticker js -->
-	<script th:src="@{/assets/js/sticker.js}"></script>
-	<!-- main js -->
-	<script th:src="@{/assets/js/main.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-	<script th:src="@{/js/cart.js}"></script>
-
-	<script th:inline="javascript">
-		// Function to check if a product is in wishlist
-		async function checkWishlistStatus(productId) {
-			try {
-				const response = await fetch(`/wishlist/check/${productId}`);
-				if (!response.ok) {
-					throw new Error('Network response was not ok');
-				}
-				const data = await response.json();
-				return data.inWishlist;
-			} catch (error) {
-				console.error('Error checking wishlist status:', error);
-				return false;
-			}
-		}
-
-		// Function to toggle wishlist status
-		async function toggleWishlist(button) {
-			const productId = button.dataset.productId;
-			const icon = button.querySelector('i');
-
-			try {
-				const isInWishlist = await checkWishlistStatus(productId);
-				const method = isInWishlist ? 'DELETE' : 'POST';
-				const url = `/wishlist/${isInWishlist ? 'remove' : 'add'}/${productId}`;
-
-				const response = await fetch(url, {
-					method: method,
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				});
-
-				if (!response.ok) {
-					if (response.status === 401) {
-						window.location.href = '/api/auth/login';
-						return;
-					}
-					throw new Error('Network response was not ok');
-				}
-
-				// Toggle icon
-				if (isInWishlist) {
-					icon.classList.remove('ri-heart-fill');
-					icon.classList.add('ri-heart-line');
-				} else {
-					icon.classList.remove('ri-heart-line');
-					icon.classList.add('ri-heart-fill');
-				}
-
-			} catch (error) {
-				console.error('Error toggling wishlist:', error);
-			}
-		}
-
-		// Initialize wishlist buttons on page load
-		document.addEventListener('DOMContentLoaded', async function() {
-			const wishlistButtons = document.querySelectorAll('.wishlist-btn');
-
-			for (const button of wishlistButtons) {
-				const productId = button.dataset.productId;
-				const icon = button.querySelector('i');
-
-				try {
-					const isInWishlist = await checkWishlistStatus(productId);
-					if (isInWishlist) {
-						icon.classList.remove('ri-heart-line');
-						icon.classList.add('ri-heart-fill');
-					}
-				} catch (error) {
-					console.error('Error initializing wishlist button:', error);
-				}
-			}
-		});
-	</script>
-
-	<!-- Include all necessary JS -->
-	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-	<script th:src="@{/assets/js/waypoints.js}"></script>
-	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-	<script th:src="@{/assets/js/sticker.js}"></script>
-	<script th:src="@{/assets/js/main.js}"></script>
-	<!-- Include cart.js for addToCart functionality -->
-	<script th:src="@{/js/cart.js}"></script>
-	<!-- Add SweetAlert2 for better notifications -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
 </body>
 </html>

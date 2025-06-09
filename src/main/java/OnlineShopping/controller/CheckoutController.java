@@ -48,42 +48,70 @@ public class CheckoutController {
         try {
             System.out.println("=== CHECKOUT PROCESS STARTED ===");
             
+            // Validate authentication
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
-                System.out.println("Authentication failed");
+                System.out.println("Authentication failed - user not authenticated");
+                redirectAttributes.addFlashAttribute("error", "You must be logged in to place an order");
                 return "redirect:/api/auth/login";
             }
 
             String userEmail = auth.getName();
             System.out.println("User email: " + userEmail);
             
+            // Get user
             Optional<User> userOpt = Optional.ofNullable(userService.findByEmail(userEmail));
             
             if (userOpt.isEmpty()) {
                 System.out.println("User not found for email: " + userEmail);
+                redirectAttributes.addFlashAttribute("error", "User account not found. Please log in again.");
                 return "redirect:/api/auth/login";
             }
 
             User user = userOpt.get();
             System.out.println("User found: " + user.getUsername() + " (ID: " + user.getId() + ")");
             
-            // Verify that the form data matches the authenticated user
+            // Validate user information
             if (!user.getEmail().equals(email) || !user.getUsername().equals(username)) {
                 System.out.println("User information mismatch");
-                redirectAttributes.addFlashAttribute("error", "Invalid user information");
+                redirectAttributes.addFlashAttribute("error", "Invalid user information. Please try again.");
                 return "redirect:/user/checkout";
             }
             
+            // Validate shipping information
+            if (shippingAddress == null || shippingAddress.trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "Shipping address is required");
+                return "redirect:/user/checkout";
+            }
+            if (shippingCity == null || shippingCity.trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "Shipping city is required");
+                return "redirect:/user/checkout";
+            }
+            if (shippingState == null || shippingState.trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "Shipping state is required");
+                return "redirect:/user/checkout";
+            }
+            if (shippingZipCode == null || shippingZipCode.trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "Shipping ZIP code is required");
+                return "redirect:/user/checkout";
+            }
+            if (shippingPhone == null || shippingPhone.trim().isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "Shipping phone is required");
+                return "redirect:/user/checkout";
+            }
+            
+            // Get cart items
             List<CartItem> cartItems = cartService.getCartItems(user.getId());
             System.out.println("Cart items found: " + cartItems.size());
             
             if (cartItems.isEmpty()) {
                 System.out.println("Cart is empty");
-                redirectAttributes.addFlashAttribute("error", "Your cart is empty");
+                redirectAttributes.addFlashAttribute("error", "Your cart is empty. Please add items before placing an order.");
                 return "redirect:/user/cart";
             }
 
             // Log cart items for debugging
+            System.out.println("Cart items details:");
             for (CartItem item : cartItems) {
                 System.out.println("Cart item: " + item.getProduct().getName() + 
                     " - Qty: " + item.getQuantity() + 
@@ -97,12 +125,12 @@ public class CheckoutController {
             Order order = orderService.createOrder(
                 user,
                 cartItems,
-                shippingAddress,
-                shippingCity,
-                shippingState,
-                shippingZipCode,
-                shippingPhone,
-                notes
+                shippingAddress.trim(),
+                shippingCity.trim(),
+                shippingState.trim(),
+                shippingZipCode.trim(),
+                shippingPhone.trim(),
+                notes != null ? notes.trim() : ""
             );
 
             System.out.println("Order created successfully with ID: " + order.getId());
@@ -135,11 +163,23 @@ public class CheckoutController {
             System.out.println("=== CHECKOUT PROCESS COMPLETED SUCCESSFULLY ===");
             return "redirect:/user/main";
             
-        } catch (Exception e) {
-            System.err.println("=== CHECKOUT PROCESS FAILED ===");
+        } catch (IllegalArgumentException e) {
+            System.err.println("=== CHECKOUT PROCESS FAILED - VALIDATION ERROR ===");
             System.err.println("Error: " + e.getMessage());
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("error", "An error occurred while processing your order: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("error", "Validation error: " + e.getMessage());
+            return "redirect:/user/checkout";
+        } catch (RuntimeException e) {
+            System.err.println("=== CHECKOUT PROCESS FAILED - RUNTIME ERROR ===");
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Order processing error: " + e.getMessage());
+            return "redirect:/user/checkout";
+        } catch (Exception e) {
+            System.err.println("=== CHECKOUT PROCESS FAILED - UNEXPECTED ERROR ===");
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "An unexpected error occurred while processing your order. Please try again later.");
             return "redirect:/user/checkout";
         }
     }

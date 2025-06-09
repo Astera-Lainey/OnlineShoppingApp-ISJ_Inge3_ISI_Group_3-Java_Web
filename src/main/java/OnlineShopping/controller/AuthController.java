@@ -124,6 +124,14 @@ public class AuthController {
             // Handle specific user already exists exception
             model.addAttribute("errorMessage", e.getMessage());
             return "auth/signup";
+        } catch (IllegalArgumentException e) {
+            // Handle Gmail validation error
+            if (e.getMessage().contains("Gmail")) {
+                model.addAttribute("errorMessage", "Email must be a valid Gmail address (ending with @gmail.com)");
+            } else {
+                model.addAttribute("errorMessage", e.getMessage());
+            }
+            return "auth/signup";
         } catch (Exception e) {
             // Handle other exceptions
             model.addAttribute("errorMessage", "An error occurred during registration: " + e.getMessage());
@@ -152,6 +160,14 @@ public class AuthController {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", e.getMessage());
             return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+        } catch (IllegalArgumentException e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            if (e.getMessage().contains("Gmail")) {
+                errorResponse.put("error", "Email must be a valid Gmail address (ending with @gmail.com)");
+            } else {
+                errorResponse.put("error", e.getMessage());
+            }
+            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "An error occurred during registration: " + e.getMessage());

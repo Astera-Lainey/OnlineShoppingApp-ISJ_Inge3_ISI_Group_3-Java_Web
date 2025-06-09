@@ -38,116 +38,46 @@
         </div>
     </div>
     <!--PreLoader Ends-->
-	
-	<!-- header -->
+
+	<!-- Header -->
 	<div class="top-header-area" id="sticker">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-sm-12 text-center">
 					<div class="main-menu-wrap">
-						<!-- logo -->
 						<div class="site-logo">
 							<a th:href="@{/user/main}">
-								<img th:src="@{assets/img/logo.png}" alt="">
+								<img th:src="@{/assets/img/logo.png}" alt="">
 							</a>
 						</div>
-						<!-- logo -->
-
-						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li ><a href="#">Home</a>
-								</li>
-								<li class="current-list-item" ><a>Shop</a>
+								<li><a th:href="@{/user/main}">Home</a></li>
+								<li class="current-list-item"><a>Shop</a>
 									<ul class="sub-menu">
 										<li><a th:href="@{/user/shop}">Shop</a></li>
 										<li><a th:href="@{/user/checkout}">Check Out</a></li>
-									
 									</ul>
 								</li>
 								<li><a th:href="@{/user/contact}">Contact</a></li>
 								<li><a th:href="@{/user/profile}">My Profile</a></li>
-								
 								<li>
 									<div class="header-icons">
 										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-										<!--Profile Settings added -->
-										<div class="profile" style="position: relative; bottom: 90px;left: 60px;">
-											<a>
-												<ul class="navbar-nav flex-row align-items-center ms-auto" >
-													<!-- User -->
-													<li class="nav-item navbar-dropdown dropdown-user dropdown">
-														<a
-																class="nav-link dropdown-toggle hide-arrow p-0"
-																href="javascript:void(0);"
-																data-bs-toggle="dropdown" style="justify-content: end">
-															<div class="avatar avatar-online">
-																<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
-																	<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-																</svg>                    </div>
-														</a>
-														<ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:20px; border-radius: 10px; padding-block: 10px;" >
-															<li>
-																<a class="dropdown-item" href="#">
-																	<div class="d-flex align-items-center">
-																		<div class="flex-shrink-0 me-2">
-																			<div class="avatar avatar-online">
-																				<img th:src="@{../assets/img/user (1).png}" alt class="w-px-40 h-auto rounded-circle"  style="width: 12%; position: relative; left: 20px;"/>
-																			</div>
-																			<div>
-																				<button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
-																			</div>
-																		</div>
-																	</div>
-																</a>
-															</li>
-															<li>
-																<div class="dropdown-divider"></div>
-															</li>
-															<li>
-																<a class="dropdown-item" href="#">
-																	<i class="ri-user-3-line ri-22px me-2"></i>
-																	<span class="align-middle" style="color: black">Username</span>
-																	<div class="form-control">babygirl</div>
-																</a>
-																<a class="dropdown-item" href="#">
-																	<i class="ri-user-3-line ri-22px me-2"></i>
-																	<span class="align-middle" style="color: black">Email</span>
-																	<div class="form-control">forbin@gmail.com</div>
-																</a>
-															</li>
-
-															<li>
-																<div class="dropdown-divider"></div>
-															</li>
-															<li>
-																<div class="d-grid px-4 pt-2 pb-1 me-5">
-																	<a class="btn btn-danger d-flex" href="#">
-																		<small class="align-middle">Logout</small>
-																		<i class="ri-logout-box-r-line ms-2 ri-16px"></i>
-																	</a>
-																</div>
-															</li>
-														</ul>
-													</li>
-													<!--/ User -->
-												</ul>
-											</a>
-										</div>
+										<div th:replace="~{fragments/user-dropdown :: user-dropdown}"></div>
 									</div>
 								</li>
 							</ul>
 						</nav>
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 						<div class="mobile-menu"></div>
-						<!-- menu end -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end header -->
+	<!-- End Header -->
 
 	<!-- search area -->
 	<div class="search-area">
@@ -191,7 +121,7 @@
 					<div class="single-product-img">
 						<div class="product-img">
 							<img th:if="${product.images != null and !product.images.empty and product.images[0].path != null}"
-								 th:src="@{'/uploads/products/images/' + ${product.images[0].path}}"
+								 th:src="@{/${product.images[0].path}}"
 								 th:alt="${product.name}"
 								 style="width: 100%; height: auto;">
 							<img th:unless="${product.images != null and !product.images.empty and product.images[0].path != null}"
@@ -208,15 +138,19 @@
 				</div>
 				<div class="col-md-7">
 					<div class="single-product-content">
-						<h3>Green apples have polyphenols</h3>
-						<p class="single-product-pricing"> 5000XAF</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint dignissimos, rem commodi cum voluptatem quae reprehenderit repudiandae ea tempora incidunt ipsa, quisquam animi perferendis eos eum modi! Tempora, earum.</p>
+						<h3 th:text="${product.name}">Product Name</h3>
+						<p class="single-product-pricing" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + ' XAF'}">Price</p>
+						<p th:text="${product.description}">Product description</p>
 						<div class="single-product-form">
 							<form action="#">
-								<input type="number" placeholder="0">
+								<input type="number" placeholder="1" id="quantity" min="1" th:max="${product.stockQuantity}">
 							</form>
-							<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-							<p><strong>Categories: </strong>Fruits, Organic</p>
+							<a class="cart-btn" th:onclick="'addToCart(' + ${product.id} + ', document.getElementById(\'quantity\').value)'">
+								<i class="fas fa-shopping-cart"></i> Add to Cart
+							</a>
+							<p><strong>Categories: </strong><span th:text="${product.category.name()}">Category</span></p>
+							<p><strong>Brand: </strong><span th:text="${product.brand}">Brand</span></p>
+							<p><strong>Stock: </strong><span th:text="${product.stockQuantity}">Stock</span> units available</p>
 						</div>
 						<h4>Share:</h4>
 						<ul class="product-share">
@@ -242,44 +176,25 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-3 col-md-6 text-center">
+				<div class="col-lg-3 col-md-6 text-center" th:each="relatedProduct : ${relatedProducts}">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
+							<a th:href="@{/user/single-product/{id}(id=${relatedProduct.id})}">
+								<img th:if="${relatedProduct.images != null and !relatedProduct.images.empty and relatedProduct.images[0].path != null}" 
+									 th:src="@{/${relatedProduct.images[0].path}}" 
+									 th:alt="${relatedProduct.name}"
+									 style="height: 200px; width: 308px; object-fit: cover;">
+								<img th:unless="${relatedProduct.images != null and !relatedProduct.images.empty and relatedProduct.images[0].path != null}" 
+									 th:src="@{/assets/img/default-product.jpg}" 
+									 th:alt="${relatedProduct.name}"
+									 style="height: 200px; width: 308px; object-fit: cover;">
+							</a>
 						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"> 8500XAF</p>
-						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
-						</div>
-						<h3>Berry</h3>
-						<p class="product-price"> 7000XAF </p>
-						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 offset-lg-0 offset-md-3 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"> 3500XAF</p>
-						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 offset-lg-0 offset-md-3 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"> 3500XAF</p>
-						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+						<h3 th:text="${relatedProduct.name}">Product Name</h3>
+						<p class="product-price" th:text="${#numbers.formatDecimal(relatedProduct.price, 0, 'COMMA', 0, 'POINT') + ' XAF'}">Price</p>
+						<a class="cart-btn" th:onclick="'addToCart(' + ${relatedProduct.id} + ')'">
+							<i class="fas fa-shopping-cart"></i> Add to Cart
+						</a>
 					</div>
 				</div>
 			</div>

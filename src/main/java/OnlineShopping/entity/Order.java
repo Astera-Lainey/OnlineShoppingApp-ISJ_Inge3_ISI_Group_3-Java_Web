@@ -26,7 +26,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> items;
+    private List<OrderItem> items = new ArrayList<>();
 
     @Column(nullable = false)
     private String shippingAddress;
@@ -67,20 +67,19 @@ public class Order {
 
     @PrePersist
     protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        status = OrderStatus.PENDING;
         if (items == null) {
             items = new ArrayList<>();
-        }
-        if (createdAt == null) {
-            createdAt = LocalDateTime.now();
-        }
-        if (status == null) {
-            status = OrderStatus.PENDING;
         }
     }
 
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+        if (items == null) {
+            items = new ArrayList<>();
+        }
     }
 
     public enum OrderStatus {
@@ -100,16 +99,39 @@ public class Order {
     }
 
     public void removeItem(OrderItem item) {
-        if (items != null) {
-            items.remove(item);
-            item.setOrder(null);
-        }
-    }
-
-    public List<OrderItem> getItems() {
         if (items == null) {
             items = new ArrayList<>();
         }
-        return items;
+        items.remove(item);
+        item.setOrder(null);
+    }
+
+    public static class OrderBuilder {
+        private List<OrderItem> items = new ArrayList<>();
+        
+        public OrderBuilder items(List<OrderItem> items) {
+            this.items = items != null ? items : new ArrayList<>();
+            return this;
+        }
+        
+        public Order build() {
+            Order order = new Order();
+            order.setId(this.id);
+            order.setUser(this.user);
+            order.setItems(this.items != null ? this.items : new ArrayList<>());
+            order.setShippingAddress(this.shippingAddress);
+            order.setShippingCity(this.shippingCity);
+            order.setShippingState(this.shippingState);
+            order.setShippingZipCode(this.shippingZipCode);
+            order.setShippingPhone(this.shippingPhone);
+            order.setSubtotal(this.subtotal);
+            order.setShippingCost(this.shippingCost);
+            order.setTotal(this.total);
+            order.setStatus(this.status);
+            order.setCreatedAt(this.createdAt);
+            order.setUpdatedAt(this.updatedAt);
+            order.setNotes(this.notes);
+            return order;
+        }
     }
 }

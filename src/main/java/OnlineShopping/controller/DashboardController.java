@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -111,21 +112,6 @@ public class DashboardController {
         model.addAttribute("unreadNotificationCount", inventoryService.getUnreadNotificationCount());
 
         return "admin/adminDashboard";
-    }
-
-
-    @GetMapping("admin/Users")
-    public String adminUsers() {
-
-        return "/admin/Users";
-    }
-
-
-
-    @GetMapping("admin/Orders")
-    public String adminOrders() {
-
-        return "/admin/Orders";
     }
 
 
@@ -266,17 +252,9 @@ public class DashboardController {
 
     @GetMapping("user/shop")
     public String usersShop(Authentication authentication, Model model) {
-        //        Models
-        List<Product> products = productService.getAllProducts();
-        List<ProductImage> images = productImageService.getAllImages();
-        List<ImageDTO> imagedto = new ArrayList<>();
-        for (ProductImage image : images) {
-            imagedto.add(image.toDTO());
-        }
-        model.addAttribute("images", imagedto );
-        model.addAttribute("products", products);
+        // Add products and categories to the model
+        model.addAttribute("products", productService.getAllProducts());
         model.addAttribute("cats", Category.values());
-
         return "user/shop";
     }
 
@@ -293,37 +271,75 @@ public class DashboardController {
 
     }
 
-    // User profile and orders
     @GetMapping("user/profile")
-    public String userProfile(Model model, Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return "redirect:/api/auth/login";
-        }
+    public String userProfile(Authentication authentication, Model model) {
+        try {
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return "redirect:/api/auth/login";
+            }
 
-        Optional<User> currentUser = userRepository.findByEmail(authentication.getName());
-        if (currentUser.isEmpty()) {
-            return "redirect:/api/auth/login";
-        }
+            Optional<User> currentUser = userRepository.findByEmail(authentication.getName());
+            if (currentUser.isEmpty()) {
+                return "redirect:/api/auth/login";
+            }
 
-        User user = currentUser.get();
-        
-        // Get user's orders
-        List<Order> userOrders = orderService.getUserOrders(user);
-        
-        System.out.println("=== USER PROFILE: Loading orders for user ===");
-        System.out.println("User: " + user.getUsername() + " (ID: " + user.getId() + ")");
-        System.out.println("Orders found: " + userOrders.size());
-        for (Order order : userOrders) {
-            System.out.println("Order ID: " + order.getId() + 
-                ", Status: " + order.getStatus() + 
-                ", Total: " + order.getTotal() + 
-                ", Date: " + order.getCreatedAt());
+            User user = currentUser.get();
+            
+            // Get user's orders
+            List<Order> userOrders = orderService.getOrdersByUser(user.getId());
+            
+            model.addAttribute("user", user);
+            model.addAttribute("orders", userOrders);
+
+            return "user/profile";
+        } catch (Exception e) {
+            // Log the error
+            e.printStackTrace();
+            // Add error message to model
+            model.addAttribute("error", "An error occurred while loading the profile. Please try again later.");
+            // Return the template with error message
+            return "user/profile";
         }
-        
-        model.addAttribute("user", user);
-        model.addAttribute("userOrders", userOrders);
-        
-        return "user/profile";
     }
 
-}
+    @GetMapping("user/single-product/{id}")
+    public String singleProduct(@PathVariable Integer id, Authentication authentication, Model model) {
+        try {
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return "redirect:/api/auth/login";
+            }
+
+            Optional<User> currentUser = userRepository.findByEmail(authentication.getName());
+            if (currentUser.isEmpty()) {
+                return "redirect:/api/auth/login";
+            }
+
+            // Get the product by ID
+            Product product = productService.getProductById(id);
+            if (product == null) {
+                model.addAttribute("error", "Product not found");
+                return "redirect:/user/main";
+            }
+
+            // Get related products (same category, excluding current product)
+            List<Product> relatedProducts = productService.getAllProducts().stream()
+                    .filter(p -> p.getCategory() == product.getCategory() && !p.getId().equals(id))
+                    .limit(4)
+                    .collect(Collectors.toList());
+
+            model.addAttribute("product", product);
+            model.addAttribute("relatedProducts", relatedProducts);
+            model.addAttribute("currentUser", currentUser.get());
+
+            return "user/single-product";
+        } catch (Exception e) {
+            // Log the error
+            e.printStackTrace();
+            // Add error message to model
+            model.addAttribute("error", "An error occurred while loading the product. Please try again later.");
+            // Return the template with error message
+            return "redirect:/user/main";
+        }
+    }
+
+  }

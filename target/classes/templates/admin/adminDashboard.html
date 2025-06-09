@@ -101,7 +101,7 @@
 						<nav class="main-menu" >
 							<ul>
 								<!--Profile Settings added -->
-								<div th:replace="~{fragments/user-dropdown1 :: user-dropdown}"></div>
+								<div th:replace="~{fragments/user-dropdown :: user-dropdown}"></div>
 							</ul>
 						</nav>
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
@@ -513,7 +513,7 @@
 																<div class="row d-flex" style="display: flex; flex-wrap: wrap; flex-direction: row">
 																		<img th:each="image : ${images}" 
 																			 th:if="${image.imageUrl != null && image.productId == product.id}" 
-																			 th:src="@{${image.imageUrl}}" 
+																			 th:src="@{/${image.imageUrl}}" 
 																			 alt="Product Image" 
 																			 style="width: 30%; height: 100px; margin-right: 10px; margin-top: 10px; border-radius: 10px; border: solid 2px #F0CB46"/>
 																</div>
@@ -827,20 +827,45 @@
 									return;
 								}
 
+								console.log(`Updating order ${orderId} to status: ${status}`);
+
 								fetch(`/api/orders/${orderId}/status?status=${status}`, {
 									method: 'POST',
 									headers: {
-										'Content-Type': 'application/json'
+										'Content-Type': 'application/json',
+										'X-Requested-With': 'XMLHttpRequest'
 									}
 								})
-								.then(response => response.json())
-								.then(order => {
-									// Reload the page to show updated status
-									window.location.reload();
+								.then(response => {
+									console.log('Response status:', response.status);
+									if (!response.ok) {
+										throw new Error(`HTTP error! status: ${response.status}`);
+									}
+									return response.json();
+								})
+								.then(data => {
+									console.log('Response data:', data);
+									
+									if (data.success) {
+										// Show success message
+										alert(`Order status updated successfully to ${status}!`);
+										
+										// Reload the page to show updated status
+										window.location.reload();
+									} else {
+										// Show error message
+										alert(`Error: ${data.error || 'Unknown error occurred'}`);
+									}
 								})
 								.catch(error => {
-									console.error('Error:', error);
-									alert('Error updating order status');
+									console.error('Error updating order status:', error);
+									
+									// Try to parse error response
+									if (error.message && error.message.includes('HTTP error')) {
+										alert('Server error occurred while updating order status. Please try again.');
+									} else {
+										alert('Error updating order status: ' + error.message);
+									}
 								});
 							}
 

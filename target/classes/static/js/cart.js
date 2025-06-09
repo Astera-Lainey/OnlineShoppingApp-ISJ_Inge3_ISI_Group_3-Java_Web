@@ -1,8 +1,8 @@
 // Cart functionality
-function addToCart(productId) {
+function addToCart(productId, quantity = 1) {
     async function addToCartRequest() {
         try {
-            const response = await fetch(`/api/cart/add/${productId}?quantity=1`, {
+            const response = await fetch(`/api/cart/add/${productId}?quantity=${quantity}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

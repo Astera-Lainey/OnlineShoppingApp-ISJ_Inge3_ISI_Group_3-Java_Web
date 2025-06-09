@@ -381,7 +381,7 @@
 						<div class="product-image">
 							<a th:href="@{/user/single-product/{id}(id=${product.id})}">
 								<img th:if="${product.images != null and !product.images.empty and product.images[0] != null and product.images[0].path != null}" 
-									 th:src="@{/uploads/products/images/{url}(url=${product.images[0].path})}" 
+									 th:src="@{/${product.images[0].path}}" 
 									 th:alt="${product.name}"
 									 style="height: 200px; width: 308px; object-fit: cover;">
 								<img th:unless="${product.images != null and !product.images.empty and product.images[0] != null and product.images[0].path != null}" 

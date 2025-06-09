@@ -31,20 +31,26 @@ public class UserService {
      * @throws UserAlreadyExistsException If username or email already exists
      */
     public User registerUser(SignUpRequestDTO registrationDto) {
+        // Validate Gmail address
+        String email = registrationDto.getEmail();
+        if (email == null || !email.matches("^[a-zA-Z0-9._%+-]+@gmail\\.com$")) {
+            throw new IllegalArgumentException("Email must be a valid Gmail address (ending with @gmail.com)");
+        }
+        
         // Check if username already exists
         if (userRepository.existsByUsername(registrationDto.getUsername())) {
             throw new UserAlreadyExistsException("Username already exists");
         }
 
         // Check if email already exists
-        if (userRepository.existsByEmail(registrationDto.getEmail())) {
+        if (userRepository.existsByEmail(email)) {
             throw new UserAlreadyExistsException("Email already exists");
         }
 
         // Create new user
         User user = User.builder()
                 .username(registrationDto.getUsername())
-                .email(registrationDto.getEmail())
+                .email(email)
                 .firstName(registrationDto.getFirstName())
                 .lastName(registrationDto.getLastName())
                 .password(passwordEncoder.encode(registrationDto.getPassword()))

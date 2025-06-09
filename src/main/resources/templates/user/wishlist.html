@@ -183,7 +183,7 @@
                             <td>
                                 <div class="product-info">
                             <img th:if="${item.product.images != null and !item.product.images.empty and item.product.images[0].path != null}"
-                                 th:src="@{'/uploads/products/images/' + ${item.product.images[0].path}}"
+                                 th:src="@{/${item.product.images[0].path}}"
                                  th:alt="${item.product.name}"
                                  style="width: 80px; height: 80px; object-fit: cover;">
                             <img th:unless="${item.product.images != null and !item.product.images.empty and item.product.images[0].path != null}"
