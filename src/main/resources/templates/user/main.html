@@ -30,579 +30,621 @@
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
 	<style>
-		.single-product-item{
+		.single-product-item{ 
 			p{
 				font-size: 20px;
 				font-weight: bold;
 			}}
 		.image {
-			height: auto;
-			width: 100%;
-			p{
-				color: white;
-				transition: 0.5s;
-				display: none;
-				position: relative;
-				bottom: 110px;
-			}
-			.shop{
-				position: relative;
-				display: none;
-				bottom: 100px;
-			}
-			.overlay {
-				position: absolute;
-				transition: all 0.3s ease;
-				opacity: 0;
-				left: 0px;
-				background-color: #003566;
-				width: 100%;
-				height: 100%;
-				top: 0;
-			}
-			img{
-				width: 100%;
 				height: auto;
-				border-radius: 5%;
-				object-fit: cover;
-			}
-		}
-		.overlayLeft{
-			height: 100%;
-			width: 100%;
-			top: 0;
-			left: 0;
-			background-color: #003566;
-			border-radius: 5%;
-		}
-		.image:hover{
-			transform: translate3d(0,-10px,0);
-			box-shadow: 0px 21px 44px rgba(0, 0, 0, 0.08);
-			.overlay{
-				opacity: 0.5;
+				width: 100%;		
+				p{
+					color: white;
+					transition: 0.5s;
+					display: none;
+					position: relative;
+					bottom: 110px;
+				}
+				.shop{
+					position: relative;
+					display: none;
+					bottom: 100px;
+				}
+				.overlay {
+					position: absolute;
+					transition: all 0.3s ease;
+					opacity: 0;
+					left: 0px;
+					background-color: #003566;
+					width: 100%;
+					height: 100%;
+					top: 0;
+				}
+				img{
+					width: 100%;
+					height: auto;
+					border-radius: 5%;
+					object-fit: cover;
+				}
 			}
 			.overlayLeft{
 				height: 100%;
 				width: 100%;
+				top: 0;
+				left: 0;
+				background-color: #003566;
+				border-radius: 5%;
 			}
-			p{
-				font-size: 30px;
-				font-weight: bold;
-				transition: 0.5s;
-				display: block;
+			.image:hover{
+				transform: translate3d(0,-10px,0);
+				box-shadow: 0px 21px 44px rgba(0, 0, 0, 0.08);
+				.overlay{
+					opacity: 0.5;
+				}
+				.overlayLeft{
+					height: 100%;
+					width: 100%;
+				}
+				p{
+					font-size: 30px;
+					font-weight: bold;
+					transition: 0.5s;
+					display: block;
+				}
+				.shop{
+					display: block;
+				}
 			}
-			.shop{
-				display: block;
-			}
-		}
-
-		.wishlist-btn {
-			position: absolute;
-			top: 10px;
-			right: 10px;
-			background: white;
+		
+			.wishlist-btn {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				background: white;
 			border: none;
-			border-radius: 50%;
-			width: 35px;
-			height: 35px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-			z-index: 2;
-		}
+				border-radius: 50%;
+				width: 35px;
+				height: 35px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 2;
+			}
 
-		.wishlist-btn:hover {
-			transform: scale(1.1);
-		}
+			.wishlist-btn:hover {
+				transform: scale(1.1);
+			}
 
-		.wishlist-btn i {
-			font-size: 20px;
-			transition: all 0.3s ease;
-		}
+			.wishlist-btn i {
+				font-size: 20px;
+				transition: all 0.3s ease;
+			}
 
-		.wishlist-btn i.ri-heart-fill {
-			color: #dc3545;
-		}
+			.wishlist-btn i.ri-heart-fill {
+				color: #dc3545;
+			}
 
-		.wishlist-btn i.ri-heart-line {
-			color: #666;
-		}
+			.wishlist-btn i.ri-heart-line {
+				color: #666;
+			}
 
-		.single-product-item {
-			position: relative;
-		}
+			.single-product-item {
+				position: relative;
+			}
 
-		.product-image {
-			position: relative;
-		}
-	</style>
+			.product-image {
+				position: relative;
+			}
+		</style>
 </head>
 <body>
+	
+	<!--PreLoader-->
+    <div class="loader" id="page-loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+	<!-- header -->
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a th:href="@{/user/main}">
+								<img th:src="@{/assets/img/logo.png}" alt="">
+							</a>
+						</div>
+						<!-- logo -->
 
-<!--PreLoader-->
-<div class="loader" id="page-loader">
-	<div class="loader-inner">
-		<div class="circle"></div>
-	</div>
-</div>
-<!--PreLoader Ends-->
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li class="current-list-item"><a th:href="@{/user/main}">Home</a></li>
+								<li><a>Shop</a>
+									<ul class="sub-menu" style="color:white;">
+										<li><a th:href="@{/user/shop}">Shop</a></li>
+										<li><a th:href="@{/user/checkout}">Check Out</a></li>
+									
+									</ul>
+								</li>
+								<li><a th:href="@{/user/contact}">Contact</a></li>
+								<li><a th:href="@{/user/profile}">My Profile</a></li>
 
-<!-- header -->
-<div class="top-header-area" id="sticker">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 col-sm-12 text-center">
-				<div class="main-menu-wrap">
-					<!-- logo -->
-					<div class="site-logo">
-						<a th:href="@{/user/main}">
-							<img th:src="@{/assets/img/logo.png}" alt="">
-						</a>
-					</div>
-					<!-- logo -->
-
-					<!-- menu start -->
-					<nav class="main-menu">
-						<ul>
-							<li class="current-list-item"><a th:href="@{/user/main}">Home</a></li>
-							<li><a>Shop</a>
-								<ul class="sub-menu" style="color:white;">
-									<li><a th:href="@{/user/shop}">Shop</a></li>
-									<li><a th:href="@{/user/checkout}">Check Out</a></li>
-
-								</ul>
-							</li>
-							<li><a th:href="@{/user/contact}">Contact</a></li>
-
-							<li>
-								<div class="header-icons d-flex">
-									<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
-									<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-									<!-- Include user dropdown fragment -->
-									<div th:replace="~{fragments/user-dropdown :: user-dropdown}"></div>
-								</div>
-							</li>
-						</ul>
-					</nav>
-					<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-					<div class="mobile-menu"></div>
-					<!-- menu end -->
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- end header -->
-
-<!-- search area -->
-<div class="search-area">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<span class="close-btn"><i class="fas fa-window-close"></i></span>
-				<div class="search-bar">
-					<div class="search-bar-tablecell">
-						<h3>Search For:</h3>
-						<input type="text" placeholder="Keywords">
-						<button type="submit">Search <i class="fas fa-search"></i></button>
+								<li>
+									<div class="header-icons d-flex">
+										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
+										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<!-- Include user dropdown fragment -->
+										<div th:replace="~{fragments/user-dropdown :: user-dropdown}"></div>
+									</div>
+								</li>
+							</ul>
+						</nav>
+						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+						<div class="mobile-menu"></div>
+						<!-- menu end -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- end search area -->
+	<!-- end header -->
 
-<!-- hero area -->
-<div class="hero-area hero-bg">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-9 offset-lg-2 text-center">
-				<div class="hero-text">
-					<div class="hero-text-tablecell">
-						<p class="subtitle">Discover amazing deals on all products</p>
-						<h1>At Click n Collect</h1>
-						<div class="hero-btns">
-							<a th:href="@{/user/shop}" class="boxed-btn">Shop Now</a>
-							<a th:href="@{/user/contact}" class="bordered-btn">Contact Us</a>
+	<!-- Success/Error Messages -->
+	<div class="container mt-3" th:if="${success}">
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<i class="fas fa-check-circle me-2"></i>
+			<span th:text="${success}">Success message</span>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
+	
+	<div class="container mt-3" th:if="${error}">
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<i class="fas fa-exclamation-circle me-2"></i>
+			<span th:text="${error}">Error message</span>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
+
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- end hero area -->
+	<!-- end search area -->
 
-<!-- features list section -->
-<div class="list-section pt-80 pb-80">
-	<div class="container">
-
-		<div class="row">
-			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-				<div class="list-box d-flex align-items-center">
-					<div class="list-icon">
-						<i class="fas fa-shipping-fast"></i>
+	<!-- hero area -->
+	<div class="hero-area hero-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 offset-lg-2 text-center">
+					<div class="hero-text">
+						<div class="hero-text-tablecell">
+							<p class="subtitle">Discover amazing deals on all products</p>
+							<h1>At Click n Collect</h1>
+							<div class="hero-btns">
+								<a th:href="@{/user/shop}" class="boxed-btn">Shop Now</a>
+								<a th:href="@{/user/contact}" class="bordered-btn">Contact Us</a>
+							</div>
+						</div>
 					</div>
-					<div class="content">
-						<h3>Free Shipping</h3>
-						<p>When order over 100,000XAF</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-				<div class="list-box d-flex align-items-center">
-					<div class="list-icon">
-						<i class="fas fa-phone-volume"></i>
-					</div>
-					<div class="content">
-						<h3>24/7 Support</h3>
-						<p>Get support all day</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4 col-md-6">
-				<div class="list-box d-flex justify-content-start align-items-center">
-					<div class="list-icon">
-						<i class="fas fa-sync"></i>
-					</div>
-					<div class="content">
-						<h3>Refund</h3>
-						<p>Get refund within 3 days!</p>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-</div>
-<!-- end features list section -->
-
-<!-- Categories section -->
-<div class="product-section mt-150 mb-150">
-	<div class="container">
-		<div class="row">
-			<div class="section-title text-center m-5" style="display: block; margin: 0 auto;">
-				<center>
-					<h3> Shop by  <span class="orange-text"> Category</span> </h3>
-				</center>
-			</div>
-		</div>
-
-		<div class="row m-5">
-			<div class="col-lg-2 col-md-6 text-center mb-4">
-				<div class="image" id="overlay">
-					<a href="#"><img th:src="@{/assets/img/pexels-kaip-996329.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
-					<div class="overlay overlayLeft"></div>
-					<p>FASHION</p>
-					<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-6 text-center mb-4">
-				<div class="image">
-					<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-garrettmorrow-682933.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
-					<div class="overlay overlayLeft"></div>
-					<p>ELECTRONICS</p>
-					<a th:href="@{/user/shop}"  class="shop boxed-btn">Shop Now</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-6 text-center mb-4">
-				<div class="image">
-					<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/cat (5).jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
-					<div class="overlay overlayLeft"></div>
-					<p>HOME</p>
-					<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-6 text-center mb-4">
-				<div class="image">
-					<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-kovyrina-12211.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
-					<div class="overlay overlayLeft"></div>
-					<p>TOYS</p>
-					<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-6 text-center mb-4">
-				<div class="image">
-					<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-416717.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
-					<div class="overlay overlayLeft"></div>
-					<p>SPORT</p>
-					<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-6 text-center mb-4">
-				<div class="image">
-					<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-267202.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
-					<div class="overlay overlayLeft"></div>
-					<p>SHOES</p>
-					<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- End categories section -->
+	<!-- end hero area -->
 
-<!-- product section -->
-<div class="product-section mt-150 mb-150">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 offset-lg-2 text-center">
-				<div class="section-title">
-					<h3><span class="orange-text">Featured</span> Products</h3>
+	<!-- features list section -->
+	<div class="list-section pt-80 pb-80">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+					<div class="list-box d-flex align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-shipping-fast"></i>
+						</div>
+						<div class="content">
+							<h3>Free Shipping</h3>
+							<p>When order over 100,000XAF</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+					<div class="list-box d-flex align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-phone-volume"></i>
+						</div>
+						<div class="content">
+							<h3>24/7 Support</h3>
+							<p>Get support all day</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="list-box d-flex justify-content-start align-items-center">
+						<div class="list-icon">
+							<i class="fas fa-sync"></i>
+						</div>
+						<div class="content">
+							<h3>Refund</h3>
+							<p>Get refund within 3 days!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- end features list section -->
+
+  	<!-- Categories section -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+					<div class="section-title text-center m-5" style="display: block; margin: 0 auto;">
+						<center>
+						<h3> Shop by  <span class="orange-text"> Category</span> </h3>
+						</center>
+					</div>
+			</div>
+
+			<div class="row m-5">
+				<div class="col-lg-2 col-md-6 text-center mb-4">
+						<div class="image" id="overlay">
+							<a href="#"><img th:src="@{/assets/img/pexels-kaip-996329.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
+							<div class="overlay overlayLeft"></div>
+							<p>FASHION</p>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+						</div>
+				</div>
+				<div class="col-lg-2 col-md-6 text-center mb-4">
+						<div class="image">
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-garrettmorrow-682933.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
+							<div class="overlay overlayLeft"></div>
+							<p>ELECTRONICS</p>
+							<a th:href="@{/user/shop}"  class="shop boxed-btn">Shop Now</a>
+						</div>
+				</div>
+				<div class="col-lg-2 col-md-6 text-center mb-4">
+					<div class="image">
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/cat (5).jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
+							<div class="overlay overlayLeft"></div>
+							<p>HOME</p>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+						</div>
+				</div>
+				<div class="col-lg-2 col-md-6 text-center mb-4">
+					<div class="image">
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-kovyrina-12211.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
+							<div class="overlay overlayLeft"></div>
+							<p>TOYS</p>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+						</div>
+				</div>
+				<div class="col-lg-2 col-md-6 text-center mb-4">
+					<div class="image">
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-416717.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
+							<div class="overlay overlayLeft"></div>
+							<p>SPORT</p>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+						</div>
+				</div>
+				<div class="col-lg-2 col-md-6 text-center mb-4">
+					<div class="image">
+							<a th:href="@{/user/single-product}"><img th:src="@{/assets/img/pexels-pixabay-267202.jpg}" style="width: 100%; height: auto; object-fit: cover;" alt=""></a>
+							<div class="overlay overlayLeft"></div>
+							<p>SHOES</p>
+							<a th:href="@{/user/shop}" class="shop boxed-btn">Shop Now</a>
+						</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	 <!-- End categories section -->
 
-		<div class="row">
-			<div class="col-lg-3 col-md-6 text-center" th:each="product : ${products != null ? products : #lists.emptyList()}">
-				<div class="single-product-item">
-					<div class="product-image">
-						<a th:href="@{/user/single-product/{id}(id=${product.id})}">
-							<img th:if="${product.images != null and !product.images.empty and product.images[0].path != null}"
-								 th:src="@{/assets/img/products/{url}(url=${product.images[0].path})}"
-								 th:alt="${product.name != null ? product.name : 'Product'}"
-								 style="height: 200px; width: 308px; object-fit: cover;">
-							<img th:unless="${product.images != null and !product.images.empty and product.images[0].path != null}"
-								 th:src="@{/assets/img/default-product.jpg}"
-								 th:alt="${product.name != null ? product.name : 'Product'}"
-								 style="height: 200px; width: 308px; object-fit: cover;">
-						</a>
+	<!-- product section -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">
+						<h3>Our <span class="orange-text">Products</span></h3>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+			<div class="col-lg-3 col-md-6 text-center" th:each="product : ${products}">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a th:href="@{/user/single-product/{id}(id=${product.id})}">
+								<img th:if="${product.images != null and !product.images.empty and product.images[0] != null and product.images[0].path != null}" 
+									 th:src="@{/uploads/products/images/{url}(url=${product.images[0].path})}" 
+									 th:alt="${product.name}"
+									 style="height: 200px; width: 308px; object-fit: cover;">
+								<img th:unless="${product.images != null and !product.images.empty and product.images[0] != null and product.images[0].path != null}" 
+									 th:src="@{/assets/img/default-product.jpg}" 
+									 th:alt="${product.name}"
+									 style="height: 200px; width: 308px; object-fit: cover;">
+							</a>
 						<button type="button" class="wishlist-btn"
-								th:data-product-id="${product.id}"
-								onclick="toggleWishlist(this)"
-								title="Add to wishlist">
-							<i class="ri-heart-line"></i>
-						</button>
+									th:data-product-id="${product.id}"
+									onclick="toggleWishlist(this)"
+									title="Add to wishlist">
+								<i class="ri-heart-line"></i>
+							</button>
+						</div>
+						<h3 th:text="${product.name}">Product Name</h3>
+						<p class="product-price" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + ' XAF'}">Price</p>
+						<a class="cart-btn" th:onclick="'addToCart(' + ${product.id} + ')'">
+							<i class="fas fa-shopping-cart"></i> Add to Cart
+						</a>
 					</div>
-					<h3 th:text="${product.name != null ? product.name : 'Product Name'}">Product Name</h3>
-					<p class="product-price" th:text="${product.price != null ? #numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + ' XAF' : 'Price not available'}">Price</p>
-					<a class="cart-btn" th:onclick="'addToCart(' + ${product.id} + ')'">
-						<i class="fas fa-shopping-cart"></i> Add to Cart
-					</a>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- end product section -->
+	<!-- end product section -->
 
-<!-- cart banner section -->
-<section class="cart-banner pt-100 pb-100">
-	<div class="container">
-		<div class="row clearfix">
-			<!--Image Column-->
-			<div class="image-column col-lg-6">
-				<div class="image">
-					<div class="price-box">
-						<div class="inner-price">
+	<!-- cart banner section -->
+	<section class="cart-banner pt-100 pb-100">
+    	<div class="container">
+        	<div class="row clearfix">
+            	<!--Image Column-->
+            	<div class="image-column col-lg-6">
+                	<div class="image">
+                    	<div class="price-box">
+                        	<div class="inner-price">
                                 <span class="price">
                                     <strong>30%</strong> <br> off per kg
                                 </span>
-						</div>
-					</div>
-					<img th:src="@{/assets/img/a.jpg}" alt="">
-				</div>
-			</div>
-			<!--Content Column-->
-			<div class="content-column col-lg-6">
-				<h3><span class="orange-text">Deal</span> of the day</h3>
-				<h4>Limited Time Offer!</h4>
-				<div class="text">Premium Wireless Noise Cancelling Headphones with superior sound quality,
-					30-hour battery life, and comfortable over-ear design. Perfect for work,
-					travel, or relaxation.</div>
-				<!--Countdown Timer-->
-				<div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
-				<a th:href="@{/user/cart}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- end cart banner section -->
+                            </div>
+                        </div>
+                    	<img th:src="@{/assets/img/a.jpg}" alt="">
+                    </div>
+                </div>
+                <!--Content Column-->
+                <div class="content-column col-lg-6">
+					<h3><span class="orange-text">Deal</span> of the day</h3>
+                    <h4>Limited Time Offer!</h4>
+                    <div class="text">Premium Wireless Noise Cancelling Headphones with superior sound quality,
+                        30-hour battery life, and comfortable over-ear design. Perfect for work,
+                        travel, or relaxation.</div>
+                    <!--Countdown Timer-->
+                    <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
+                	<a th:href="@{/user/cart}" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end cart banner section -->
 
-<!-- Edit User Settings Modal -->
+	<!-- Edit User Settings Modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
-				<button
-						type="button"
-						class="btn-close"
-						data-bs-dismiss="modal"
-						aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<br>
-				<div class="row g-4">
-					<div class="col mb-2">
-						<div class="form-floating form-floating-outline">
-							<input
-									type="text"
-									class="form-control"
-									placeholder="Enter First Name" />
-							<label>Full Name</label>
-						</div>
-					</div>
-					<div class="col mb-2">
-						<div class="form-floating form-floating-outline">
-							<input type="text" class="form-control" placeholder="Enter Last Name" />
-							<label>Last Name</label>
-						</div>
-					</div>
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
+					<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"></button>
 				</div>
-				<br>
-				<div class="row g-4">
-					<div class="col mb-2">
-						<div class="form-floating form-floating-outline">
-							<input
-									type="text"
-									class="form-control"
-									placeholder="Enter Username" />
-							<label >Username</label>
+				<div class="modal-body">
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter First Name" />
+								<label>Full Name</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="text" class="form-control" placeholder="Enter Last Name" />
+								<label>Last Name</label>
+							</div>
 						</div>
 					</div>
-					<div class="col mb-2">
-						<div class="form-floating form-floating-outline">
-							<input type="password" class="form-control" placeholder="..........." />
-							<label>Password</label>
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter Username" />
+								<label >Username</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="password" class="form-control" placeholder="..........." />
+								<label>Password</label>
+							</div>
 						</div>
 					</div>
+					<br>
 				</div>
-				<br>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-					Cancel
-				</button>
-				<button type="button" class="btn btn-primary">Save Settings</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- /Edit User Settings Modal -->
-
-
-<!-- logo carousel -->
-<div class="logo-carousel-section">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="logo-carousel-inner">
-					<div class="single-logo-item">
-						<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img th:src="@{/assets/img/company-logos/sam.png}" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img th:src="@{/assets/img/company-logos/kapp.png}" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img th:src="@{/assets/img/company-logos/addi.png}" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img th:src="@{/assets/img/company-logos/nikes.png}" alt="">
-					</div>
-					<div class="single-logo-item">
-						<img th:src="@{/assets/img/company-logos/hnm.png}" alt="">
-					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+						Cancel
+					</button>
+					<button type="button" class="btn btn-primary">Save Settings</button>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- end logo carousel -->
+	<!-- /Edit User Settings Modal -->
 
-<!-- footer -->
-<div class="footer-area">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3 col-md-6">
-				<div class="footer-box about-widget">
-					<h2 class="widget-title">About us</h2>
-					<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a few clicks. <br> Sign Up and start clicking today!!! </p>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="footer-box get-in-touch">
-					<h2 class="widget-title">Get in Touch</h2>
-					<ul>
-						<li>Eyang, Cameroon</li>
-						<li>ClicknCollect@gmail.com</li>
-						<li>+237 658381975</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="footer-box pages">
-					<h2 class="widget-title">Navigation</h2>
-					<ul>
-						<li><a th:href="@{/user/main}">Home</a></li>
-						<li><a th:href="@{/user/shop}">Shop</a></li>
-						<li><a th:href="@{/user/contact}">Contact Us</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="footer-box subscribe">
-					<h2 class="widget-title">Subscribe</h2>
-					<p>Subscribe to our mailing list to get the latest updates on sales.</p>
-					<form action="#">
-						<input type="email" placeholder="Email">
-						<button type="submit"><i class="fas fa-paper-plane"></i></button>
-					</form>
+
+	<!-- logo carousel -->
+	<div class="logo-carousel-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="logo-carousel-inner">
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/sam.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/kapp.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/addi.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/nikes.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/hnm.png}" alt="">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- end footer -->
+	<!-- end logo carousel -->
 
-<!-- Error message display -->
-<div th:if="${error}" class="alert alert-danger" role="alert" style="margin: 20px;">
-	<span th:text="${error}"></span>
-</div>
+	<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a few clicks. <br> Sign Up and start clicking today!!! </p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>Eyang, Cameroon</li>
+							<li>ClicknCollect@gmail.com</li>
+							<li>+237 658381975</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Navigation</h2>
+						<ul>
+							<li><a th:href="@{/user/main}">Home</a></li>
+							<li><a th:href="@{/user/shop}">Shop</a></li>
+							<li><a th:href="@{/user/contact}">Contact Us</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates on sales.</p>
+						<form action="#">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
 
-<!-- Scripts -->
-<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-<script th:src="@{/assets/js/waypoints.js}"></script>
-<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-<script th:src="@{/assets/js/sticker.js}"></script>
-<script th:src="@{/assets/js/main.js}"></script>
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>&copy; Copyright Click 'n' Collect
+						<script>
+							document.write(new Date().getFullYear());
+						</script>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
 
-<!-- Loader handling script -->
-<script th:inline="javascript">
-	// Hide loader when page is fully loaded
-	window.addEventListener('load', function() {
-		const loader = document.getElementById('page-loader');
-		if (loader) {
-			loader.style.display = 'none';
-		}
-	});
+	<!-- Scripts -->
+	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+	<script th:src="@{/assets/js/waypoints.js}"></script>
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+	<script th:src="@{/assets/js/sticker.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+	<!-- menu js - Load after jQuery -->
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
 
-	// Fallback to hide loader after 3 seconds if load event doesn't fire
-	setTimeout(function() {
-		const loader = document.getElementById('page-loader');
-		if (loader) {
-			loader.style.display = 'none';
-		}
-	}, 3000);
-</script>
+	<!-- Loader handling script -->
+	<script th:inline="javascript">
+		// Hide loader when page is fully loaded
+		window.addEventListener('load', function() {
+			const loader = document.getElementById('page-loader');
+			if (loader) {
+				loader.style.display = 'none';
+			}
+		});
 
-<!-- Wishlist functionality -->
-<script th:inline="javascript">
+		// Fallback to hide loader after 3 seconds if load event doesn't fire
+		setTimeout(function() {
+			const loader = document.getElementById('page-loader');
+			if (loader) {
+				loader.style.display = 'none';
+			}
+		}, 3000);
+	</script>
+
+	<!-- Wishlist functionality -->
+	<script th:inline="javascript">
 	// Initialize wishlist buttons when page loads
 	document.addEventListener('DOMContentLoaded', function() {
 		console.log('DOM loaded, initializing wishlist buttons...');
@@ -659,37 +701,44 @@
 		}
 
 		try {
-			// First check if user is logged in
-			const authResponse = await fetch('/api/auth/check', {
-				credentials: 'include'
-			});
-
-			if (!authResponse.ok) {
-				console.log('User not authenticated, redirecting to login');
-				window.location.href = '/api/auth/login';
-				return;
-			}
-
-			// Check current wishlist status
+			// Check current wishlist status first
 			const isInWishlist = await checkWishlistStatus(productId);
 			const method = isInWishlist ? 'DELETE' : 'POST';
 			const url = `/api/wishlist/${isInWishlist ? 'remove' : 'add'}/${productId}`;
 
 			console.log(`${isInWishlist ? 'Removing from' : 'Adding to'} wishlist: Product ${productId}`);
+			console.log('Request URL:', url);
+			console.log('Request method:', method);
 
 			const wishlistResponse = await fetch(url, {
 				method: method,
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					'Accept': 'application/json'
 				},
 				credentials: 'include'
 			});
 
-			if (!wishlistResponse.ok) {
+			console.log('Response status:', wishlistResponse.status);
+			console.log('Response headers:', Object.fromEntries(wishlistResponse.headers.entries()));
+
+			// Check if response is JSON
+			const contentType = wishlistResponse.headers.get('content-type');
+			console.log('Content-Type:', contentType);
+			
+			if (!contentType || !contentType.includes('application/json')) {
+				// Log the actual response text for debugging
+				const responseText = await wishlistResponse.text();
+				console.error('Non-JSON response received:', responseText.substring(0, 200) + '...');
+				
 				if (wishlistResponse.status === 401) {
 					window.location.href = '/api/auth/login';
 					return;
 				}
+				throw new Error('Server returned non-JSON response: ' + responseText.substring(0, 100));
+			}
+
+			if (!wishlistResponse.ok) {
 				const errorData = await wishlistResponse.json();
 				throw new Error(errorData.error || 'Failed to update wishlist');
 			}
@@ -700,7 +749,7 @@
 			if (data.success) {
 				// Update UI
 				updateWishlistButtonUI(button, !isInWishlist);
-
+				
 				// Show success message
 				if (typeof Swal !== 'undefined') {
 					Swal.fire({
@@ -719,6 +768,13 @@
 
 		} catch (error) {
 			console.error('Error toggling wishlist:', error);
+			
+			// Check if it's an authentication error
+			if (error.message.includes('401') || error.message.includes('not authenticated')) {
+				window.location.href = '/api/auth/login';
+				return;
+			}
+			
 			if (typeof Swal !== 'undefined') {
 				Swal.fire({
 					icon: 'error',
@@ -732,27 +788,50 @@
 	}
 
 	// Check wishlist status function
-	async function checkWishlistStatus(productId) {
-		try {
+		async function checkWishlistStatus(productId) {
+			try {
 			const response = await fetch(`/api/wishlist/check/${productId}`, {
-				credentials: 'include'
+				credentials: 'include',
+				headers: {
+					'Accept': 'application/json'
+				}
 			});
 
-			if (!response.ok) {
+			console.log('Wishlist check response status:', response.status);
+
+			// Check if response is JSON
+			const contentType = response.headers.get('content-type');
+			console.log('Wishlist check content-type:', contentType);
+			
+			if (!contentType || !contentType.includes('application/json')) {
 				if (response.status === 401) {
-					// User not authenticated, return false
+					// User not authenticated, redirect to login
+					console.log('User not authenticated, redirecting to login');
+					window.location.href = '/api/auth/login';
 					return false;
 				}
-				throw new Error('Network response was not ok');
+				console.error('Server returned non-JSON response for wishlist check');
+				return false;
 			}
 
-			const data = await response.json();
+				if (!response.ok) {
+				if (response.status === 401) {
+					// User not authenticated, redirect to login
+					console.log('User not authenticated (401), redirecting to login');
+					window.location.href = '/api/auth/login';
+					return false;
+				}
+					throw new Error('Network response was not ok');
+				}
+
+				const data = await response.json();
+			console.log('Wishlist check data:', data);
 			return data.inWishlist || false;
-		} catch (error) {
-			console.error('Error checking wishlist status:', error);
-			return false;
+			} catch (error) {
+				console.error('Error checking wishlist status:', error);
+				return false;
+			}
 		}
-	}
 
 	// Remove from wishlist function (for wishlist page)
 	async function removeFromWishlist(productId) {
@@ -761,17 +840,17 @@
 
 			const response = await fetch(`/api/wishlist/remove/${productId}`, {
 				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				credentials: 'include'
-			});
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					credentials: 'include'
+				});
 
-			if (!response.ok) {
-				if (response.status === 401) {
-					window.location.href = '/api/auth/login';
-					return;
-				}
+				if (!response.ok) {
+					if (response.status === 401) {
+						window.location.href = '/api/auth/login';
+						return;
+					}
 				throw new Error('Failed to remove from wishlist');
 			}
 
@@ -796,7 +875,7 @@
 			} else {
 				throw new Error(data.error || 'Failed to remove from wishlist');
 			}
-		} catch (error) {
+			} catch (error) {
 			console.error('Error removing from wishlist:', error);
 			if (typeof Swal !== 'undefined') {
 				Swal.fire({
@@ -806,40 +885,43 @@
 				});
 			} else {
 				alert('Error: ' + (error.message || 'Failed to remove from wishlist'));
+				}
 			}
-		}
 	}
-</script>
+	</script>
+
+<!-- Include cart.js for addToCart functionality -->
+<script th:src="@{/js/cart.js}"></script>
 
 <!-- Add SweetAlert2 for better notifications -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
-<!-- copyright -->
-<div class="copyright">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 col-md-12">
-				<p>&copy; Copyright Click 'n' Collect
-					<script>
-						document.write(new Date().getFullYear());
-					</script>
-				</p>
-			</div>
-			<div class="col-lg-6 text-right col-md-12">
-				<div class="social-icons">
-					<ul>
-						<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-						<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-					</ul>
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>&copy; Copyright Click 'n' Collect
+						<script>
+							document.write(new Date().getFullYear());
+						</script>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- end copyright -->
+	<!-- end copyright -->
 
 </body>
 </html>

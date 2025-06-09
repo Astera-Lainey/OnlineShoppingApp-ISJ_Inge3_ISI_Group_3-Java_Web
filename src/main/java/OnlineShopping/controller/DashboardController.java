@@ -73,6 +73,17 @@ public class DashboardController {
             // Default to pending orders if no status specified
             orders = orderService.getOrdersByStatus(Order.OrderStatus.PENDING);
         }
+        
+        System.out.println("=== ADMIN DASHBOARD: Loading orders ===");
+        System.out.println("Status filter: " + (status != null ? status : "PENDING"));
+        System.out.println("Orders found: " + orders.size());
+        for (Order order : orders) {
+            System.out.println("Order ID: " + order.getId() + 
+                ", User: " + order.getUser().getUsername() + 
+                ", Status: " + order.getStatus() + 
+                ", Total: " + order.getTotal());
+        }
+        
         model.addAttribute("orders", orders);
         model.addAttribute("currentStatus", status != null ? status : Order.OrderStatus.PENDING);
 
@@ -255,8 +266,18 @@ public class DashboardController {
 
     @GetMapping("user/shop")
     public String usersShop(Authentication authentication, Model model) {
+        //        Models
+        List<Product> products = productService.getAllProducts();
+        List<ProductImage> images = productImageService.getAllImages();
+        List<ImageDTO> imagedto = new ArrayList<>();
+        for (ProductImage image : images) {
+            imagedto.add(image.toDTO());
+        }
+        model.addAttribute("images", imagedto );
+        model.addAttribute("products", products);
+        model.addAttribute("cats", Category.values());
 
-        return "/user/shop";
+        return "user/shop";
     }
 
     @GetMapping("user/single-product")
@@ -272,6 +293,37 @@ public class DashboardController {
 
     }
 
+    // User profile and orders
+    @GetMapping("user/profile")
+    public String userProfile(Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/api/auth/login";
+        }
 
+        Optional<User> currentUser = userRepository.findByEmail(authentication.getName());
+        if (currentUser.isEmpty()) {
+            return "redirect:/api/auth/login";
+        }
 
-  }
+        User user = currentUser.get();
+        
+        // Get user's orders
+        List<Order> userOrders = orderService.getUserOrders(user);
+        
+        System.out.println("=== USER PROFILE: Loading orders for user ===");
+        System.out.println("User: " + user.getUsername() + " (ID: " + user.getId() + ")");
+        System.out.println("Orders found: " + userOrders.size());
+        for (Order order : userOrders) {
+            System.out.println("Order ID: " + order.getId() + 
+                ", Status: " + order.getStatus() + 
+                ", Total: " + order.getTotal() + 
+                ", Date: " + order.getCreatedAt());
+        }
+        
+        model.addAttribute("user", user);
+        model.addAttribute("userOrders", userOrders);
+        
+        return "user/profile";
+    }
+
+}

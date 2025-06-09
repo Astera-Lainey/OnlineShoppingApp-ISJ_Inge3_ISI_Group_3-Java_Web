@@ -66,6 +66,7 @@
 									</ul>
 								</li>
 								<li><a th:href="@{/user/contact}">Contact</a></li>
+								<li><a th:href="@{/user/profile}">My Profile</a></li>
 								
 								<li>
 									<div class="header-icons">
@@ -189,7 +190,14 @@
 				<div class="col-md-5">
 					<div class="single-product-img">
 						<div class="product-img">
-							<img th:src="@{/assets/img/products/}${product.imageUrl}" alt="">
+							<img th:if="${product.images != null and !product.images.empty and product.images[0].path != null}"
+								 th:src="@{'/uploads/products/images/' + ${product.images[0].path}}"
+								 th:alt="${product.name}"
+								 style="width: 100%; height: auto;">
+							<img th:unless="${product.images != null and !product.images.empty and product.images[0].path != null}"
+								 th:src="@{/assets/img/default-product.jpg}"
+								 th:alt="${product.name}"
+								 style="width: 100%; height: auto;">
 							<div class="product-action">
 								<a class="wishlist-btn" th:data-product-id="${product.id}" onclick="toggleWishlist(this)">
 									<i class="ri-heart-line"></i>
@@ -598,6 +606,22 @@
 			padding: 20px;
 		}
 	</style>
+
+	<!-- Include all necessary JS -->
+	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+	<script th:src="@{/assets/js/waypoints.js}"></script>
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+	<script th:src="@{/assets/js/sticker.js}"></script>
+	<script th:src="@{/assets/js/main.js}"></script>
+	<!-- Include cart.js for addToCart functionality -->
+	<script th:src="@{/js/cart.js}"></script>
+	<!-- Add SweetAlert2 for better notifications -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
 </body>
 </html>

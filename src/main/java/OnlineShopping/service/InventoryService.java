@@ -67,6 +67,23 @@ public class InventoryService {
         }
     }
 
+    @Transactional
+    public void handleOrderCancelled(Order order) {
+        for (OrderItem item : order.getItems()) {
+            Product product = item.getProduct();
+            int newQuantity = product.getStockQuantity() + item.getQuantity();
+            product.setStockQuantity(newQuantity);
+            productRepository.save(product);
+
+            // Create notification for order cancelled
+            createStockNotification(product, StockNotification.NotificationType.ORDER_CANCELLED,
+                    String.format("Order #%d cancelled for %s: %d units restored", order.getId(), product.getName(), item.getQuantity()));
+
+            // Check for low stock
+            checkLowStock(product);
+        }
+    }
+
     private void checkLowStock(Product product) {
         int currentStock = product.getStockQuantity();
         int initialStock = product.getInitialStockQuantity(); // You'll need to add this field to Product entity

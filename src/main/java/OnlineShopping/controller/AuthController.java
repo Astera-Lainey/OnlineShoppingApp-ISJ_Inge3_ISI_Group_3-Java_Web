@@ -43,7 +43,7 @@ public class AuthController {
                                 @RequestParam(value = "registrationSuccess", required = false) String registrationSuccess,
                                 Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        
+
         // Only redirect if user is fully authenticated (not anonymous)
         if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
             String redirectUrl = determineRedirectUrl(auth);
@@ -77,7 +77,7 @@ public class AuthController {
         if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
             return "redirect:/api/auth/login";
         }
-        
+
         String redirectUrl;
         if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
             redirectUrl = "/admin/adminDashboard";
@@ -86,7 +86,7 @@ public class AuthController {
         } else {
             redirectUrl = "/api/auth/login";
         }
-        
+
         return "redirect:" + redirectUrl;
     }
 

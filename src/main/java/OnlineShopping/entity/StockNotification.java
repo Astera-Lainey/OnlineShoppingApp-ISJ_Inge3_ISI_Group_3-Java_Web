@@ -45,6 +45,7 @@ public class StockNotification {
     public enum NotificationType {
         LOW_STOCK,
         ORDER_PLACED,
+        ORDER_CANCELLED,
         STOCK_UPDATED,
         OUT_OF_STOCK
     }

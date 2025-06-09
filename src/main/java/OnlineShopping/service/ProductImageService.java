@@ -47,10 +47,15 @@ public class ProductImageService {
         for (MultipartFile picture : pictures){
 
             String fileName = product.getName() + "_Image_" + System.currentTimeMillis();
-            String uploadDir = "uploads/products/images/";
+            String uploadDir = "C:/Users/DELL LATITUDE 7480/IdeaProjects/OnlineShoppingApp-ISJ_Inge3_ISI_Group_3-Java_Web/uploads/products/images/";
             Path uploadPath = Paths.get(uploadDir);
 
             try {
+                // Create directory if it doesn't exist
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
                 // Get file extension from original filename
                 String originalFilename = picture.getOriginalFilename();
                 String fileExtension = "";
@@ -66,7 +71,7 @@ public class ProductImageService {
 
                 //creates the corresponding image for each images
                 ProductImage productImage = new ProductImage();
-                productImage.setPath(uploadDir + fullFileName);
+                productImage.setPath("uploads/products/images/" + fullFileName);
                 productImage.setProduct(product);
                 saveProductImage(productImage);
 

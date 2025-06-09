@@ -1225,6 +1225,7 @@
 	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
 
 	<script th:inline="javascript">
 	// Show notifications
@@ -1267,6 +1268,7 @@
 			case 'LOW_STOCK': return 'bg-warning';
 			case 'OUT_OF_STOCK': return 'bg-danger';
 			case 'ORDER_PLACED': return 'bg-info';
+			case 'ORDER_CANCELLED': return 'bg-secondary';
 			case 'STOCK_UPDATED': return 'bg-success';
 			default: return 'bg-secondary';
 		}

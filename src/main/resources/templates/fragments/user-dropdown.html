@@ -43,19 +43,31 @@
                             <i class="ri-user-3-line ri-22px me-2"></i>
                             <span class="align-middle" style="color: black">Username</span>
                             <div class="form-control">
-                                <span th:text="${session.userInfo.username} ?: 'Not logged in'"></span>
+                                <span id="username-display">Loading...</span>
                             </div>
                         </div>
                         <div class="dropdown-item">
                             <i class="ri-mail-line ri-22px me-2"></i>
                             <span class="align-middle" style="color: black">Email</span>
                             <div class="form-control">
-                                <span th:text="${session.userInfo.email} ?: 'Not logged in'"></span>
+                                <span id="email-display">Loading...</span>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/user/profile}">
+                            <i class="ri-user-line ri-22px me-2"></i>
+                            <span class="align-middle" style="color: black">My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/user/profile}" onclick="scrollToOrders()">
+                            <i class="ri-shopping-bag-line ri-22px me-2"></i>
+                            <span class="align-middle" style="color: black">My Orders</span>
+                        </a>
                     </li>
                     <li>
                         <a class="dropdown-item" th:href="@{/api/wishlist/page}">
@@ -82,6 +94,17 @@
 
     <!-- JavaScript to fetch and display user info -->
     <script th:inline="javascript">
+        // Function to scroll to orders section
+        function scrollToOrders() {
+            // Check if we're on the profile page
+            if (window.location.pathname.includes('/user/profile')) {
+                const ordersSection = document.getElementById('orders');
+                if (ordersSection) {
+                    ordersSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Function to get cookie value by name
             function getCookie(name) {

@@ -49,7 +49,7 @@ public class CartController {
             }
 
             User user = userOpt.get();
-            Product product = (Product) productService.getProductById(productId);
+            Product product = productService.getProductById(productId);
             
             if (product == null) {
                 return ResponseEntity.badRequest().body(Map.of("error", "Product not found"));
@@ -113,7 +113,7 @@ public class CartController {
             }
 
             User user = userOpt.get();
-            Product product = (Product) productService.getProductById(productId);
+            Product product = productService.getProductById(productId);
             
             if (product == null) {
                 return ResponseEntity.badRequest().body(Map.of("error", "Product not found"));

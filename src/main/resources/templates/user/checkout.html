@@ -65,6 +65,7 @@
 									</ul>
 								</li>
 								<li><a th:href="@{/user/contact}">Contact</a></li>
+								<li><a th:href="@{/user/profile}">My Profile</a></li>
 								
 								<li>
 									<div class="header-icons">
@@ -119,6 +120,23 @@
 		</div>
 	</div>
 	<!-- end breadcrumb section -->
+
+	<!-- Success/Error Messages -->
+	<div class="container mt-3" th:if="${success}">
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<i class="fas fa-check-circle me-2"></i>
+			<span th:text="${success}">Success message</span>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
+	
+	<div class="container mt-3" th:if="${error}">
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<i class="fas fa-exclamation-circle me-2"></i>
+			<span th:text="${error}">Error message</span>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
 
 	<!-- check out section -->
 	<div class="container mt-5">
@@ -375,18 +393,11 @@
 	</div>
 	<!-- end copyright -->
 
-
 	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
 	<!-- jquery -->
 	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<!-- count down -->
 	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
 	<!-- isotope -->
@@ -403,29 +414,154 @@
 	<script th:src="@{/assets/js/sticker.js}"></script>
 	<!-- main js -->
 	<script th:src="@{/assets/js/main.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<!-- menu js - Load after jQuery -->
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
+	<!-- Include cart.js for addToCart functionality -->
+	<script th:src="@{/js/cart.js}"></script>
+	<!-- Add SweetAlert2 for better notifications -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
 	<script th:inline="javascript">
-	document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-		e.preventDefault();
+	// Enhanced checkout form handling
+	document.addEventListener('DOMContentLoaded', function() {
+		const checkoutForm = document.getElementById('checkoutForm');
 		
-		// Validate form
-		if (!this.checkValidity()) {
-			e.stopPropagation();
-			this.classList.add('was-validated');
-			return;
+		if (checkoutForm) {
+			checkoutForm.addEventListener('submit', function(e) {
+				e.preventDefault();
+				
+				// Validate form
+				if (!this.checkValidity()) {
+					e.stopPropagation();
+					this.classList.add('was-validated');
+					
+					// Show validation error
+					showNotification('Please fill in all required fields correctly.', 'error');
+					return;
+				}
+				
+				// Validate cart is not empty
+				const cartItems = document.querySelectorAll('tbody tr');
+				if (cartItems.length === 0) {
+					showNotification('Your cart is empty. Please add items before placing an order.', 'error');
+					return;
+				}
+				
+				// Show loading state
+				const submitButton = this.querySelector('button[type="submit"]');
+				const originalText = submitButton.innerHTML;
+				submitButton.disabled = true;
+				submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing Order...';
+				
+				// Submit form
+				this.submit();
+			});
 		}
 		
-		// Show loading state
-		const submitButton = this.querySelector('button[type="submit"]');
-		const originalText = submitButton.innerHTML;
-		submitButton.disabled = true;
-		submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+		// Form validation on input
+		const requiredInputs = document.querySelectorAll('input[required], textarea[required]');
+		requiredInputs.forEach(function(input) {
+			input.addEventListener('blur', function() {
+				if (this.value.trim() === '') {
+					this.classList.add('is-invalid');
+				} else {
+					this.classList.remove('is-invalid');
+					this.classList.add('is-valid');
+				}
+			});
+			
+			input.addEventListener('input', function() {
+				if (this.value.trim() !== '') {
+					this.classList.remove('is-invalid');
+					this.classList.add('is-valid');
+				}
+			});
+		});
 		
-		// Submit form
-		this.submit();
+		// Phone number validation
+		const phoneInput = document.getElementById('shippingPhone');
+		if (phoneInput) {
+			phoneInput.addEventListener('input', function() {
+				const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+				if (this.value && !phoneRegex.test(this.value.replace(/\s/g, ''))) {
+					this.setCustomValidity('Please enter a valid phone number');
+				} else {
+					this.setCustomValidity('');
+				}
+			});
+		}
+		
+		// ZIP code validation
+		const zipInput = document.getElementById('shippingZipCode');
+		if (zipInput) {
+			zipInput.addEventListener('input', function() {
+				const zipRegex = /^\d{5}(-\d{4})?$/;
+				if (this.value && !zipRegex.test(this.value)) {
+					this.setCustomValidity('Please enter a valid ZIP code');
+				} else {
+					this.setCustomValidity('');
+				}
+			});
+		}
+	});
+	
+	// Notification function
+	function showNotification(message, type = 'info') {
+		// Check if SweetAlert2 is available
+		if (typeof Swal !== 'undefined') {
+			Swal.fire({
+				title: type === 'error' ? 'Error!' : 'Success!',
+				text: message,
+				icon: type,
+				confirmButtonText: 'OK'
+			});
+		} else {
+			// Fallback to alert
+			alert(message);
+		}
+	}
+	
+	// Auto-fill shipping address if user has saved address
+	function autoFillShippingAddress() {
+		// This could be enhanced to fetch user's saved addresses
+		const userAddress = localStorage.getItem('userShippingAddress');
+		if (userAddress) {
+			try {
+				const address = JSON.parse(userAddress);
+				document.getElementById('shippingAddress').value = address.address || '';
+				document.getElementById('shippingCity').value = address.city || '';
+				document.getElementById('shippingState').value = address.state || '';
+				document.getElementById('shippingZipCode').value = address.zipCode || '';
+				document.getElementById('shippingPhone').value = address.phone || '';
+			} catch (e) {
+				console.log('No saved address found');
+			}
+		}
+	}
+	
+	// Save shipping address for future use
+	function saveShippingAddress() {
+		const address = {
+			address: document.getElementById('shippingAddress').value,
+			city: document.getElementById('shippingCity').value,
+			state: document.getElementById('shippingState').value,
+			zipCode: document.getElementById('shippingZipCode').value,
+			phone: document.getElementById('shippingPhone').value
+		};
+		localStorage.setItem('userShippingAddress', JSON.stringify(address));
+	}
+	
+	// Initialize auto-fill on page load
+	document.addEventListener('DOMContentLoaded', function() {
+		autoFillShippingAddress();
+		
+		// Save address when form is submitted
+		const checkoutForm = document.getElementById('checkoutForm');
+		if (checkoutForm) {
+			checkoutForm.addEventListener('submit', function() {
+				saveShippingAddress();
+			});
+		}
 	});
 	</script>
 

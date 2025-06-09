@@ -29,7 +29,7 @@
                                         <img th:src="@{/assets/img/profile.png}" alt="User Profile" class="w-px-40 h-auto rounded-circle" style="width: 40px; height: 40px; object-fit: cover; position: relative; left: 20px;"/>
                                     </div>
                                     <div>
-                                        <button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
+                                        <button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editUserModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
                                     </div>
                                 </div>
                             </div>
@@ -42,20 +42,32 @@
                         <div class="dropdown-item">
                             <i class="ri-user-3-line ri-22px me-2"></i>
                             <span class="align-middle" style="color: black">Username</span>
-                            <div class="form-control" id="username-display">
-                                <span class="loading-text">Loading...</span>
+                            <div class="form-control">
+                                <span id="username-display">Loading...</span>
                             </div>
                         </div>
                         <div class="dropdown-item">
                             <i class="ri-mail-line ri-22px me-2"></i>
                             <span class="align-middle" style="color: black">Email</span>
-                            <div class="form-control" id="email-display">
-                                <span class="loading-text">Loading...</span>
+                            <div class="form-control">
+                                <span id="email-display">Loading...</span>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/user/profile}">
+                            <i class="ri-user-line ri-22px me-2"></i>
+                            <span class="align-middle" style="color: black">My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/user/profile}" onclick="scrollToOrders()">
+                            <i class="ri-shopping-bag-line ri-22px me-2"></i>
+                            <span class="align-middle" style="color: black">My Orders</span>
+                        </a>
                     </li>
 <!--                    <li>-->
 <!--                        <a class="dropdown-item" th:href="@{/api/wishlist/page}">-->

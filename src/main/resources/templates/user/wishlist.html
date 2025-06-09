@@ -14,6 +14,8 @@
     <link rel="stylesheet" th:href="@{/assets/css/main.css}">
     <link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
     <link rel="stylesheet" th:href="@{/assets/css/remixicon.css}">
+    <!-- SweetAlert2 for better notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
     <style>
         .wishlist-container {
             padding: 40px 0;
@@ -164,52 +166,52 @@
         <div class="wishlist-header">
             <h2 class="mb-0">My Wishlist</h2>
         </div>
-
+        
         <div id="wishlist-content">
             <div class="table-responsive">
                 <table class="table wishlist-table" id="wishlist-table">
                     <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Added Date</th>
-                        <th>Actions</th>
-                    </tr>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Added Date</th>
+                            <th>Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="item : ${wishlistItems}">
-                        <td>
-                            <div class="product-info">
-                                <img th:if="${item.product.images != null and !item.product.images.empty and item.product.images[0].path != null}"
-                                     th:src="@{'/assets/img/products/' + ${item.product.images[0].path}}"
-                                     th:alt="${item.product.name}"
-                                     style="width: 80px; height: 80px; object-fit: cover;">
-                                <img th:unless="${item.product.images != null and !item.product.images.empty and item.product.images[0].path != null}"
-                                     th:src="@{/assets/img/default-product.jpg}"
-                                     th:alt="${item.product.name}"
-                                     style="width: 80px; height: 80px; object-fit: cover;">
-                                <div class="product-details">
-                                    <h5 th:text="${item.product.name}"></h5>
-                                    <small th:text="${item.product.description}"></small>
+                        <tr th:each="item : ${wishlistItems}" th:attr="data-product-id=${item.product.id}">
+                            <td>
+                                <div class="product-info">
+                            <img th:if="${item.product.images != null and !item.product.images.empty and item.product.images[0].path != null}"
+                                 th:src="@{'/uploads/products/images/' + ${item.product.images[0].path}}"
+                                 th:alt="${item.product.name}"
+                                 style="width: 80px; height: 80px; object-fit: cover;">
+                            <img th:unless="${item.product.images != null and !item.product.images.empty and item.product.images[0].path != null}"
+                                 th:src="@{/assets/img/default-product.jpg}"
+                                 th:alt="${item.product.name}"
+                                 style="width: 80px; height: 80px; object-fit: cover;">
+                                    <div class="product-details">
+                                        <h5 th:text="${item.product.name}"></h5>
+                                        <small th:text="${item.product.description}"></small>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="price" th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT') + ' XAF'}"></td>
-                        <td class="date-added" th:text="${#temporals.format(item.addedAt, 'dd/MM/yyyy')}"></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-primary btn-wishlist"
-                                        th:onclick="'addToCart(' + ${item.product.id} + ')'">
-                                    Add to Cart
-                                </button>
-                                <button class="btn-remove"
-                                        th:onclick="'removeFromWishlist(' + ${item.product.id} + ')'"
-                                        title="Remove from wishlist">
-                                    <i class="ri-delete-bin-line"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                    <td class="price" th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT') + ' XAF'}"></td>
+                            <td class="date-added" th:text="${#temporals.format(item.addedAt, 'dd/MM/yyyy')}"></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary btn-wishlist" 
+                                            th:onclick="'addToCart(' + ${item.product.id} + ')'">
+                                        Add to Cart
+                                    </button>
+                                    <button class="btn-remove" 
+                                            th:onclick="'removeFromWishlist(' + ${item.product.id} + ')'"
+                                            title="Remove from wishlist">
+                                        <i class="ri-delete-bin-line"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -258,212 +260,247 @@
     <!-- end footer -->
 
     <script th:inline="javascript">
-        // Initialize wishlist buttons when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing wishlist buttons...');
-            initializeWishlistButtons();
-        });
+    // Initialize wishlist buttons when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, initializing wishlist buttons...');
+        initializeWishlistButtons();
+    });
 
-        // Initialize all wishlist buttons on the page
-        async function initializeWishlistButtons() {
-            const wishlistButtons = document.querySelectorAll('.wishlist-btn');
-            console.log('Found ' + wishlistButtons.length + ' wishlist buttons');
+    // Initialize all wishlist buttons on the page
+    async function initializeWishlistButtons() {
+        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+        console.log('Found ' + wishlistButtons.length + ' wishlist buttons');
 
-            for (const button of wishlistButtons) {
-                const productId = button.getAttribute('data-product-id');
-                console.log('Initializing button for product ID:', productId);
-
-                if (productId) {
-                    try {
-                        const isInWishlist = await checkWishlistStatus(productId);
-                        updateWishlistButtonUI(button, isInWishlist);
-                    } catch (error) {
-                        console.error('Error checking wishlist status for product', productId, ':', error);
-                    }
-                } else {
-                    console.warn('Product ID not found for wishlist button:', button);
-                }
-            }
-        }
-
-        // Update wishlist button UI
-        function updateWishlistButtonUI(button, isInWishlist) {
-            const icon = button.querySelector('i');
-            if (isInWishlist) {
-                icon.classList.remove('ri-heart-line');
-                icon.classList.add('ri-heart-fill');
-                icon.style.color = '#dc3545';
-                button.title = 'Remove from wishlist';
-            } else {
-                icon.classList.remove('ri-heart-fill');
-                icon.classList.add('ri-heart-line');
-                icon.style.color = '';
-                button.title = 'Add to wishlist';
-            }
-        }
-
-        // Toggle wishlist function - Fixed to accept button directly
-        async function toggleWishlist(button) {
-            // Get product ID from button
+        for (const button of wishlistButtons) {
             const productId = button.getAttribute('data-product-id');
-            console.log('Toggle wishlist for product ID:', productId);
+            console.log('Initializing button for product ID:', productId);
 
-            if (!productId) {
-                console.error('Product ID not found on button:', button);
+            if (productId) {
+                try {
+                    const isInWishlist = await checkWishlistStatus(productId);
+                    updateWishlistButtonUI(button, isInWishlist);
+                } catch (error) {
+                    console.error('Error checking wishlist status for product', productId, ':', error);
+                }
+            } else {
+                console.warn('Product ID not found for wishlist button:', button);
+            }
+        }
+    }
+
+    // Update wishlist button UI
+    function updateWishlistButtonUI(button, isInWishlist) {
+        const icon = button.querySelector('i');
+        if (isInWishlist) {
+            icon.classList.remove('ri-heart-line');
+            icon.classList.add('ri-heart-fill');
+            icon.style.color = '#dc3545';
+            button.title = 'Remove from wishlist';
+        } else {
+            icon.classList.remove('ri-heart-fill');
+            icon.classList.add('ri-heart-line');
+            icon.style.color = '';
+            button.title = 'Add to wishlist';
+        }
+    }
+
+    // Toggle wishlist function - Fixed to accept button directly
+    async function toggleWishlist(button) {
+        // Get product ID from button
+        const productId = button.getAttribute('data-product-id');
+        console.log('Toggle wishlist for product ID:', productId);
+
+        if (!productId) {
+            console.error('Product ID not found on button:', button);
+            return;
+        }
+
+        try {
+            // First check if user is logged in
+            const authResponse = await fetch('/api/auth/check', {
+                credentials: 'include'
+            });
+
+            if (!authResponse.ok) {
+                console.log('User not authenticated, redirecting to login');
+                window.location.href = '/api/auth/login';
                 return;
             }
 
-            try {
-                // First check if user is logged in
-                const authResponse = await fetch('/api/auth/check', {
-                    credentials: 'include'
-                });
+            // Check current wishlist status
+            const isInWishlist = await checkWishlistStatus(productId);
+            const method = isInWishlist ? 'DELETE' : 'POST';
+            const url = `/api/wishlist/${isInWishlist ? 'remove' : 'add'}/${productId}`;
 
-                if (!authResponse.ok) {
-                    console.log('User not authenticated, redirecting to login');
+            console.log(`${isInWishlist ? 'Removing from' : 'Adding to'} wishlist: Product ${productId}`);
+
+            const wishlistResponse = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+
+            if (!wishlistResponse.ok) {
+                if (wishlistResponse.status === 401) {
                     window.location.href = '/api/auth/login';
                     return;
                 }
+                const errorData = await wishlistResponse.json();
+                throw new Error(errorData.error || 'Failed to update wishlist');
+            }
 
-                // Check current wishlist status
-                const isInWishlist = await checkWishlistStatus(productId);
-                const method = isInWishlist ? 'DELETE' : 'POST';
-                const url = `/api/wishlist/${isInWishlist ? 'remove' : 'add'}/${productId}`;
+            const data = await wishlistResponse.json();
+            console.log('Wishlist response:', data);
 
-                console.log(`${isInWishlist ? 'Removing from' : 'Adding to'} wishlist: Product ${productId}`);
+            if (data.success) {
+                // Update UI
+                updateWishlistButtonUI(button, !isInWishlist);
 
-                const wishlistResponse = await fetch(url, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include'
-                });
-
-                if (!wishlistResponse.ok) {
-                    if (wishlistResponse.status === 401) {
-                        window.location.href = '/api/auth/login';
-                        return;
-                    }
-                    const errorData = await wishlistResponse.json();
-                    throw new Error(errorData.error || 'Failed to update wishlist');
-                }
-
-                const data = await wishlistResponse.json();
-                console.log('Wishlist response:', data);
-
-                if (data.success) {
-                    // Update UI
-                    updateWishlistButtonUI(button, !isInWishlist);
-
-                    // Show success message
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: isInWishlist ? 'Removed from Wishlist' : 'Added to Wishlist',
-                            text: isInWishlist ? 'Product has been removed from your wishlist!' : 'Product has been added to your wishlist!',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                    } else {
-                        alert(isInWishlist ? 'Product removed from wishlist!' : 'Product added to wishlist!');
-                    }
-                } else {
-                    throw new Error(data.error || 'Operation failed');
-                }
-
-            } catch (error) {
-                console.error('Error toggling wishlist:', error);
+                // Show success message
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: error.message || 'Failed to update wishlist'
+                        icon: 'success',
+                        title: isInWishlist ? 'Removed from Wishlist' : 'Added to Wishlist',
+                        text: isInWishlist ? 'Product has been removed from your wishlist!' : 'Product has been added to your wishlist!',
+                        timer: 2000,
+                        showConfirmButton: false
                     });
                 } else {
-                    alert('Error: ' + (error.message || 'Failed to update wishlist'));
+                    alert(isInWishlist ? 'Product removed from wishlist!' : 'Product added to wishlist!');
                 }
+            } else {
+                throw new Error(data.error || 'Operation failed');
+            }
+
+        } catch (error) {
+            console.error('Error toggling wishlist:', error);
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'Failed to update wishlist'
+                });
+            } else {
+                alert('Error: ' + (error.message || 'Failed to update wishlist'));
             }
         }
+    }
 
-        // Check wishlist status function
-        async function checkWishlistStatus(productId) {
-            try {
-                const response = await fetch(`/api/wishlist/check/${productId}`, {
-                    credentials: 'include'
-                });
+    // Check wishlist status function
+    async function checkWishlistStatus(productId) {
+        try {
+            const response = await fetch(`/api/wishlist/check/${productId}`, {
+                credentials: 'include'
+            });
 
-                if (!response.ok) {
-                    if (response.status === 401) {
-                        // User not authenticated, return false
-                        return false;
-                    }
-                    throw new Error('Network response was not ok');
+            if (!response.ok) {
+                if (response.status === 401) {
+                    // User not authenticated, return false
+                    return false;
                 }
-
-                const data = await response.json();
-                return data.inWishlist || false;
-            } catch (error) {
-                console.error('Error checking wishlist status:', error);
-                return false;
+                throw new Error('Network response was not ok');
             }
+
+            const data = await response.json();
+            return data.inWishlist || false;
+        } catch (error) {
+            console.error('Error checking wishlist status:', error);
+            return false;
         }
+    }
 
-        // Remove from wishlist function (for wishlist page)
-        async function removeFromWishlist(productId) {
-            try {
-                console.log('Removing product from wishlist:', productId);
+    // Remove from wishlist function (for wishlist page)
+    async function removeFromWishlist(productId) {
+        try {
+            console.log('Removing product from wishlist:', productId);
 
-                const response = await fetch(`/api/wishlist/remove/${productId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include'
-                });
+            // Show confirmation dialog
+            const result = await Swal.fire({
+                title: 'Remove from Wishlist?',
+                text: 'Are you sure you want to remove this item from your wishlist?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, remove it!'
+            });
 
-                if (!response.ok) {
-                    if (response.status === 401) {
-                        window.location.href = '/api/auth/login';
-                        return;
-                    }
-                    throw new Error('Failed to remove from wishlist');
+            if (!result.isConfirmed) {
+                return;
+            }
+
+            const response = await fetch(`/api/wishlist/remove/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                if (response.status === 401) {
+                    window.location.href = '/api/auth/login';
+                    return;
+                }
+                throw new Error('Failed to remove from wishlist');
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Remove the item from the DOM without reloading the page
+                const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+                if (row) {
+                    row.remove();
                 }
 
-                const data = await response.json();
-
-                if (data.success) {
-                    // Show success message and reload page
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Removed from Wishlist',
-                            text: 'Product has been removed from your wishlist!',
-                            timer: 1500,
-                            showConfirmButton: false
-                        }).then(() => {
-                            location.reload();
-                        });
-                    } else {
-                        alert('Product removed from wishlist!');
-                        location.reload();
+                // Check if there are any remaining items
+                const remainingRows = document.querySelectorAll('#wishlist-table tbody tr');
+                if (remainingRows.length === 0) {
+                    // Show empty wishlist message
+                    const tableContainer = document.querySelector('.table-responsive');
+                    if (tableContainer) {
+                        tableContainer.innerHTML = `
+                            <div id="empty-wishlist" class="empty-wishlist">
+                                <i class="ri-heart-line"></i>
+                                <h3>Your wishlist is empty</h3>
+                                <p>Looks like you haven't added any items to your wishlist yet</p>
+                                <a th:href="@{/user/shop}" class="btn btn-primary">Start Shopping</a>
+                            </div>
+                        `;
                     }
-                } else {
-                    throw new Error(data.error || 'Failed to remove from wishlist');
                 }
-            } catch (error) {
-                console.error('Error removing from wishlist:', error);
+
+                // Show success message
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: error.message || 'Failed to remove from wishlist'
+                        icon: 'success',
+                        title: 'Removed from Wishlist',
+                        text: 'Product has been removed from your wishlist!',
+                        timer: 1500,
+                        showConfirmButton: false
                     });
                 } else {
-                    alert('Error: ' + (error.message || 'Failed to remove from wishlist'));
+                    alert('Product removed from wishlist!');
                 }
+            } else {
+                throw new Error(data.error || 'Failed to remove from wishlist');
+            }
+        } catch (error) {
+            console.error('Error removing from wishlist:', error);
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'Failed to remove from wishlist'
+                });
+            } else {
+                alert('Error: ' + (error.message || 'Failed to remove from wishlist'));
             }
         }
+    }
     </script>
 
     <!-- Include all necessary JS -->
@@ -477,5 +514,7 @@
     <script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
     <script th:src="@{/assets/js/sticker.js}"></script>
     <script th:src="@{/assets/js/main.js}"></script>
+    <!-- Include cart.js for addToCart functionality -->
+    <script th:src="@{/js/cart.js}"></script>
 </body>
 </html> 

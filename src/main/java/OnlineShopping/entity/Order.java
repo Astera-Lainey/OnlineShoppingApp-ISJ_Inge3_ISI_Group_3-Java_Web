@@ -26,7 +26,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> items = new ArrayList<>();
+    private List<OrderItem> items;
 
     @Column(nullable = false)
     private String shippingAddress;
@@ -67,8 +67,15 @@ public class Order {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        status = OrderStatus.PENDING;
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+        if (status == null) {
+            status = OrderStatus.PENDING;
+        }
     }
 
     @PreUpdate
@@ -85,12 +92,24 @@ public class Order {
     }
 
     public void addItem(OrderItem item) {
+        if (items == null) {
+            items = new ArrayList<>();
+        }
         items.add(item);
         item.setOrder(this);
     }
 
     public void removeItem(OrderItem item) {
-        items.remove(item);
-        item.setOrder(null);
+        if (items != null) {
+            items.remove(item);
+            item.setOrder(null);
+        }
+    }
+
+    public List<OrderItem> getItems() {
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        return items;
     }
 }

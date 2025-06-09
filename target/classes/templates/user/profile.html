@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="User Profile - Online Shopping App">
+    <title>My Profile - Online Shopping</title>
+    
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
+    
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    
+    <!-- fontawesome -->
+    <link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
+    
+    <!-- bootstrap -->
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+    
+    <!-- owl carousel -->
+    <link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
+    
+    <!-- magnific popup -->
+    <link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+    
+    <!-- animate css -->
+    <link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+    
+    <!-- mean menu css -->
+    <link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
+    
+    <!-- main style -->
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}">
+    
+    <!-- responsive -->
+    <link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
+    
+    <style>
+        .profile-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .order-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .order-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-confirmed { background: #d1ecf1; color: #0c5460; }
+        .status-shipping { background: #cce5ff; color: #004085; }
+        .status-delivered { background: #d4edda; color: #155724; }
+        .status-cancelled { background: #f8d7da; color: #721c24; }
+        
+        .product-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        
+        .product-item:last-child {
+            border-bottom: none;
+        }
+        
+        .product-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        
+        .nav-tabs .nav-link {
+            color: #495057;
+            border: none;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: #f28123;
+            border-bottom: 2px solid #f28123;
+            background: none;
+        }
+    </style>
+</head>
+<body>
+    <!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+
+    <!-- header -->
+    <div class="top-header-area" id="sticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 text-center">
+                    <div class="main-menu-wrap">
+                        <!-- logo -->
+                        <div class="site-logo">
+                            <a th:href="@{/main}">
+                                <img th:src="@{/assets/img/logo.png}" alt="">
+                            </a>
+                        </div>
+                        <!-- logo -->
+
+                        <!-- menu start -->
+                        <nav class="main-menu">
+                            <ul>
+                                <li><a th:href="@{/main}">Home</a></li>
+                                <li><a th:href="@{/user/shop}">Shop</a></li>
+                                <li><a th:href="@{/user/cart}">Cart</a></li>
+                                <li class="current-list-item"><a th:href="@{/user/profile}">My Profile</a></li>
+                                <li>
+                                    <div class="header-icons">
+                                        <a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
+                                        <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                        <div class="mobile-menu"></div>
+                        <!-- menu end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end header -->
+
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>My Account</p>
+                        <h1>Profile & Orders</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- profile section -->
+    <div class="product-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Profile Navigation -->
+                    <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">
+                                <i class="fas fa-user"></i> Profile Information
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab">
+                                <i class="fas fa-shopping-bag"></i> My Orders (<span th:text="${#lists.size(userOrders)}">0</span>)
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="profileTabsContent">
+                        <!-- Profile Information Tab -->
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel">
+                            <div class="profile-section">
+                                <div class="row">
+                                    <div class="col-md-3 text-center">
+                                        <img th:src="@{/assets/img/profile.png}" alt="Profile Picture" class="rounded-circle" width="150" height="150">
+                                        <h4 class="mt-3" th:text="${user.firstName + ' ' + user.lastName}">User Name</h4>
+                                        <p class="text-muted" th:text="${user.email}">user@example.com</p>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h5>Personal Information</h5>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p><strong>First Name:</strong> <span th:text="${user.firstName}">First</span></p>
+                                                <p><strong>Last Name:</strong> <span th:text="${user.lastName}">Last</span></p>
+                                                <p><strong>Email:</strong> <span th:text="${user.email}">email@example.com</span></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><strong>Username:</strong> <span th:text="${user.username}">username</span></p>
+                                                <p><strong>Role:</strong> <span th:text="${user.role}" class="badge bg-primary">Role</span></p>
+                                                <p><strong>Account Status:</strong> <span th:text="${user.enabled ? 'Active' : 'Inactive'}" class="badge" th:classappend="${user.enabled ? 'bg-success' : 'bg-danger'}">Active</span></p>
+                                            </div>
+                                        </div>
+                                        <button class="boxed-btn" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                                            <i class="fas fa-edit"></i> Edit Profile
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Orders Tab -->
+                        <div class="tab-pane fade" id="orders" role="tabpanel">
+                            <div th:if="${#lists.isEmpty(userOrders)}" class="text-center py-5">
+                                <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
+                                <h4>No Orders Yet</h4>
+                                <p class="text-muted">You haven't placed any orders yet.</p>
+                                <a th:href="@{/user/shop}" class="boxed-btn">Start Shopping</a>
+                            </div>
+                            
+                            <div th:if="${!#lists.isEmpty(userOrders)}">
+                                <div th:each="order : ${userOrders}" class="order-card">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2">
+                                            <h6 class="mb-1">Order #<span th:text="${order.id}">123</span></h6>
+                                            <small class="text-muted" th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm')}">2024-01-01</small>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div th:each="item : ${order.items}" class="product-item">
+                                                <img th:if="${item.product != null and item.product.images != null and !item.product.images.isEmpty()}" 
+                                                     th:src="${item.product.images[0].path}" alt="Product" class="product-image">
+                                                <img th:unless="${item.product != null and item.product.images != null and !item.product.images.isEmpty()}" 
+                                                     th:src="@{/assets/img/profile.png}" alt="Product" class="product-image">
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-1" th:text="${item.product != null ? item.product.name : 'Product Not Available'}">Product Name</h6>
+                                                    <small class="text-muted">
+                                                        Qty: <span th:text="${item.quantity}">1</span> | 
+                                                        Price: <span th:text="${#numbers.formatCurrency(item.price)}">$0.00</span>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <h6 class="mb-1" th:text="${#numbers.formatCurrency(order.total)}">$0.00</h6>
+                                            <small class="text-muted">
+                                                <span th:text="${order.items.size()}">1</span> item(s)
+                                            </small>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <span th:class="${'order-status ' + 
+                                                (order.status == T(OnlineShopping.entity.Order.OrderStatus).PENDING ? 'status-pending' : 
+                                                (order.status == T(OnlineShopping.entity.Order.OrderStatus).CONFIRMED ? 'status-confirmed' : 
+                                                (order.status == T(OnlineShopping.entity.Order.OrderStatus).SHIPPING ? 'status-shipping' : 
+                                                (order.status == T(OnlineShopping.entity.Order.OrderStatus).DELIVERED ? 'status-delivered' : 
+                                                'status-cancelled'))))}"
+                                                th:text="${order.status}">PENDING</span>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <button class="btn btn-outline-primary btn-sm" th:onclick="'viewOrderDetails(' + ${order.id} + ')'">
+                                                <i class="fas fa-eye"></i> View Details
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end profile section -->
+
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Order Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>Shipping Information</h6>
+                            <p id="shippingInfo"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Order Summary</h6>
+                            <p id="orderSummary"></p>
+                        </div>
+                    </div>
+                    <h6>Order Items</h6>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Image</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orderItems">
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4" class="text-end"><strong>Subtotal:</strong></td>
+                                    <td id="subtotal"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-end"><strong>Shipping:</strong></td>
+                                    <td id="shipping"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                                    <td id="total"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/api/user/update-profile}" method="post">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" th:value="${user.firstName}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" th:value="${user.lastName}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" th:value="${user.email}" required>
+                        </div>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box about-widget">
+                        <h2 class="widget-title">About us</h2>
+                        <p>Online Shopping App - Your one-stop shop for all your needs.</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box get-in-touch">
+                        <h2 class="widget-title">Get in Touch</h2>
+                        <ul>
+                            <li>34/8, East Hukupara, Gifirtok, Sadan.</li>
+                            <li>support@onlineshopping.com</li>
+                            <li>+00 111 222 3333</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box pages">
+                        <h2 class="widget-title">Pages</h2>
+                        <ul>
+                            <li><a th:href="@{/main}">Home</a></li>
+                            <li><a th:href="@{/user/shop}">Shop</a></li>
+                            <li><a th:href="@{/user/cart}">Cart</a></li>
+                            <li><a th:href="@{/user/contact}">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-box subscribe">
+                        <h2 class="widget-title">Subscribe</h2>
+                        <p>Subscribe to our mailing list to get the latest updates.</p>
+                        <form action="index.html">
+                            <input type="email" placeholder="Email">
+                            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end footer -->
+
+    <!-- copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p>Copyrights &copy; 2024 - <a href="#">Online Shopping</a>, All Rights Reserved.</p>
+                </div>
+                <div class="col-lg-6 text-right col-md-12">
+                    <div class="social-icons">
+                        <ul>
+                            <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end copyright -->
+
+    <!-- jquery -->
+    <script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+    <!-- bootstrap -->
+    <script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <!-- count down -->
+    <script th:src="@{/assets/js/jquery.countdown.js}"></script>
+    <!-- isotope -->
+    <script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+    <!-- waypoints -->
+    <script th:src="@{/assets/js/waypoints.js}"></script>
+    <!-- owl carousel -->
+    <script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+    <!-- magnific popup -->
+    <script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+    <!-- mean menu -->
+    <script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+    <!-- sticker js -->
+    <script th:src="@{/assets/js/sticker.js}"></script>
+    <!-- main js -->
+    <script th:src="@{/assets/js/main.js}"></script>
+    <!-- menu js -->
+    <script th:src="@{/assets/bootstrap/js/menu.js}"></script>
+
+    <style>
+        /* Order Details Modal Styles */
+        .order-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .status-confirmed {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .status-shipping {
+            background-color: #cce5ff;
+            color: #004085;
+            border: 1px solid #b3d7ff;
+        }
+        
+        .status-delivered {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .order-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .order-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .product-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .product-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .modal-lg .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            border-bottom: none;
+        }
+        
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+        
+        .table th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .table td {
+            vertical-align: middle;
+        }
+        
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.5rem 0.75rem;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        
+        /* Loading animation */
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+        
+        /* Print styles */
+        @media print {
+            .modal-header,
+            .btn,
+            .d-flex {
+                display: none !important;
+            }
+            
+            .modal-content {
+                box-shadow: none !important;
+                border: none !important;
+            }
+        }
+    </style>
+
+    <script>
+        // View order details
+        function viewOrderDetails(orderId) {
+            // Show loading state
+            const modal = document.getElementById('orderDetailsModal');
+            const modalBody = modal.querySelector('.modal-body');
+            modalBody.innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3">Loading order details...</p>
+                </div>
+            `;
+            
+            // Show modal immediately with loading state
+            new bootstrap.Modal(modal).show();
+            
+            fetch(`/api/orders/${orderId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(order => {
+                    // Restore modal content
+                    modalBody.innerHTML = `
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h6>Shipping Information</h6>
+                                <p id="shippingInfo"></p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Order Summary</h6>
+                                <p id="orderSummary"></p>
+                            </div>
+                        </div>
+                        <h6>Order Items</h6>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Image</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orderItems">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" class="text-end"><strong>Subtotal:</strong></td>
+                                        <td id="subtotal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-end"><strong>Shipping:</strong></td>
+                                        <td id="shipping"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-end"><strong>Total:</strong></td>
+                                        <td id="total"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="printOrder(${order.id})">
+                                            <i class="fas fa-print"></i> Print Order
+                                        </button>
+                                        <button class="btn btn-outline-secondary btn-sm ms-2" onclick="downloadInvoice(${order.id})">
+                                            <i class="fas fa-download"></i> Download Invoice
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <span class="badge ${getStatusBadgeClass(order.status)} fs-6">
+                                            ${order.status}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Update shipping info
+                    document.getElementById('shippingInfo').innerHTML = `
+                        <strong>Address:</strong> ${order.shippingAddress}<br>
+                        <strong>City:</strong> ${order.shippingCity}<br>
+                        <strong>State:</strong> ${order.shippingState}<br>
+                        <strong>ZIP:</strong> ${order.shippingZipCode}<br>
+                        <strong>Phone:</strong> ${order.shippingPhone}<br>
+                        <strong>Notes:</strong> ${order.notes || 'No additional notes'}
+                    `;
+
+                    // Update order summary with enhanced information
+                    const orderDate = new Date(order.createdAt);
+                    const formattedDate = orderDate.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    document.getElementById('orderSummary').innerHTML = `
+                        <strong>Order ID:</strong> #${order.id}<br>
+                        <strong>Date:</strong> ${formattedDate}<br>
+                        <strong>Status:</strong> ${order.status}<br>
+                        <strong>Total Items:</strong> ${order.items.length}<br>
+                        <strong>Payment Method:</strong> Credit Card<br>
+                        <strong>Estimated Delivery:</strong> ${getEstimatedDelivery(order.createdAt, order.status)}
+                    `;
+
+                    // Update order items with enhanced display
+                    const orderItemsBody = document.getElementById('orderItems');
+                    orderItemsBody.innerHTML = '';
+                    
+                    order.items.forEach(item => {
+                        const row = document.createElement('tr');
+                        const imageUrl = item.product && item.product.images && item.product.images.length > 0 
+                            ? item.product.images[0].path 
+                            : '/assets/img/profile.png';
+                        const productName = item.product ? item.product.name : 'Product Not Available';
+                        const productBrand = item.product && item.product.brand ? item.product.brand : '';
+                        
+                        row.innerHTML = `
+                            <td>
+                                <div>
+                                    <strong>${productName}</strong>
+                                    ${productBrand ? `<br><small class="text-muted">${productBrand}</small>` : ''}
+                                </div>
+                            </td>
+                            <td>
+                                <img src="${imageUrl}" 
+                                     alt="${productName}" 
+                                     style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"
+                                     onerror="this.src='/assets/img/profile.png'">
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary">${item.quantity}</span>
+                            </td>
+                            <td>$${item.price.toFixed(2)}</td>
+                            <td><strong>$${(item.price * item.quantity).toFixed(2)}</strong></td>
+                        `;
+                        orderItemsBody.appendChild(row);
+                    });
+
+                    // Update totals
+                    document.getElementById('subtotal').textContent = `$${order.subtotal.toFixed(2)}`;
+                    document.getElementById('shipping').textContent = `$${order.shippingCost.toFixed(2)}`;
+                    document.getElementById('total').innerHTML = `<strong>$${order.total.toFixed(2)}</strong>`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    modalBody.innerHTML = `
+                        <div class="text-center py-5">
+                            <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+                            <h5>Error Loading Order Details</h5>
+                            <p class="text-muted">Unable to load order details. Please try again.</p>
+                            <button class="btn btn-primary" onclick="viewOrderDetails(${orderId})">
+                                <i class="fas fa-redo"></i> Retry
+                            </button>
+                        </div>
+                    `;
+                });
+        }
+
+        // Helper function to get status badge class
+        function getStatusBadgeClass(status) {
+            switch(status) {
+                case 'PENDING': return 'bg-warning text-dark';
+                case 'CONFIRMED': return 'bg-info';
+                case 'SHIPPING': return 'bg-primary';
+                case 'DELIVERED': return 'bg-success';
+                case 'CANCELLED': return 'bg-danger';
+                default: return 'bg-secondary';
+            }
+        }
+
+        // Helper function to get estimated delivery date
+        function getEstimatedDelivery(createdAt, status) {
+            if (status === 'DELIVERED') {
+                return 'Delivered';
+            }
+            
+            const orderDate = new Date(createdAt);
+            const estimatedDate = new Date(orderDate);
+            
+            switch(status) {
+                case 'PENDING':
+                    estimatedDate.setDate(estimatedDate.getDate() + 7); // 7 days for processing
+                    break;
+                case 'CONFIRMED':
+                    estimatedDate.setDate(estimatedDate.getDate() + 5); // 5 days for shipping
+                    break;
+                case 'SHIPPING':
+                    estimatedDate.setDate(estimatedDate.getDate() + 2); // 2 days for delivery
+                    break;
+                default:
+                    estimatedDate.setDate(estimatedDate.getDate() + 7);
+            }
+            
+            return estimatedDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Print order function
+        function printOrder(orderId) {
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Order #${orderId}</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            .header { text-align: center; margin-bottom: 30px; }
+                            .order-info { margin-bottom: 20px; }
+                            table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                            th { background-color: #f2f2f2; }
+                            .total { font-weight: bold; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="header">
+                            <h1>Order #${orderId}</h1>
+                            <p>Online Shopping App</p>
+                        </div>
+                        <div id="printContent">
+                            Loading...
+                        </div>
+                    </body>
+                </html>
+            `);
+            
+            // Fetch order data and populate print content
+            fetch(`/api/orders/${orderId}`)
+                .then(response => response.json())
+                .then(order => {
+                    const printContent = printWindow.document.getElementById('printContent');
+                    printContent.innerHTML = `
+                        <div class="order-info">
+                            <h3>Order Details</h3>
+                            <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleDateString()}</p>
+                            <p><strong>Status:</strong> ${order.status}</p>
+                        </div>
+                        
+                        <div class="order-info">
+                            <h3>Shipping Information</h3>
+                            <p>${order.shippingAddress}</p>
+                            <p>${order.shippingCity}, ${order.shippingState} ${order.shippingZipCode}</p>
+                            <p>Phone: ${order.shippingPhone}</p>
+                        </div>
+                        
+                        <h3>Order Items</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${order.items.map(item => `
+                                    <tr>
+                                        <td>${item.product ? item.product.name : 'Product Not Available'}</td>
+                                        <td>${item.quantity}</td>
+                                        <td>$${item.price.toFixed(2)}</td>
+                                        <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" class="total">Subtotal:</td>
+                                    <td class="total">$${order.subtotal.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="total">Shipping:</td>
+                                    <td class="total">$${order.shippingCost.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="total">Total:</td>
+                                    <td class="total">$${order.total.toFixed(2)}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    `;
+                    
+                    printWindow.document.close();
+                    printWindow.print();
+                })
+                .catch(error => {
+                    printWindow.document.getElementById('printContent').innerHTML = 'Error loading order details';
+                });
+        }
+
+        // Download invoice function (placeholder)
+        function downloadInvoice(orderId) {
+            alert('Invoice download feature will be implemented soon!');
+        }
+    </script>
+</body>
+</html> 

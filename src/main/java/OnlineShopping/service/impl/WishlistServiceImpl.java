@@ -38,7 +38,8 @@ public class WishlistServiceImpl implements WishlistService {
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
 
         // Check if product exists - Convert Long to Integer for Product ID
-        Product product = productRepository.findById(Math.toIntExact(productId));
+        Product product = productRepository.findById(Math.toIntExact(productId))
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + productId));
 
         // Check if item already exists in wishlist
         Optional<WishlistItem> existingItem = wishlistRepository.findByUserIdAndProductId(userId, productId);

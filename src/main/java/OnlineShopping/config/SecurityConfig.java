@@ -37,6 +37,7 @@ public class SecurityConfig {
                     "/api/auth/login",
                     "/api/auth/signup",
                     "/api/auth/register",
+                    "/api/auth/check",
                     "/error",
                     "/assets/**",
                     "/css/**",
@@ -48,6 +49,7 @@ public class SecurityConfig {
                     "/",
                     "/landing"
                 ).permitAll()
+                .requestMatchers("/api/wishlist/**").authenticated()
                 .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .requestMatchers("/user/**").hasAuthority("ROLE_USER")
                 .anyRequest().authenticated()
@@ -74,6 +76,20 @@ public class SecurityConfig {
                 .invalidSessionUrl("/api/auth/login")
                 .maximumSessions(1)
                 .expiredUrl("/api/auth/login")
+            )
+            .exceptionHandling(exceptionHandling -> exceptionHandling
+                .authenticationEntryPoint((request, response, authException) -> {
+                    // Check if the request is for an API endpoint
+                    String requestURI = request.getRequestURI();
+                    if (requestURI.startsWith("/api/")) {
+                        response.setStatus(401);
+                        response.setContentType("application/json");
+                        response.getWriter().write("{\"error\":\"Authentication required\",\"authenticated\":false}");
+                    } else {
+                        // For non-API requests, redirect to login
+                        response.sendRedirect("/api/auth/login");
+                    }
+                })
             )
             .authenticationProvider(authenticationProvider());
 
