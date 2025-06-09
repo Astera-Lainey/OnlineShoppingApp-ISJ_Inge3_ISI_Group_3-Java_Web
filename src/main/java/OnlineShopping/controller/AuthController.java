@@ -176,4 +176,31 @@ public class AuthController {
         }
         return "redirect:/api/auth/login";
     }
+
+    @GetMapping("/admin/adminDashboard")
+    public String adminDashboard() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
+            return "redirect:/api/auth/login";
+        }
+        if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return "admin/adminDashboard";
+        }
+        return "redirect:/api/auth/login";
+    }
+
+    @GetMapping("/check")
+    @ResponseBody
+    public ResponseEntity<?> checkAuthentication() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
+            return ResponseEntity.status(401).body(Map.of("authenticated", false));
+        }
+
+        return ResponseEntity.ok(Map.of(
+                "authenticated", true,
+                "username", auth.getName()
+        ));
+    }
 }
