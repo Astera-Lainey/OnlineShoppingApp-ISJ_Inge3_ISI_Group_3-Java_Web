@@ -23,7 +23,18 @@ public class Product {
     private String brand;
     private Category category;
     private double price;
+    @Column(nullable = false)
     private int stockQuantity;
+
+    @Column(nullable = false)
+    private int initialStockQuantity;
+
+    @PrePersist
+    protected void onCreate() {
+        if (initialStockQuantity == 0) {
+            initialStockQuantity = stockQuantity;
+        }
+    }
 
     @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

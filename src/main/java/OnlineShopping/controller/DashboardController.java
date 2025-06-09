@@ -14,6 +14,7 @@ import OnlineShopping.service.CartService;
 import OnlineShopping.service.ProductImageService;
 import OnlineShopping.service.ProductService;
 import OnlineShopping.service.OrderService;
+import OnlineShopping.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,9 @@ public class DashboardController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private InventoryService inventoryService;
 
     //admin getMappings
     @GetMapping("admin/adminDashboard")
@@ -90,6 +94,10 @@ public class DashboardController {
         model.addAttribute("pendingOrders", orders.stream()
                 .filter(order -> order.getStatus() == Order.OrderStatus.PENDING)
                 .count());
+
+        // Add inventory management attributes
+        model.addAttribute("lowStockCount", inventoryService.getLowStockCount());
+        model.addAttribute("unreadNotificationCount", inventoryService.getUnreadNotificationCount());
 
         return "admin/adminDashboard";
     }
