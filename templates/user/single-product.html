@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title> Product Info</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
+	<!-- fontawesome -->
+	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
+	<!-- bootstrap -->
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+	<!-- owl carousel -->
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
+	<!-- magnific popup -->
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+	<!-- animate css -->
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<!-- mean menu css -->
+	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
+	<!-- main style -->
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
+	<!-- responsive -->
+	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+	<!-- header -->
+	<div class="top-header-area" id="sticker">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 text-center">
+					<div class="main-menu-wrap">
+						<!-- logo -->
+						<div class="site-logo">
+							<a th:href="@{/user/main}">
+								<img th:src="@{assets/img/logo.png}" alt="">
+							</a>
+						</div>
+						<!-- logo -->
+
+						<!-- menu start -->
+						<nav class="main-menu">
+							<ul>
+								<li ><a href="#">Home</a>
+								</li>
+								<li class="current-list-item" ><a>Shop</a>
+									<ul class="sub-menu">
+										<li><a th:href="@{/user/shop}">Shop</a></li>
+										<li><a th:href="@{/user/checkout}">Check Out</a></li>
+									
+									</ul>
+								</li>
+								<li><a th:href="@{/user/contact}">Contact</a></li>
+								
+								<li>
+									<div class="header-icons">
+										<a class="shopping-cart" th:href="@{/user/cart}"><i class="fas fa-shopping-cart"></i></a>
+										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<!--Profile Settings added -->
+										<div class="profile" style="position: relative; bottom: 90px;left: 60px;">
+											<a>
+												<ul class="navbar-nav flex-row align-items-center ms-auto" >
+													<!-- User -->
+													<li class="nav-item navbar-dropdown dropdown-user dropdown">
+														<a
+																class="nav-link dropdown-toggle hide-arrow p-0"
+																href="javascript:void(0);"
+																data-bs-toggle="dropdown" style="justify-content: end">
+															<div class="avatar avatar-online">
+																<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-fill mb-2" viewBox="0 0 16 16">
+																	<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+																</svg>                    </div>
+														</a>
+														<ul class="dropdown-menu dropdown-menu-end mt-3" style="padding-inline:20px; border-radius: 10px; padding-block: 10px;" >
+															<li>
+																<a class="dropdown-item" href="#">
+																	<div class="d-flex align-items-center">
+																		<div class="flex-shrink-0 me-2">
+																			<div class="avatar avatar-online">
+																				<img th:src="@{../assets/img/user (1).png}" alt class="w-px-40 h-auto rounded-circle"  style="width: 12%; position: relative; left: 20px;"/>
+																			</div>
+																			<div>
+																				<button class="bordered-btn mt-3" data-bs-toggle="modal" data-bs-target="#editModal" style="border-radius: 40px; color: black; background-color: white;">Edit Profile</button>
+																			</div>
+																		</div>
+																	</div>
+																</a>
+															</li>
+															<li>
+																<div class="dropdown-divider"></div>
+															</li>
+															<li>
+																<a class="dropdown-item" href="#">
+																	<i class="ri-user-3-line ri-22px me-2"></i>
+																	<span class="align-middle" style="color: black">Username</span>
+																	<div class="form-control">babygirl</div>
+																</a>
+																<a class="dropdown-item" href="#">
+																	<i class="ri-user-3-line ri-22px me-2"></i>
+																	<span class="align-middle" style="color: black">Email</span>
+																	<div class="form-control">forbin@gmail.com</div>
+																</a>
+															</li>
+
+															<li>
+																<div class="dropdown-divider"></div>
+															</li>
+															<li>
+																<div class="d-grid px-4 pt-2 pb-1 me-5">
+																	<a class="btn btn-danger d-flex" href="#">
+																		<small class="align-middle">Logout</small>
+																		<i class="ri-logout-box-r-line ms-2 ri-16px"></i>
+																	</a>
+																</div>
+															</li>
+														</ul>
+													</li>
+													<!--/ User -->
+												</ul>
+											</a>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</nav>
+						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+						<div class="mobile-menu"></div>
+						<!-- menu end -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end header -->
+
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end search arewa -->
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>See more Details</p>
+						<h1>Product Name</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- single product -->
+	<div class="single-product mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="single-product-img">
+						<div class="product-img">
+							<img th:src="@{/assets/img/products/}${product.imageUrl}" alt="">
+							<div class="product-action">
+								<a class="wishlist-btn" th:data-product-id="${product.id}" onclick="toggleWishlist(this)">
+									<i class="ri-heart-line"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div class="single-product-content">
+						<h3>Green apples have polyphenols</h3>
+						<p class="single-product-pricing"> 5000XAF</p>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint dignissimos, rem commodi cum voluptatem quae reprehenderit repudiandae ea tempora incidunt ipsa, quisquam animi perferendis eos eum modi! Tempora, earum.</p>
+						<div class="single-product-form">
+							<form action="#">
+								<input type="number" placeholder="0">
+							</form>
+							<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+							<p><strong>Categories: </strong>Fruits, Organic</p>
+						</div>
+						<h4>Share:</h4>
+						<ul class="product-share">
+							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href=""><i class="fab fa-twitter"></i></a></li>
+							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
+							<li><a href=""><i class="fab fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end single product -->
+
+	<!-- more products -->
+	<div class="more-products mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3><span class="orange-text">Related</span> Products</h3></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-1.jpg}" alt=""></a>
+						</div>
+						<h3>Strawberry</h3>
+						<p class="product-price"> 8500XAF</p>
+						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-2.jpg}" alt=""></a>
+						</div>
+						<h3>Berry</h3>
+						<p class="product-price"> 7000XAF </p>
+						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 offset-lg-0 offset-md-3 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+						</div>
+						<h3>Lemon</h3>
+						<p class="product-price"> 3500XAF</p>
+						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 offset-lg-0 offset-md-3 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a th:href="@{/user/single-product.html}"><img th:src="@{/assets/img/products/product-img-3.jpg}" alt=""></a>
+						</div>
+						<h3>Lemon</h3>
+						<p class="product-price"> 3500XAF</p>
+						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end more products -->
+
+	<!-- logo carousel -->
+	<div class="logo-carousel-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="logo-carousel-inner">
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/sam.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/kapp.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/addi.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/nikes.png}" alt="">
+						</div>
+						<div class="single-logo-item">
+							<img th:src="@{/assets/img/company-logos/hnm.png}" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end logo carousel -->
+
+	<!-- Edit User Settings Modal -->
+	<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel1">Edit Profile</h5>
+					<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter First Name" />
+								<label>Full Name</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="text" class="form-control" placeholder="Enter Last Name" />
+								<label>Last Name</label>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row g-4">
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input
+										type="text"
+										class="form-control"
+										placeholder="Enter Username" />
+								<label >Username</label>
+							</div>
+						</div>
+						<div class="col mb-2">
+							<div class="form-floating form-floating-outline">
+								<input type="password" class="form-control" placeholder="..........." />
+								<label>Password</label>
+							</div>
+						</div>
+					</div>
+					<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+						Cancel
+					</button>
+					<button type="button" class="btn btn-primary">Save Settings</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Edit User Settings Modal -->
+
+	<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About us</h2>
+						<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a few clicks. <br> Sign Up and start clicking today!!! </p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>Eyang, Cameroon</li>
+							<li>ClicknCollect@gmail.com</li>
+							<li>+237 658381975</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Navigation</h2>
+						<ul>
+							<li><a th:href="@{main}">Home</a></li>
+							<li><a th:href="@{shop}">Shop</a></li>
+							<li><a th:href="@{contact}">Contact Us</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Subscribe to our mailing list to get the latest updates on sales.</p>
+						<form action="#">
+							<input type="email" placeholder="Email">
+							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<p>&copy; Copyright Click 'n' Collect
+						<script>
+							document.write(new Date().getFullYear());
+						</script>
+					</p>
+				</div>
+				<div class="col-lg-6 text-right col-md-12">
+					<div class="social-icons">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end copyright -->
+
+
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<!-- end copyright -->
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
+	<!-- jquery -->
+	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+	<!-- bootstrap -->
+	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+	<!-- count down -->
+	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+	<!-- isotope -->
+	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+	<!-- waypoints -->
+	<script th:src="@{/assets/js/waypoints.js}"></script>
+	<!-- owl carousel -->
+	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+	<!-- magnific popup -->
+	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+	<!-- mean menu -->
+	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+	<!-- sticker js -->
+	<script th:src="@{/assets/js/sticker.js}"></script>
+	<!-- main js -->
+	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+
+	<script th:inline="javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+			// Check wishlist status for the product
+			const wishlistButton = document.querySelector('.wishlist-btn');
+			if (wishlistButton) {
+				const productId = wishlistButton.dataset.productId;
+				checkWishlistStatus(productId, wishlistButton);
+			}
+		});
+
+		function checkWishlistStatus(productId, button) {
+			fetch(`/api/wishlist/check/${productId}`)
+				.then(response => response.json())
+				.then(data => {
+					const icon = button.querySelector('i');
+					if (data.inWishlist) {
+						icon.classList.remove('ri-heart-line');
+						icon.classList.add('ri-heart-fill');
+						icon.style.color = '#dc3545';
+					} else {
+						icon.classList.remove('ri-heart-fill');
+						icon.classList.add('ri-heart-line');
+						icon.style.color = '';
+					}
+				})
+				.catch(error => console.error('Error checking wishlist status:', error));
+		}
+
+		function toggleWishlist(button) {
+			const productId = button.dataset.productId;
+			const icon = button.querySelector('i');
+			const isInWishlist = icon.classList.contains('ri-heart-fill');
+
+			if (isInWishlist) {
+				// Remove from wishlist
+				fetch(`/api/wishlist/remove/${productId}`, {
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						icon.classList.remove('ri-heart-fill');
+						icon.classList.add('ri-heart-line');
+						icon.style.color = '';
+					} else {
+						alert('Error removing from wishlist');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					alert('Error removing from wishlist');
+				});
+			} else {
+				// Add to wishlist
+				fetch(`/api/wishlist/add/${productId}`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						icon.classList.remove('ri-heart-line');
+						icon.classList.add('ri-heart-fill');
+						icon.style.color = '#dc3545';
+					} else {
+						alert('Error adding to wishlist');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					alert('Error adding to wishlist');
+				});
+			}
+		}
+	</script>
+
+	<style>
+		.wishlist-btn {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			background: white;
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+			z-index: 1;
+		}
+
+		.wishlist-btn:hover {
+			transform: scale(1.1);
+		}
+
+		.wishlist-btn i {
+			font-size: 24px;
+			transition: all 0.3s ease;
+		}
+
+		.wishlist-btn i.ri-heart-fill {
+			color: #dc3545;
+		}
+
+		.product-action {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 20px;
+		}
+	</style>
+
+</body>
+</html>

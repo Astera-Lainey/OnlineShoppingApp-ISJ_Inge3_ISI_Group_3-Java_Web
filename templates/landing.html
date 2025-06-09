@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description"
+		  content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Fruitkha - Slider Version</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="../static/assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
+	<!-- bootstrap -->
+	<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+	<!-- owl carousel -->
+	<link rel="stylesheet" th:href="@{/assets/css/owl.carousel.css}">
+	<!-- magnific popup -->
+	<link rel="stylesheet" th:href="@{/assets/css/magnific-popup.css}">
+	<!-- animate css -->
+	<link rel="stylesheet" th:href="@{/assets/css/animate.css}">
+	<!-- mean menu css -->
+	<link rel="stylesheet" th:href="@{/assets/css/meanmenu.min.css}">
+	<!-- main style -->
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}">
+	<!-- responsive -->
+	<link rel="stylesheet" th:href="@{/assets/css/responsive.css}">
+	<style>
+		.single-product-item {
+			p {
+				font-size: 20px;
+				font-weight: bold;
+			}
+		}
+
+		.image {
+			height: 150px;
+			width: 200px;
+
+			p {
+				color: white;
+				transition: 0.5s;
+				display: none;
+				position: relative;
+				bottom: 110px;
+			}
+
+			.overlay {
+				position: absolute;
+				transition: all 0.3s ease;
+				opacity: 0;
+				left: 0;
+				background-color: #003566;
+			}
+
+			img {
+				height: 150px;
+				width: 200px;
+				border-radius: 5%;
+			}
+		}
+
+		.overlayLeft {
+			height: 100%;
+			width: 0;
+			top: 0;
+			left: 75px;
+			background-color: #003566;
+			border-radius: 5%;
+		}
+
+		.image:hover {
+			transform: translate3d(0, -10px, 0);
+			box-shadow: 0 21px 44px rgba(0, 0, 0, 0.08);
+
+			.overlay {
+				opacity: 0.5;
+			}
+
+			.overlayLeft {
+				height: 150px;
+				width: 200px;
+			}
+
+			p {
+				font-size: 30px;
+				font-weight: bold;
+				transition: 0.5s;
+				display: block;
+			}
+
+		}
+
+
+	</style>
+</head>
+<body>
+
+<!--PreLoader-->
+<div class="loader">
+	<div class="loader-inner">
+		<div class="circle"></div>
+	</div>
+</div>
+<!--PreLoader Ends-->
+
+<!-- header -->
+<div class="top-header-area" id="sticker">
+	<div class="container text-center">
+		<div class="row">
+			<div class="col-lg-12 col-sm-12 text-center">
+				<div class="main-menu-wrap">
+					<!-- logo -->
+					<div class="site-logo">
+						<a th:href="@{/landing}">
+							<img th:src="@{/assets/img/logo.png}" alt="">
+						</a>
+					</div>
+					<!-- logo -->
+
+					<!-- menu start -->
+					<nav class="main-menu">
+						<ul>
+							<li class="current-list-item"><a th:href="@{/api/auth/landing}">Home</a>
+							</li>
+							<li><a th:href="@{#}">Visit Shop</a>
+								<ul class="sub-menu">
+									<li><a th:href="@{/api/auth/signup}">Signup</a></li>
+									<li><a th:href="@{/api/auth/login}">Login</a></li>
+								</ul>
+							</li>
+							<li><a th:href="@{/contact}">Contact Us</a></li>
+						</ul>
+					</nav>
+					<!-- menu end -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end header -->
+
+
+<!-- home page slider -->
+<div class="homepage-slider">
+	<!-- single home slider -->
+	<div class="single-homepage-slider homepage-bg-1">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
+					<div class="hero-text">
+						<div class="hero-text-tablecell">
+							<p class="subtitle">Stay on Trends</p>
+							<h1>Bringing an Extensive Selection of Goods</h1>
+							<div class="hero-btns">
+								<a th:href="@{#}" class="boxed-btn">Fruit Collection</a>
+								<a th:href="@{#}" class="bordered-btn">Contact Us</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- single home slider -->
+	<div class="single-homepage-slider homepage-bg-2">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1 text-center">
+					<div class="hero-text">
+						<div class="hero-text-tablecell">
+							<p class="subtitle">Only the Best</p>
+							<h1>100% High Quality Products</h1>
+							<div class="hero-btns">
+								<a th:href="@{#}" class="boxed-btn">Visit Shop</a>
+								<a th:href="@{#}" class="bordered-btn">Contact Us</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- single home slider -->
+	<div class="single-homepage-slider homepage-bg-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1 text-right">
+					<div class="hero-text">
+						<div class="hero-text-tablecell">
+							<p class="subtitle">Mega Sale Going On!</p>
+							<h1>Get Holiday Discount</h1>
+							<div class="hero-btns">
+								<a th:href="@{#}" class="boxed-btn">Visit Shop</a>
+								<a th:href="@{#}" class="bordered-btn">Contact Us</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end home page slider -->
+
+<!-- features list section -->
+<div class="list-section pt-80 pb-80">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+				<div class="list-box d-flex align-items-center">
+					<div class="list-icon">
+						<i class="fas fa-shipping-fast"></i>
+					</div>
+					<div class="content">
+						<h3>Free Shipping</h3>
+						<p>When order is over 100,000 Frs</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+				<div class="list-box d-flex align-items-center">
+					<div class="list-icon">
+						<i class="fas fa-phone-volume"></i>
+					</div>
+					<div class="content">
+						<h3>24/7 Support</h3>
+						<p>Get support all day</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="list-box d-flex justify-content-start align-items-center">
+					<div class="list-icon">
+						<i class="fas fa-sync"></i>
+					</div>
+					<div class="content">
+						<h3>Refund</h3>
+						<p>Get refund within 3 days!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<!-- end features list section -->
+
+<!-- Categories section -->
+<div class="product-section mt-150 mb-150">
+	<div class="containers">
+		<div class="row">
+			<div class="section-title text-center m-5" style="display: block; margin: 0 auto;">
+				<h3><span class="orange-text">Our</span> Categories</h3>
+			</div>
+		</div>
+
+		<div class="row m-5">
+			<div class="col-lg-2 col-md-6 text-center">
+				<div class="image" id="overlay">
+					<a href=""><img th:src="@{/assets/img/pexels-kaip-996329.jpg}" width="90%" alt=""></a>
+					<div class="overlay overlayLeft"></div>
+					<p>FASHION</p>
+				</div>
+			</div>
+			<div class="col-lg-2 col-md-6 text-center">
+				<div class="image">
+					<a th:href="@{/single-product}"><img th:src="@{/assets/img/pexels-garrettmorrow-682933.jpg}" alt=""></a>
+					<div class="overlay overlayLeft"></div>
+					<p>ELECTRONICS</p>
+				</div>
+			</div>
+			<div class="col-lg-2 col-md-6 text-center">
+				<div class="image">
+					<a th:href="@{single-product}"><img th:src="@{/assets/img/cat (5).jpg}" alt=""></a>
+					<div class="overlay overlayLeft"></div>
+					<p>HOME & FURNITURE</p>
+				</div>
+			</div>
+			<div class="col-lg-2 col-md-6 text-center">
+				<div class="image">
+					<a th:href="@{single-product}"><img th:src="@{/assets/img/pexels-kovyrina-12211.jpg}" alt=""></a>
+					<div class="overlay overlayLeft"></div>
+					<p>TOYS</p>
+				</div>
+			</div>
+			<div class="col-lg-2 col-md-6 text-center">
+				<div class="image">
+					<a th:href="@{single-product}"><img th:src="@{/assets/img/pexels-pixabay-416717.jpg}" alt=""></a>
+					<div class="overlay overlayLeft"></div>
+					<p>SPORT & FITNESS</p>
+				</div>
+			</div>
+			<div class="col-lg-2 col-md-6 text-center">
+				<div class="image">
+					<a th:href="@{single-product}"><img th:src="@{/assets/img/pexels-pixabay-267202.jpg}" alt=""></a>
+					<div class="overlay overlayLeft"></div>
+					<p>SHOES</p>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- End categories section -->
+
+<!-- product section -->
+<div class="product-section mt-150 mb-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="section-title">
+					<h3><span class="orange-text">Best</span> Sellers</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6 text-center">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-1.jpg}"
+															alt=""></a>
+					</div>
+					<h3>Strawberry</h3>
+					<p class="product-price"><span>Per Kg</span> 8500FCFA </p>
+					<a href="cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 text-center">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-2.jpg}"
+															alt=""></a>
+					</div>
+					<h3>Berry</h3>
+					<p class="product-price"><span>Per Kg</span> 7000FCFA </p>
+					<a href="cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
+				<div class="single-product-item">
+					<div class="product-image">
+						<a th:href="@{single-product}"><img th:src="@{/assets/img/products/product-img-3.jpg}"
+															alt=""></a>
+					</div>
+					<h3>Lemon</h3>
+					<p class="product-price"><span>Per Kg</span> 3500FCFA </p>
+					<a href="cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end product section -->
+			<div class="row">
+				<div class="col-lg-4 col-md-6 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="#"><img th:src="@{/../static/assets/img/products/product-img-1.jpg}" alt=""></a>
+						</div>
+						<h3>Strawberry</h3>
+						<p class="product-price"><span>Per Kg</span> 8500FCFA </p>
+						<a th:href="@{/login}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href=""><img th:src="@{/../static/assets/img/products/product-img-2.jpg}" alt=""></a>
+						</div>
+						<h3>Berry</h3>
+						<p class="product-price"><span>Per Kg</span> 7000FCFA </p>
+						<a th:href="@{/login}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="#"><img th:src="@{/../static/assets/img/products/product-img-3.jpg}" alt=""></a>
+						</div>
+						<h3>Lemon</h3>
+						<p class="product-price"><span>Per Kg</span> 3500FCFA </p>
+						<a th:href="@{/login}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end product section -->
+
+<!-- shop banner -->
+<section class="shop-banner">
+	<div class="container">
+		<h3>Holiday sale is on! <br> with a big <span class="orange-text">Discount...</span></h3>
+		<div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
+		<a th:href="@{auth/login}" class="cart-btn btn-lg}">Shop Now</a>
+	</div>
+</section>
+<!-- end shop banner -->
+
+
+<!-- logo carousel -->
+<div class="logo-carousel-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="logo-carousel-inner">
+					<div class="single-logo-item">
+						<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img th:src="@{/assets/img/company-logos/sam.png}" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img th:src="@{/assets/img/company-logos/kapp.png}" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img th:src="@{/assets/img/company-logos/iphone.png}" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img th:src="@{/assets/img/company-logos/addi.png}" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img th:src="@{/assets/img/company-logos/nikes.png}" alt="">
+					</div>
+					<div class="single-logo-item">
+						<img th:src="@{/assets/img/company-logos/hnm.png}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end logo carousel -->
+
+<!-- footer -->
+<div class="footer-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+				<div class="footer-box about-widget">
+					<h2 class="widget-title">About us</h2>
+					<p>We are an e-commerce website with the aim of bringing all ur needs to your doorstep with simply a
+						few clicks. <br> Sign Up and start clicking today!!! </p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="footer-box get-in-touch">
+					<h2 class="widget-title">Get in Touch</h2>
+					<ul>
+						<li>Eyang, Cameroon</li>
+						<li>ClicknCollect@gmail.com</li>
+						<li>+237 658381975</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="footer-box pages">
+					<h2 class="widget-title">Navigation</h2>
+					<ul>
+						<li><a th:href="@{/landing}">Home</a></li>
+						<li><a th:href="@{/about}">About</a></li>
+						<li><a th:href="@{/services}">Shop</a></li>
+						<li><a th:href="@{/contact}">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="footer-box subscribe">
+					<h2 class="widget-title">Subscribe</h2>
+					<p>Subscribe to our mailing list to get the latest updates on sales.</p>
+					<form action="#">
+						<input type="email" placeholder="Email">
+						<button type="submit"><i class="fas fa-paper-plane"></i></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end footer -->
+
+<!-- copyright -->
+<div class="copyright">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12">
+				<p>&copy; Copyright Click 'n' Collect
+					<script>
+						document.write(new Date().getFullYear());
+					</script>
+				</p>
+			</div>
+			<div class="col-lg-6 text-right col-md-12">
+				<div class="social-icons">
+					<ul>
+						<li><a href= target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+						<li><a href=target="_blank"><i class="fab fa-twitter"></i></a></li>
+						<li><a href=target="_blank"><i class="fab fa-instagram"></i></a></li>
+						<li><a href=target="_blank"><i class="fab fa-linkedin"></i></a></li>
+						<li><a href=target="_blank"><i class="fab fa-dribbble"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end copyright -->
+
+<!-- jquery -->
+<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
+<!-- bootstrap -->
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<!-- count down -->
+<script th:src="@{/assets/js/jquery.countdown.js}"></script>
+<!-- isotope -->
+<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
+<!-- waypoints -->
+<script th:src="@{/assets/js/waypoints.js}"></script>
+<!-- owl carousel -->
+<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+<!-- magnific popup -->
+<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
+<!-- mean menu -->
+<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
+<!-- sticker js -->
+<script th:src="@{/assets/js/sticker.js}"></script>
+<!-- main js -->
+<script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+</html>
