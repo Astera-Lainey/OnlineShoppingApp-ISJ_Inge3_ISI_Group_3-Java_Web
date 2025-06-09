@@ -180,6 +180,30 @@
 						<div class="row">
 							<div class="col-12">
 								<form action="#" method="post">
+									<div class="btn-group">
+										<button
+												type="button"
+												class="btn btn-primary dropdown-toggle"
+												data-bs-toggle="dropdown"
+												aria-haspopup="true"
+												aria-expanded="false" style="margin-bottom: 35px;">
+											<svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
+												<path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z"/>
+											</svg>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a class="dropdown-item" href="javascript:void(0);" data-filter="*">All</a></li>
+											<li th:each="category : ${cats}">
+												<a class="dropdown-item"
+												   href="javascript:void(0);"
+												   th:text="${category.displayName}"
+												   th:attr="data-filter=${'.' + category.name().toLowerCase().replace('_', '-')}">
+													Category
+												</a>
+											</li>
+										</ul>
+
+									</div>
 									<input type="text" name="keyword" id="keyword" placeholder="Search for Products...">
 									<button type="button" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
 								</form>
@@ -192,7 +216,7 @@
 
 			<div class="row" id="products-container">
 				<div class="col-lg-3 col-md-6 text-center" ></div>
-				<div  th:each="product : ${products}">
+				<div class="product-item"  th:each="product : ${products}" th:classappend="${product.category.name().toLowerCase().replace('_', '-')}">
 				</div>
 			</div>
 		</div>
@@ -351,6 +375,8 @@
 	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
 	<!-- end copyright -->
 	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<!-- jquery -->
 	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
