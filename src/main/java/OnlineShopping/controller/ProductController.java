@@ -43,8 +43,8 @@ public class ProductController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/add")
-    public String CreateProduct(@ModelAttribute("productform") ProductDTO productDTO, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+    @PostMapping("/add/{userId}")
+    public String CreateProduct(@ModelAttribute("productform") ProductDTO productDTO, RedirectAttributes redirectAttributes, BindingResult bindingResult,@PathVariable Integer userId) {
         System.out.println("Product Details received for: " + productDTO.getName());
             try{
                 //creates a product
@@ -54,13 +54,14 @@ public class ProductController {
                 List<MultipartFile> images = productDTO.getImage();
                 productImageService.addProductImages(images,newProduct);
                 System.out.println("Product created successfully");
+
                 redirectAttributes.addFlashAttribute("successMessage", "Product created successfully");
-                return "redirect:/admin/adminDashboard/{userId}";
+                return "redirect:/admin/adminDashboard";
             } catch (Exception e) {
                 redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             }
 
-        return "redirect:/admin/adminDashboard/{userId}";}
+        return "redirect:/admin/adminDashboard";}
 
     @PostMapping("/delete/{name}")
     public String deleteProduct(

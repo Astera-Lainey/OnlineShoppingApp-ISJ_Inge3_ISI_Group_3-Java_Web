@@ -67,7 +67,7 @@
 					<!-- logo -->
 					<div class="site-logo">
 						<a th:href="@{/user/main}">
-							<img th:src="@{/assets/img/logo.png}" alt="">
+<!--							<img th:src="@{/assets/img}" alt="">-->
 						</a>
 					</div>
 					<!-- logo -->
@@ -229,13 +229,13 @@
 			<div class="col-md-7">
 				<div class="single-product-content">
 					<h3 th:text="${product.name}"></h3>
-					<p class="single-product-pricing"><span th:text="${product.price}"></span>XAF</p>
+					<div class="d-flex">
+						<p class="single-product-pricing" th:text="${product.price}"></p>
+						<p>XAF</p>
+					</div>
+
 					<p th:text="${product.description}"></p>
 					<div class="single-product-form">
-						<form action="#">
-							<input type="number" placeholder="0" min="0">
-							<button type="submit">Add to Cart</button>
-						</form>
 						<a th:href="@{/user/cart}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 						<p><strong>Categories: </strong> <span th:text="${product.category.displayName}"></span></p>
 						<p><strong>Color: </strong> <span th:text="${product.color}"></span></p>
@@ -265,16 +265,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-3 col-md-6 text-center" th:each="relatedProduct : ${relatedProducts}">
-				<div class="single-product-item">
-					<div class="product-image">
-						<a th:href="@{'/user/single-product/' + ${relatedProduct.id}}"><img th:src="@{/{imageUrl}(imageUrl=${relatedProduct.imageUrl})}" alt="Related Product"></a>
-					</div>
-					<h3 th:text="${relatedProduct.name}"></h3>
-					<p class="product-price" th:text="${relatedProduct.price} + ' XAF'"></p>
-					<a th:href="@{'/user/single-product/' + ${relatedProduct.id}}" class="cart-btn"><i class="fas fa-shopping-cart"></i> View</a>
-				</div>
+		<div class="row" id="products-container">
+			<div class="col-lg-3 col-md-6 text-center"></div>
+			<div th:each="product : ${products}">
 			</div>
 		</div>
 	</div>
@@ -541,6 +534,7 @@
 <script th:src="@{/assets/js/sticker.js}"></script>
 <!-- main js -->
 <script th:src="@{/assets/js/main.js}"></script>
+<script th:src="@{/assets/js/loadProducts.js}"></script>
 
 <style>
 	.star-filled { color: gold; }

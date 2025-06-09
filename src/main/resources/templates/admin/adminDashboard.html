@@ -607,7 +607,7 @@
 	<div class="modal" id="addModal" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
-				<form th:action="@{/add}" method="post" enctype="multipart/form-data" th:object="${productform}">
+				<form th:action="@{/add/${userId}}" method="post" enctype="multipart/form-data" th:object="${productform}">
 					<div class="modal-header">
 						<h5 class="modal-title">Create A New Product</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
