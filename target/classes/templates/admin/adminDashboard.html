@@ -116,13 +116,13 @@
 
 
 	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg" style="margin-top: 0;">
-		<div class="container" style="height: 0;">
+	<div class="breadcrumb-section breadcrumb-bg" style="background-image: url('/assets/img/feature-bg.jpg');">
+		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>Total Overview</p>
 						<h1>Admin Dashboard</h1>
+						<p>Manage your online store</p>
 					</div>
 				</div>
 			</div>
@@ -427,15 +427,41 @@
 								</center>
 							</div>
 						</div>
+						<!-- Order Status Filter -->
+						<div class="row mb-4">
+							<div class="col">
+								<div class="btn-group" role="group">
+									<button type="button" 
+											class="btn btn-outline-primary" 
+											th:classappend="${currentStatus == T(OnlineShopping.entity.Order.OrderStatus).PENDING ? 'active' : ''}"
+											data-status="PENDING">Pending</button>
+									<button type="button" 
+											class="btn btn-outline-primary" 
+											th:classappend="${currentStatus == T(OnlineShopping.entity.Order.OrderStatus).CONFIRMED ? 'active' : ''}"
+											data-status="CONFIRMED">Confirmed</button>
+									<button type="button" 
+											class="btn btn-outline-primary" 
+											th:classappend="${currentStatus == T(OnlineShopping.entity.Order.OrderStatus).SHIPPING ? 'active' : ''}"
+											data-status="SHIPPING">Shipping</button>
+									<button type="button" 
+											class="btn btn-outline-primary" 
+											th:classappend="${currentStatus == T(OnlineShopping.entity.Order.OrderStatus).DELIVERED ? 'active' : ''}"
+											data-status="DELIVERED">Delivered</button>
+									<button type="button" 
+											class="btn btn-outline-primary" 
+											th:classappend="${currentStatus == T(OnlineShopping.entity.Order.OrderStatus).CANCELLED ? 'active' : ''}"
+											data-status="CANCELLED">Cancelled</button>
+								</div>
+							</div>
+						</div>
 						<!-- Search Wrapper -->
 						<div class="search-wrapper">
-
 							<div class="container">
 								<div class="row">
 									<div class="col-12">
 										<form action="#" method="post">
-											<input type="search" name="search" placeholder="Search...">
-											<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+											<input type="search" id="orderSearch" name="search" placeholder="Search orders...">
+											<button type="button" onclick="searchOrders()"><i class="fa fa-search" aria-hidden="true"></i></button>
 										</form>
 									</div>
 								</div>
@@ -447,21 +473,45 @@
 									<table class="table table-sm table-hover">
 										<thead class="table-light fs-4">
 										<tr style="position: sticky; top: 0;">
-											<th class="text-truncate" style="position: sticky; top: 0;">Order Id</th>
+											<th class="text-truncate" style="position: sticky; top: 0;">Order ID</th>
 											<th class="text-truncate" style="position: sticky; top: 0;">Date</th>
 											<th class="text-truncate" style="position: sticky; top: 0;">Customer</th>
-											<th class="text-truncate" style="position: sticky; top: 0;">Total</th>
+											<th class="text-truncate" style="position: sticky; top: 0;">Products</th>
+											<th class="text-truncate" style="position: sticky; top: 0;">Total (XAF)</th>
 											<th class="text-truncate" style="position: sticky; top: 0;">Status</th>
 											<th class="text-truncate" style="position: sticky; top: 0;">Actions</th>
 										</tr>
 										</thead>
 										<tbody>
-										<tr>
-											<td><h6 >501</h6></td>
-											<td>12/05/25</td>
-											<td>Anne-Marie</td>
-											<td>5000000</td>
-											<td>In Transit</td>
+										<tr th:each="order : ${orders}">
+											<td><h6 th:text="${order.id}">#123</h6></td>
+											<td th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm')}">2024-03-20</td>
+											<td>
+												<span th:text="${order.user.firstName + ' ' + order.user.lastName}">John Doe</span><br>
+												<small th:text="${order.user.email}" class="text-muted">john@example.com</small>
+											</td>
+											<td>
+												<div class="d-flex flex-column">
+													<div th:each="item : ${order.items}" class="mb-1">
+														<small>
+															<span th:text="${item.product.name}">Product Name</span>
+															<span class="text-muted">(x</span>
+															<span th:text="${item.quantity}">1</span>
+															<span class="text-muted">)</span>
+														</small>
+													</div>
+												</div>
+											</td>
+											<td th:text="${#numbers.formatCurrency(order.total)}">50000</td>
+											<td>
+												<span th:class="${'badge ' + 
+													(order.status == T(OnlineShopping.entity.Order.OrderStatus).PENDING ? 'bg-warning' : 
+													(order.status == T(OnlineShopping.entity.Order.OrderStatus).CONFIRMED ? 'bg-info' : 
+													(order.status == T(OnlineShopping.entity.Order.OrderStatus).SHIPPING ? 'bg-primary' : 
+													(order.status == T(OnlineShopping.entity.Order.OrderStatus).DELIVERED ? 'bg-success' : 
+													'bg-danger'))))}"
+													th:text="${order.status}">PENDING</span>
+											</td>
 											<td>
 												<div class="dropdown" style="z-index: 1;">
 													<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -470,30 +520,207 @@
 														</svg>
 													</button>
 													<div class="dropdown-menu">
-														<a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#viewModal">
+														<a class="dropdown-item" href="javascript:void(0);" 
+														   th:onclick="'viewOrder(' + ${order.id} + ')'">
 															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
 																<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
 																<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-															</svg>View</a>
-														<a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modalTop">
-															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash3" viewBox="0 0 16 16">
-																<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-															</svg> Delete Order </a>
+															</svg> View Details
+														</a>
+														<div class="dropdown-divider"></div>
+														<a class="dropdown-item" href="javascript:void(0);" 
+														   th:if="${order.status == T(OnlineShopping.entity.Order.OrderStatus).PENDING}"
+														   th:onclick="'updateOrderStatus(' + ${order.id} + ', \'CONFIRMED\')'">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+																<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+															</svg> Confirm Order
+														</a>
+														<a class="dropdown-item" href="javascript:void(0);" 
+														   th:if="${order.status == T(OnlineShopping.entity.Order.OrderStatus).CONFIRMED}"
+														   th:onclick="'updateOrderStatus(' + ${order.id} + ', \'SHIPPING\')'">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
+																<path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456M12 10a.5.5 0 0 1 .5.5v3a.5.5 0 1 1-1 0v-3A.5.5 0 0 1 12 10m-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+															</svg> Mark as Shipping
+														</a>
+														<a class="dropdown-item" href="javascript:void(0);" 
+														   th:if="${order.status == T(OnlineShopping.entity.Order.OrderStatus).SHIPPING}"
+														   th:onclick="'updateOrderStatus(' + ${order.id} + ', \'DELIVERED\')'">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+																<path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003zM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z"/>
+															</svg> Mark as Delivered
+														</a>
+														<div class="dropdown-divider"></div>
+														<a class="dropdown-item text-danger" href="javascript:void(0);" 
+														   th:if="${order.status != T(OnlineShopping.entity.Order.OrderStatus).DELIVERED && 
+																   order.status != T(OnlineShopping.entity.Order.OrderStatus).CANCELLED}"
+														   th:onclick="'updateOrderStatus(' + ${order.id} + ', \'CANCELLED\')'">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+																<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+															</svg> Cancel Order
+														</a>
 													</div>
 												</div>
-
 											</td>
 										</tr>
-
 										</tbody>
 									</table>
-
-
-
 								</div>
 							</div>
 						</div>
 
+						<!-- Order Details Modal -->
+						<div class="modal fade" id="orderDetailsModal" tabindex="-1">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Order Details</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+								</div>
+									<div class="modal-body">
+										<div class="row mb-4">
+											<div class="col-md-6">
+												<h6>Customer Information</h6>
+												<p id="customerInfo"></p>
+											</div>
+											<div class="col-md-6">
+												<h6>Shipping Information</h6>
+												<p id="shippingInfo"></p>
+											</div>
+										</div>
+										<h6>Order Items</h6>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Product</th>
+														<th>Image</th>
+														<th>Quantity</th>
+														<th>Price</th>
+														<th>Total</th>
+													</tr>
+												</thead>
+												<tbody id="orderItems">
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="4" class="text-end"><strong>Subtotal:</strong></td>
+														<td id="subtotal"></td>
+													</tr>
+													<tr>
+														<td colspan="4" class="text-end"><strong>Shipping:</strong></td>
+														<td id="shipping"></td>
+													</tr>
+													<tr>
+														<td colspan="4" class="text-end"><strong>Total:</strong></td>
+														<td id="total"></td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<script th:inline="javascript">
+							// View order details
+							function viewOrder(orderId) {
+								fetch(`/api/orders/${orderId}`)
+									.then(response => response.json())
+									.then(order => {
+										// Update customer info
+										document.getElementById('customerInfo').innerHTML = `
+											<strong>Name:</strong> ${order.user.firstName} ${order.user.lastName}<br>
+											<strong>Email:</strong> ${order.user.email}<br>
+											<strong>Phone:</strong> ${order.user.phone || 'N/A'}
+										`;
+
+										// Update shipping info
+										document.getElementById('shippingInfo').innerHTML = `
+											<strong>Address:</strong> ${order.shippingAddress}<br>
+											<strong>City:</strong> ${order.shippingCity}<br>
+											<strong>State:</strong> ${order.shippingState}<br>
+											<strong>ZIP:</strong> ${order.shippingZipCode}<br>
+											<strong>Phone:</strong> ${order.shippingPhone}<br>
+											<strong>Notes:</strong> ${order.notes || 'No additional notes'}
+										`;
+
+										// Update order items
+										const itemsHtml = order.items.map(item => `
+											<tr>
+												<td>
+													<strong>${item.product.name}</strong><br>
+													<small class="text-muted">${item.product.category || 'No category'}</small>
+												</td>
+												<td>
+													<img th:if="${item.product.images && item.product.images.length > 0}"
+														 th:src="@{${item.product.images[0].imageUrl}}"
+														 alt="${item.product.name}"
+														 style="width: 50px; height: 50px; object-fit: cover;"
+														 onerror="this.src='/assets/img/no-image.png'">
+													<img th:unless="${item.product.images && item.product.images.length > 0}"
+														 src="/assets/img/no-image.png"
+														 alt="${item.product.name}"
+														 style="width: 50px; height: 50px; object-fit: cover;">
+												</td>
+												<td>${item.quantity}</td>
+												<td>${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'XAF' }).format(item.price)}</td>
+												<td>${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'XAF' }).format(item.totalPrice)}</td>
+											</tr>
+										`).join('');
+										document.getElementById('orderItems').innerHTML = itemsHtml;
+
+										// Update totals
+										document.getElementById('subtotal').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'XAF' }).format(order.subtotal);
+										document.getElementById('shipping').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'XAF' }).format(order.shippingCost);
+										document.getElementById('total').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'XAF' }).format(order.total);
+
+										// Show modal
+										new bootstrap.Modal(document.getElementById('orderDetailsModal')).show();
+									})
+									.catch(error => {
+										console.error('Error:', error);
+										alert('Error loading order details');
+									});
+							}
+
+							// Update order status
+							function updateOrderStatus(orderId, status) {
+								if (!confirm(`Are you sure you want to mark this order as ${status}?`)) {
+									return;
+								}
+
+								fetch(`/api/orders/${orderId}/status?status=${status}`, {
+									method: 'POST',
+									headers: {
+										'Content-Type': 'application/json'
+									}
+								})
+								.then(response => response.json())
+								.then(order => {
+									// Reload the page to show updated status
+									window.location.reload();
+								})
+								.catch(error => {
+									console.error('Error:', error);
+									alert('Error updating order status');
+								});
+							}
+
+							// Filter orders by status
+							document.querySelectorAll('[data-status]').forEach(button => {
+								button.addEventListener('click', function() {
+									const status = this.dataset.status;
+									window.location.href = `/admin/adminDashboard?status=${status}`;
+								});
+							});
+
+							// Search orders
+							function searchOrders() {
+								const searchTerm = document.getElementById('orderSearch').value;
+								window.location.href = `/admin/adminDashboard?search=${encodeURIComponent(searchTerm)}`;
+							}
+						</script>
 
 					</div>
 					<div class="tab-pane fade" id="horizontal-messages">
@@ -834,9 +1061,8 @@
 	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
 	<!-- jquery -->
+	<script>//@ sourceMappingURL=</script>
 	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
 	<!-- bootstrap -->
 	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>

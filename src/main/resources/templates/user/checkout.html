@@ -121,115 +121,120 @@
 	<!-- end breadcrumb section -->
 
 	<!-- check out section -->
-	<div class="checkout-section mt-150 mb-150">
-		<div class="container">
+	<div class="container mt-5">
 			<div class="row">
-				<div class="col-lg-8">
-					<div class="checkout-accordion-wrap">
-						<div class="accordion" id="accordionExample">
-						  <div class="card single-accordion">
-						    <div class="card-header" id="headingOne">
-						      <h5 class="mb-0">
-						        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						          Billing Address
-						        </button>
-						      </h5>
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="mb-0">Shipping Information</h4>
 						    </div>
-
-						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						      <div class="card-body">
-						        <div class="billing-address-form">
-						        	<form action="main.html">
-						        		<p><input type="text" placeholder="Name"></p>
-						        		<p><input type="email" placeholder="Email"></p>
-						        		<p><input type="text" placeholder="Address"></p>
-						        		<p><input type="tel" placeholder="Phone"></p>
-						        		<p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Say Something"></textarea></p>
-						        	</form>
+						<form th:action="@{/api/checkout/process}" method="post" id="checkoutForm">
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="firstName">First Name</label>
+									<input type="text" class="form-control" id="firstName" name="firstName" th:value="${user.firstName}" required>
+								</div>
+								<div class="col-md-6 mb-3">
+									<label for="lastName">Last Name</label>
+									<input type="text" class="form-control" id="lastName" name="lastName" th:value="${user.lastName}" required>
 						        </div>
 						      </div>
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="email">Email</label>
+									<input type="email" class="form-control" id="email" name="email" th:value="${user.email}" required>
+								</div>
+								<div class="col-md-6 mb-3">
+									<label for="username">Username</label>
+									<input type="text" class="form-control" id="username" name="username" th:value="${user.username}" readonly>
 						    </div>
 						  </div>
-						  <div class="card single-accordion">
-						    <div class="card-header" id="headingTwo">
-						      <h5 class="mb-0">
-						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-						          Shipping Address
-						        </button>
-						      </h5>
+							<div class="mb-3">
+								<label for="shippingAddress">Shipping Address</label>
+								<input type="text" class="form-control" id="shippingAddress" name="shippingAddress" required>
+							</div>
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="shippingCity">City</label>
+									<input type="text" class="form-control" id="shippingCity" name="shippingCity" required>
+								</div>
+								<div class="col-md-3 mb-3">
+									<label for="shippingState">State</label>
+									<input type="text" class="form-control" id="shippingState" name="shippingState" required>
 						    </div>
-						    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-						      <div class="card-body">
-						        <div class="shipping-address-form">
-						        	<p>Your shipping address form is here.</p>
+								<div class="col-md-3 mb-3">
+									<label for="shippingZipCode">ZIP Code</label>
+									<input type="text" class="form-control" id="shippingZipCode" name="shippingZipCode" required>
 						        </div>
 						      </div>
+							<div class="mb-3">
+								<label for="shippingPhone">Phone Number</label>
+								<input type="tel" class="form-control" id="shippingPhone" name="shippingPhone" required>
 						    </div>
+							<div class="mb-3">
+								<label for="notes">Order Notes (Optional)</label>
+								<textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
 						  </div>
-						  <div class="card single-accordion">
-						    <div class="card-header" id="headingThree">
-						      <h5 class="mb-0">
-						        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-						          Card Details
-						        </button>
-						      </h5>
+							
+							<div class="card mt-4">
+								<div class="card-header">
+									<h5 class="mb-0">Payment Information</h5>
 						    </div>
-						    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
 						      <div class="card-body">
-						        <div class="card-details">
-						        	<p>Your card details goes here.</p>
+									<p class="text-muted">Payment will be processed securely.</p>
+									<!-- Add payment form fields here when implementing payment processing -->
 						        </div>
 						      </div>
+							
+							<div class="mt-4">
+								<button type="submit" class="btn btn-primary btn-lg w-100" th:disabled="${cartItems.empty}">
+									Place Order
+								</button>
+							</div>
+						</form>
 						    </div>
 						  </div>
 						</div>
 
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="mb-0">Order Details</h4>
 					</div>
-				</div>
-
-				<div class="col-lg-4">
-					<div class="order-details-wrap">
-						<table class="order-details">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table">
 							<thead>
 								<tr>
-									<th>Your order Details</th>
+										<th>Product</th>
+										<th>Quantity</th>
 									<th>Price</th>
 								</tr>
 							</thead>
-							<tbody class="order-details-body">
-								<tr>
-									<td>Product</td>
-									<td>Total</td>
-								</tr>
-								<tr>
-									<td>Strawberry</td>
-									<td>$85.00</td>
-								</tr>
-								<tr>
-									<td>Berry</td>
-									<td>$70.00</td>
-								</tr>
-								<tr>
-									<td>Lemon</td>
-									<td>$35.00</td>
+								<tbody>
+									<tr th:each="item : ${cartItems}">
+										<td th:text="${item.product.name}">Product Name</td>
+										<td th:text="${item.quantity}">1</td>
+										<td th:text="${#numbers.formatCurrency(item.totalPrice)}">$0.00</td>
 								</tr>
 							</tbody>
-							<tbody class="checkout-details">
+								<tfoot>
 								<tr>
-									<td>Subtotal</td>
-									<td>$190</td>
+										<td colspan="2" class="text-end"><strong>Subtotal:</strong></td>
+										<td th:text="${#numbers.formatCurrency(subtotal)}">$0.00</td>
 								</tr>
 								<tr>
-									<td>Shipping</td>
-									<td>$50</td>
+										<td colspan="2" class="text-end"><strong>Shipping:</strong></td>
+										<td th:text="${#numbers.formatCurrency(shipping)}">$0.00</td>
 								</tr>
 								<tr>
-									<td>Total</td>
-									<td>$240</td>
+										<td colspan="2" class="text-end"><strong>Total:</strong></td>
+										<td th:text="${#numbers.formatCurrency(total)}">$0.00</td>
 								</tr>
-							</tbody>
+								</tfoot>
 						</table>
-						<a href="#" class="boxed-btn">Place Order</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -402,6 +407,27 @@
 	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
 	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
 
+	<script th:inline="javascript">
+	document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+		e.preventDefault();
+		
+		// Validate form
+		if (!this.checkValidity()) {
+			e.stopPropagation();
+			this.classList.add('was-validated');
+			return;
+		}
+		
+		// Show loading state
+		const submitButton = this.querySelector('button[type="submit"]');
+		const originalText = submitButton.innerHTML;
+		submitButton.disabled = true;
+		submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+		
+		// Submit form
+		this.submit();
+	});
+	</script>
 
 </body>
 </html>

@@ -1,0 +1,16 @@
+{
+    "name": "Click 'n' Collect",
+    "short_name": "Click 'n' Collect",
+    "description": "Online shopping platform",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffa500",
+    "icons": [
+        {
+            "src": "/assets/img/favicon.ico",
+            "sizes": "64x64",
+            "type": "image/x-icon"
+        }
+    ]
+} 
