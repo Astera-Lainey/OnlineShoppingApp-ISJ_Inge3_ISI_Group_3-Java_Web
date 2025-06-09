@@ -151,7 +151,7 @@ public class ProductController {
         model.addAttribute("productId", productId);
         model.addAttribute("reviews", reviewService.findByProductId(productId));
         model.addAttribute("userId", authentication != null ? authentication.getName() : "Anonymous");
-        return "/user/single-product";
+        return "user/single-product";
     }
 
     @PostMapping("/add-review")

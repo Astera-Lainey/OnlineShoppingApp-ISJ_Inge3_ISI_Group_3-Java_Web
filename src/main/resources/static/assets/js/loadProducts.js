@@ -12,7 +12,8 @@
 
     // Create product card HTML
     const productDiv = document.createElement('div');
-    productDiv.className = "col-lg-3 col-md-6 text-center";
+        const categoryClass = product.category.toLowerCase().replace('_', '-');
+        productDiv.className = `col-lg-3 col-md-6 text-center ${categoryClass}`;
     productDiv.innerHTML = `
 <div class="single-product-item">
 <a href="/user/single-product">

@@ -48,7 +48,6 @@ public class DashboardController {
         if (currentUser.isEmpty()) {
             return "redirect:/api/auth/login";
         }
-//        product Models
         List<Product> allProducts = productService.getAllProducts();
         List<ProductImage> images = productImageService.getAllImages();
         List<ImageDTO> imagedto = new ArrayList<>();
@@ -156,11 +155,24 @@ public class DashboardController {
         model.addAttribute("products", products);
         model.addAttribute("cats", Category.values());
 
-        return "/user/shop";
+        return "user/shop";
     }
 
 
 
+    //        product Models
+    @GetMapping("/view")
+    public String productsAndImages(@RequestParam("ProductId") int ProductId, Model model){
+        List<ProductImage> images = productImageService.getImagesByProductId(ProductId);
+        List<ImageDTO> imagedto = new ArrayList<>();
+        for (ProductImage image : images) {
+            imagedto.add(image.toDTO());
+        }
+
+        model.addAttribute("images", imagedto);
+
+        return "admin/adminDashboard";
+    }
 
 
   }
