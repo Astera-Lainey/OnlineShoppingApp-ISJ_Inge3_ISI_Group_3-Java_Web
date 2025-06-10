@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<base href="/">
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -121,7 +122,7 @@
 					<div class="single-product-img">
 						<div class="product-img">
 							<img th:if="${product.images != null and !product.images.empty and product.images[0].path != null}"
-								 th:src="@{/${product.images[0].path}}"
+								 th:src="@{${product.images[0].path}}"
 								 th:alt="${product.name}"
 								 style="width: 100%; height: auto;">
 							<img th:unless="${product.images != null and !product.images.empty and product.images[0].path != null}"
@@ -166,6 +167,94 @@
 	</div>
 	<!-- end single product -->
 
+	<!-- reviews section -->
+	<div class="reviews-section mt-150 mb-150" th:data-product-id="${product.id}">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">
+						<h3><span class="orange-text">Customer</span> Reviews</h3>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Review Summary -->
+			<div class="row mb-4">
+				<div class="col-lg-12">
+					<div class="review-summary text-center">
+						<div class="average-rating">
+							<h4>Average Rating</h4>
+							<div class="stars" id="average-stars">
+								<!-- Stars will be populated by JavaScript -->
+							</div>
+							<span id="average-rating-text">0.0</span>
+							<span id="review-count">(0 reviews)</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Write Review Section -->
+			<div class="row mb-5" id="write-review-section" style="display: none;">
+				<div class="col-lg-8 offset-lg-2">
+					<div class="card">
+						<div class="card-header">
+							<h5>Write a Review</h5>
+						</div>
+						<div class="card-body">
+							<form id="review-form">
+								<div class="mb-3">
+									<label for="rating" class="form-label">Rating</label>
+									<div class="rating-input">
+										<input type="radio" name="rating" value="5" id="star5">
+										<label for="star5">☆</label>
+										<input type="radio" name="rating" value="4" id="star4">
+										<label for="star4">☆</label>
+										<input type="radio" name="rating" value="3" id="star3">
+										<label for="star3">☆</label>
+										<input type="radio" name="rating" value="2" id="star2">
+										<label for="star2">☆</label>
+										<input type="radio" name="rating" value="1" id="star1">
+										<label for="star1">☆</label>
+									</div>
+								</div>
+								<div class="mb-3">
+									<label for="comment" class="form-label">Comment</label>
+									<textarea class="form-control" id="comment" name="comment" rows="4" 
+											  placeholder="Share your experience with this product..." required></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary">Submit Review</button>
+								<button type="button" class="btn btn-secondary" onclick="cancelReview()">Cancel</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Write Review Button -->
+			<div class="row mb-4" id="write-review-button-section">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<button class="btn btn-primary" onclick="showReviewForm()" id="write-review-btn">
+						<i class="fas fa-star"></i> Write a Review
+					</button>
+				</div>
+			</div>
+			
+			<!-- Reviews List -->
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2">
+					<div id="reviews-container">
+						<!-- Reviews will be loaded here by JavaScript -->
+					</div>
+					<div id="no-reviews-message" class="text-center" style="display: none;">
+						<p>No reviews yet. Be the first to review this product!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end reviews section -->
+
 	<!-- more products -->
 	<div class="more-products mb-150">
 		<div class="container">
@@ -181,7 +270,7 @@
 						<div class="product-image">
 							<a th:href="@{/user/single-product/{id}(id=${relatedProduct.id})}">
 								<img th:if="${relatedProduct.images != null and !relatedProduct.images.empty and relatedProduct.images[0].path != null}" 
-									 th:src="@{/${relatedProduct.images[0].path}}" 
+									 th:src="@{${relatedProduct.images[0].path}}" 
 									 th:alt="${relatedProduct.name}"
 									 style="height: 200px; width: 308px; object-fit: cover;">
 								<img th:unless="${relatedProduct.images != null and !relatedProduct.images.empty and relatedProduct.images[0].path != null}" 
@@ -370,173 +459,465 @@
 	</div>
 	<!-- end copyright -->
 
-
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
-	<!-- end copyright -->
-	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
-	<!-- jquery -->
+	<!-- jQuery first -->
 	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-	<!-- bootstrap -->
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<!-- count down -->
+	
+	<!-- Popper.js (required for Bootstrap dropdowns) -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+	
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+	
+	<!-- Other JS files -->
 	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-	<!-- isotope -->
 	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-	<!-- waypoints -->
 	<script th:src="@{/assets/js/waypoints.js}"></script>
-	<!-- owl carousel -->
 	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-	<!-- magnific popup -->
 	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-	<!-- mean menu -->
 	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-	<!-- sticker js -->
 	<script th:src="@{/assets/js/sticker.js}"></script>
-	<!-- main js -->
 	<script th:src="@{/assets/js/main.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.bundle.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/assets/bootstrap/js/menu.js}"></script>
+	
+	<!-- Include cart.js for addToCart functionality -->
+	<script th:src="@{/js/cart.js}"></script>
+	
+	<!-- Add SweetAlert2 for better notifications -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 
-	<script th:inline="javascript">
-		document.addEventListener('DOMContentLoaded', function() {
-			// Check wishlist status for the product
-			const wishlistButton = document.querySelector('.wishlist-btn');
-			if (wishlistButton) {
-				const productId = wishlistButton.dataset.productId;
-				checkWishlistStatus(productId, wishlistButton);
-			}
-		});
-
-		function checkWishlistStatus(productId, button) {
-			fetch(`/api/wishlist/check/${productId}`)
-				.then(response => response.json())
-				.then(data => {
-					const icon = button.querySelector('i');
-					if (data.inWishlist) {
-						icon.classList.remove('ri-heart-line');
-						icon.classList.add('ri-heart-fill');
-						icon.style.color = '#dc3545';
-					} else {
-						icon.classList.remove('ri-heart-fill');
-						icon.classList.add('ri-heart-line');
-						icon.style.color = '';
-					}
-				})
-				.catch(error => console.error('Error checking wishlist status:', error));
-		}
-
-		function toggleWishlist(button) {
-			const productId = button.dataset.productId;
-			const icon = button.querySelector('i');
-			const isInWishlist = icon.classList.contains('ri-heart-fill');
-
-			if (isInWishlist) {
-				// Remove from wishlist
-				fetch(`/api/wishlist/remove/${productId}`, {
-					method: 'DELETE',
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				})
-				.then(response => response.json())
-				.then(data => {
-					if (data.success) {
-						icon.classList.remove('ri-heart-fill');
-						icon.classList.add('ri-heart-line');
-						icon.style.color = '';
-					} else {
-						alert('Error removing from wishlist');
-					}
-				})
-				.catch(error => {
-					console.error('Error:', error);
-					alert('Error removing from wishlist');
-				});
-			} else {
-				// Add to wishlist
-				fetch(`/api/wishlist/add/${productId}`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					}
-				})
-				.then(response => response.json())
-				.then(data => {
-					if (data.success) {
-						icon.classList.remove('ri-heart-line');
-						icon.classList.add('ri-heart-fill');
-						icon.style.color = '#dc3545';
-					} else {
-						alert('Error adding to wishlist');
-					}
-				})
-				.catch(error => {
-					console.error('Error:', error);
-					alert('Error adding to wishlist');
-				});
-			}
-		}
-	</script>
-
+	<!-- Reviews CSS and JavaScript -->
 	<style>
-		.wishlist-btn {
-			position: absolute;
-			top: 20px;
-			right: 20px;
+		/* Reviews Section Styles */
+		.reviews-section {
+			background-color: #f8f9fa;
+			padding: 50px 0;
+		}
+		
+		.review-summary {
 			background: white;
-			border-radius: 50%;
-			width: 40px;
-			height: 40px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-			transition: all 0.3s ease;
-			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-			z-index: 1;
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 		}
-
-		.wishlist-btn:hover {
-			transform: scale(1.1);
+		
+		.average-rating h4 {
+			color: #333;
+			margin-bottom: 15px;
 		}
-
-		.wishlist-btn i {
+		
+		.stars {
 			font-size: 24px;
-			transition: all 0.3s ease;
+			color: #ffc107;
+			margin-bottom: 10px;
 		}
-
-		.wishlist-btn i.ri-heart-fill {
-			color: #dc3545;
+		
+		.stars .star {
+			color: #ffc107;
 		}
-
-		.product-action {
-			position: absolute;
-			top: 0;
-			right: 0;
+		
+		.stars .star.empty {
+			color: #ddd;
+		}
+		
+		#average-rating-text {
+			font-size: 18px;
+			font-weight: bold;
+			color: #333;
+		}
+		
+		#review-count {
+			color: #666;
+			margin-left: 10px;
+		}
+		
+		/* Rating Input Styles */
+		.rating-input {
+			display: flex;
+			flex-direction: row-reverse;
+			justify-content: flex-end;
+		}
+		
+		.rating-input input {
+			display: none;
+		}
+		
+		.rating-input label {
+			font-size: 30px;
+			color: #ddd;
+			cursor: pointer;
+			transition: color 0.2s;
+		}
+		
+		.rating-input label:hover,
+		.rating-input label:hover ~ label,
+		.rating-input input:checked ~ label {
+			color: #ffc107;
+		}
+		
+		/* Review Card Styles */
+		.review-card {
+			background: white;
 			padding: 20px;
+			margin-bottom: 20px;
+			border-radius: 10px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+		
+		.review-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 10px;
+		}
+		
+		.reviewer-name {
+			font-weight: bold;
+			color: #333;
+		}
+		
+		.review-date {
+			color: #666;
+			font-size: 14px;
+		}
+		
+		.review-rating {
+			color: #ffc107;
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+		
+		.review-comment {
+			color: #555;
+			line-height: 1.6;
+		}
+		
+		/* Review Form Styles */
+		#review-form {
+			max-width: 100%;
+		}
+		
+		.card {
+			border: none;
+			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+		}
+		
+		.card-header {
+			background-color: #f8f9fa;
+			border-bottom: 1px solid #dee2e6;
+		}
+		
+		/* Responsive adjustments */
+		@media (max-width: 768px) {
+			.review-header {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+			
+			.review-date {
+				margin-top: 5px;
+			}
 		}
 	</style>
 
-	<!-- Include all necessary JS -->
-	<script th:src="@{/assets/js/jquery-1.11.3.min.js}"></script>
-	<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.countdown.js}"></script>
-	<script th:src="@{/assets/js/jquery.isotope-3.0.6.min.js}"></script>
-	<script th:src="@{/assets/js/waypoints.js}"></script>
-	<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.magnific-popup.min.js}"></script>
-	<script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
-	<script th:src="@{/assets/js/sticker.js}"></script>
-	<script th:src="@{/assets/js/main.js}"></script>
-	<!-- Include cart.js for addToCart functionality -->
-	<script th:src="@{/js/cart.js}"></script>
-	<!-- Add SweetAlert2 for better notifications -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+	<script>
+		// Reviews functionality
+		let currentProductId = null;
+		let userHasReviewed = false;
+		let userReview = null;
+		
+		// Load reviews when page loads
+		document.addEventListener('DOMContentLoaded', function() {
+			// Get product ID from the page
+			const productIdElement = document.querySelector('[data-product-id]');
+			if (productIdElement) {
+				currentProductId = parseInt(productIdElement.dataset.productId);
+			} else {
+				// Fallback: try to get from URL or other elements
+				const urlParams = new URLSearchParams(window.location.search);
+				const pathSegments = window.location.pathname.split('/');
+				const lastSegment = pathSegments[pathSegments.length - 1];
+				if (!isNaN(lastSegment)) {
+					currentProductId = parseInt(lastSegment);
+				}
+			}
+			
+			if (currentProductId) {
+				console.log('Product ID:', currentProductId);
+				loadReviews();
+				checkUserReview();
+			} else {
+				console.error('Could not determine product ID');
+			}
+		});
+		
+		// Load reviews for the product
+		function loadReviews() {
+			if (!currentProductId) {
+				console.error('No product ID available');
+				return;
+			}
+			
+			fetch(`/api/reviews/product/${currentProductId}`)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then(data => {
+					updateReviewSummary(data.averageRating, data.reviewCount);
+					displayReviews(data.reviews);
+				})
+				.catch(error => {
+					console.error('Error loading reviews:', error);
+					showNoReviewsMessage();
+				});
+		}
+		
+		// Check if user has already reviewed
+		function checkUserReview() {
+			if (!currentProductId) {
+				console.error('No product ID available');
+				return;
+			}
+			
+			fetch(`/api/reviews/check/${currentProductId}`)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then(data => {
+					userHasReviewed = data.hasReviewed;
+					userReview = data.userReview;
+					updateReviewButton();
+				})
+				.catch(error => {
+					console.error('Error checking user review:', error);
+				});
+		}
+		
+		// Update review summary
+		function updateReviewSummary(averageRating, reviewCount) {
+			const averageStars = document.getElementById('average-stars');
+			const averageRatingText = document.getElementById('average-rating-text');
+			const reviewCountSpan = document.getElementById('review-count');
+			
+			if (averageStars && averageRatingText && reviewCountSpan) {
+				// Update stars
+				averageStars.innerHTML = generateStars(averageRating);
+				
+				// Update text
+				averageRatingText.textContent = averageRating.toFixed(1);
+				reviewCountSpan.textContent = `(${reviewCount} reviews)`;
+			}
+		}
+		
+		// Display reviews
+		function displayReviews(reviews) {
+			const container = document.getElementById('reviews-container');
+			const noReviewsMessage = document.getElementById('no-reviews-message');
+			
+			if (!container || !noReviewsMessage) {
+				console.error('Review container elements not found');
+				return;
+			}
+			
+			if (reviews.length === 0) {
+				container.style.display = 'none';
+				noReviewsMessage.style.display = 'block';
+			} else {
+				container.style.display = 'block';
+				noReviewsMessage.style.display = 'none';
+				
+				container.innerHTML = reviews.map(review => `
+					<div class="review-card">
+						<div class="review-header">
+							<span class="reviewer-name">${review.user.firstName} ${review.user.lastName}</span>
+							<span class="review-date">${formatDate(review.createdAt)}</span>
+						</div>
+						<div class="review-rating">
+							${generateStars(review.rating)}
+						</div>
+						<div class="review-comment">
+							${review.comment}
+						</div>
+					</div>
+				`).join('');
+			}
+		}
+		
+		// Show no reviews message
+		function showNoReviewsMessage() {
+			const container = document.getElementById('reviews-container');
+			const noReviewsMessage = document.getElementById('no-reviews-message');
+			
+			if (container && noReviewsMessage) {
+				container.style.display = 'none';
+				noReviewsMessage.style.display = 'block';
+			}
+		}
+		
+		// Generate stars HTML
+		function generateStars(rating) {
+			const fullStars = Math.floor(rating);
+			const hasHalfStar = rating % 1 !== 0;
+			let starsHTML = '';
+			
+			for (let i = 1; i <= 5; i++) {
+				if (i <= fullStars) {
+					starsHTML += '<span class="star">★</span>';
+				} else if (hasHalfStar && i === fullStars + 1) {
+					starsHTML += '<span class="star">☆</span>';
+				} else {
+					starsHTML += '<span class="star empty">☆</span>';
+				}
+			}
+			
+			return starsHTML;
+		}
+		
+		// Format date
+		function formatDate(dateString) {
+			const date = new Date(dateString);
+			return date.toLocaleDateString('en-US', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			});
+		}
+		
+		// Update review button based on user's review status
+		function updateReviewButton() {
+			const button = document.getElementById('write-review-btn');
+			if (button) {
+				if (userHasReviewed) {
+					button.textContent = 'Edit Your Review';
+					button.onclick = editReview;
+				} else {
+					button.textContent = 'Write a Review';
+					button.onclick = showReviewForm;
+				}
+			}
+		}
+		
+		// Show review form
+		function showReviewForm() {
+			const writeSection = document.getElementById('write-review-section');
+			const buttonSection = document.getElementById('write-review-button-section');
+			
+			if (writeSection && buttonSection) {
+				writeSection.style.display = 'block';
+				buttonSection.style.display = 'none';
+				
+				// Pre-fill form if user has already reviewed
+				if (userHasReviewed && userReview) {
+					const ratingInput = document.querySelector(`input[name="rating"][value="${userReview.rating}"]`);
+					const commentInput = document.getElementById('comment');
+					
+					if (ratingInput) ratingInput.checked = true;
+					if (commentInput) commentInput.value = userReview.comment;
+				}
+			}
+		}
+		
+		// Cancel review
+		function cancelReview() {
+			const writeSection = document.getElementById('write-review-section');
+			const buttonSection = document.getElementById('write-review-button-section');
+			const form = document.getElementById('review-form');
+			
+			if (writeSection && buttonSection) {
+				writeSection.style.display = 'none';
+				buttonSection.style.display = 'block';
+			}
+			
+			if (form) {
+				form.reset();
+			}
+		}
+		
+		// Edit review
+		function editReview() {
+			showReviewForm();
+		}
+		
+		// Handle review form submission
+		document.addEventListener('DOMContentLoaded', function() {
+			const form = document.getElementById('review-form');
+			if (form) {
+				form.addEventListener('submit', function(e) {
+					e.preventDefault();
+					
+					const rating = document.querySelector('input[name="rating"]:checked')?.value;
+					const comment = document.getElementById('comment')?.value.trim();
+					
+					if (!rating) {
+						Swal.fire('Error', 'Please select a rating', 'error');
+						return;
+					}
+					
+					if (!comment) {
+						Swal.fire('Error', 'Please enter a comment', 'error');
+						return;
+					}
+					
+					submitReview(rating, comment);
+				});
+			}
+		});
+		
+		// Submit review
+		function submitReview(rating, comment) {
+			if (!currentProductId) {
+				Swal.fire('Error', 'Product ID not found', 'error');
+				return;
+			}
+			
+			const url = userHasReviewed ? 
+				`/api/reviews/update/${userReview.id}` : 
+				'/api/reviews/create';
+			
+			const method = userHasReviewed ? 'PUT' : 'POST';
+			const body = userHasReviewed ? 
+				new URLSearchParams({ rating, comment }) :
+				new URLSearchParams({ productId: currentProductId, rating, comment });
+			
+			console.log('Submitting review:', { url, method, body: body.toString() });
+			
+			fetch(url, {
+				method: method,
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				body: body
+			})
+			.then(response => {
+				console.log('Response status:', response.status);
+				if (!response.ok) {
+					return response.json().then(errorData => {
+						throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+					});
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data.success) {
+					Swal.fire('Success', data.message, 'success');
+					cancelReview();
+					loadReviews();
+					checkUserReview();
+				} else {
+					Swal.fire('Error', data.error, 'error');
+				}
+			})
+			.catch(error => {
+				console.error('Error submitting review:', error);
+				Swal.fire('Error', error.message || 'An error occurred while submitting your review', 'error');
+			});
+		}
+	</script>
 
 </body>
 </html>

@@ -2,12 +2,7 @@ package OnlineShopping.controller;
 
 import OnlineShopping.dto.ImageDTO;
 import OnlineShopping.dto.ProductDTO;
-import OnlineShopping.entity.CartItem;
-import OnlineShopping.entity.Category;
-import OnlineShopping.entity.Order;
-import OnlineShopping.entity.Product;
-import OnlineShopping.entity.ProductImage;
-import OnlineShopping.entity.User;
+import OnlineShopping.entity.*;
 import OnlineShopping.entity.repository.ProductRepository;
 import OnlineShopping.entity.repository.UserRepository;
 import OnlineShopping.service.CartService;
@@ -15,6 +10,7 @@ import OnlineShopping.service.ProductImageService;
 import OnlineShopping.service.ProductService;
 import OnlineShopping.service.OrderService;
 import OnlineShopping.service.InventoryService;
+import OnlineShopping.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -25,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,6 +47,9 @@ public class DashboardController {
 
     @Autowired
     private InventoryService inventoryService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     //admin getMappings
     @GetMapping("admin/adminDashboard")
@@ -110,6 +110,18 @@ public class DashboardController {
         // Add inventory management attributes
         model.addAttribute("lowStockCount", inventoryService.getLowStockCount());
         model.addAttribute("unreadNotificationCount", inventoryService.getUnreadNotificationCount());
+
+        // Add review management attributes
+        List<Review> allReviews = reviewService.getAllReviews();
+        List<Review> pendingReviews = reviewService.getPendingReviews();
+        List<Review> reviewsForModeration = reviewService.getReviewsForModeration();
+        
+        model.addAttribute("allReviews", allReviews);
+        model.addAttribute("pendingReviews", pendingReviews);
+        model.addAttribute("reviewsForModeration", reviewsForModeration);
+        model.addAttribute("totalReviews", allReviews.size());
+        model.addAttribute("pendingReviewCount", pendingReviews.size());
+        model.addAttribute("moderationReviewCount", reviewsForModeration.size());
 
         return "admin/adminDashboard";
     }
@@ -252,10 +264,48 @@ public class DashboardController {
 
     @GetMapping("user/shop")
     public String usersShop(Authentication authentication, Model model) {
-        // Add products and categories to the model
-        model.addAttribute("products", productService.getAllProducts());
-        model.addAttribute("cats", Category.values());
-        return "user/shop";
+        try {
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return "redirect:/api/auth/login";
+            }
+
+            Optional<User> currentUser = userRepository.findByEmail(authentication.getName());
+            if (currentUser.isEmpty()) {
+                return "redirect:/api/auth/login";
+            }
+
+            // Get all products
+            List<Product> products = productService.getAllProducts();
+            if (products == null) {
+                products = new ArrayList<>();
+            }
+            
+            // Get all categories
+            List<Category> categories = Arrays.asList(Category.values());
+            
+            // Get all product images
+            List<ProductImage> images = productImageService.getAllImages();
+            List<ImageDTO> imageDtos = images != null ? 
+                images.stream()
+                    .map(ProductImage::toDTO)
+                    .collect(Collectors.toList()) : 
+                new ArrayList<>();
+
+            model.addAttribute("products", products);
+            model.addAttribute("categories", categories);
+            model.addAttribute("cats", categories); // Keep for backward compatibility
+            model.addAttribute("images", imageDtos);
+            model.addAttribute("currentUser", currentUser.get());
+            
+            return "user/shop";
+        } catch (Exception e) {
+            // Log the error
+            e.printStackTrace();
+            // Add error message to model
+            model.addAttribute("error", "An error occurred while loading the shop. Please try again later.");
+            // Return the template with error message
+            return "user/shop";
+        }
     }
 
     @GetMapping("user/single-product")

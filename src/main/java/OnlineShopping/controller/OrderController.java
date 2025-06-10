@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,7 +189,68 @@ public class OrderController {
             
             System.out.println("Order found: " + order.getId());
             
-            return ResponseEntity.ok(order);
+            // Create a simplified response to avoid circular references
+            Map<String, Object> response = new HashMap<>();
+            response.put("id", order.getId());
+            response.put("status", order.getStatus());
+            response.put("createdAt", order.getCreatedAt());
+            response.put("updatedAt", order.getUpdatedAt());
+            response.put("shippingAddress", order.getShippingAddress());
+            response.put("shippingCity", order.getShippingCity());
+            response.put("shippingState", order.getShippingState());
+            response.put("shippingZipCode", order.getShippingZipCode());
+            response.put("shippingPhone", order.getShippingPhone());
+            response.put("notes", order.getNotes());
+            response.put("subtotal", order.getSubtotal());
+            response.put("shippingCost", order.getShippingCost());
+            response.put("total", order.getTotal());
+            
+            // Add user info (simplified)
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("id", order.getUser().getId());
+            userInfo.put("username", order.getUser().getUsername());
+            userInfo.put("email", order.getUser().getEmail());
+            userInfo.put("firstName", order.getUser().getFirstName());
+            userInfo.put("lastName", order.getUser().getLastName());
+            response.put("user", userInfo);
+            
+            // Add items (simplified)
+            List<Map<String, Object>> itemsList = new ArrayList<>();
+            for (var item : order.getItems()) {
+                Map<String, Object> itemMap = new HashMap<>();
+                itemMap.put("id", item.getId());
+                itemMap.put("quantity", item.getQuantity());
+                itemMap.put("price", item.getPrice());
+                itemMap.put("totalPrice", item.getTotalPrice());
+                
+                // Add product info (simplified)
+                if (item.getProduct() != null) {
+                    Map<String, Object> productMap = new HashMap<>();
+                    productMap.put("id", item.getProduct().getId());
+                    productMap.put("name", item.getProduct().getName());
+                    productMap.put("brand", item.getProduct().getBrand());
+                    productMap.put("price", item.getProduct().getPrice());
+                    
+                    // Add images (simplified)
+                    if (item.getProduct().getImages() != null && !item.getProduct().getImages().isEmpty()) {
+                        List<Map<String, Object>> imagesList = new ArrayList<>();
+                        for (var image : item.getProduct().getImages()) {
+                            Map<String, Object> imageMap = new HashMap<>();
+                            imageMap.put("id", image.getId());
+                            imageMap.put("path", image.getPath());
+                            imagesList.add(imageMap);
+                        }
+                        productMap.put("images", imagesList);
+                    }
+                    
+                    itemMap.put("product", productMap);
+                }
+                
+                itemsList.add(itemMap);
+            }
+            response.put("items", itemsList);
+            
+            return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             System.err.println("Validation error: " + e.getMessage());
             e.printStackTrace();

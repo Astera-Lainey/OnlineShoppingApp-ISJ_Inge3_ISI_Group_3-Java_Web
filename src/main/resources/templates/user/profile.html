@@ -10,9 +10,29 @@
   <!-- favicon -->
   <link rel="shortcut icon" type="image/png" th:href="@{/assets/img/favicon.png}">
 
-  <!-- google font -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+  <!-- local fonts instead of google fonts -->
+  <style>
+    @font-face {
+      font-family: 'Open Sans';
+      src: url('/assets/webfonts/Lato-Regular.ttf') format('truetype');
+      font-weight: 300, 400, 700;
+      font-style: normal;
+    }
+    
+    @font-face {
+      font-family: 'Poppins';
+      src: url('/assets/webfonts/Quicksand-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    
+    @font-face {
+      font-family: 'Poppins';
+      src: url('/assets/webfonts/Quicksand-SemiBold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+  </style>
 
   <!-- fontawesome -->
   <link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
@@ -235,7 +255,8 @@
                   <div class="col-md-4">
                     <div th:each="item : ${order.items}" class="product-item">
                       <img th:if="${item.product != null and item.product.images != null and !item.product.images.isEmpty() and item.product.images[0].path != null}"
-                           th:src="@{/${item.product.images[0].path}}" alt="Product" class="product-image">
+                           th:src="@{/${item.product.images[0].path}}" alt="Product" class="product-image"
+                           onerror="this.src='/assets/img/default-product.jpg'">
                       <img th:unless="${item.product != null and item.product.images != null and !item.product.images.isEmpty() and item.product.images[0].path != null}"
                            th:src="@{/assets/img/default-product.jpg}" alt="Product" class="product-image">
                       <div class="flex-grow-1">
@@ -616,7 +637,15 @@
               if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
               }
-              return response.json();
+              return response.text().then(text => {
+                try {
+                  return JSON.parse(text);
+                } catch (e) {
+                  console.error('JSON parsing error:', e);
+                  console.error('Response text:', text);
+                  throw new Error('Invalid JSON response from server');
+                }
+              });
             })
             .then(order => {
               // Restore modal content
@@ -718,7 +747,7 @@
               order.items.forEach(item => {
                 const row = document.createElement('tr');
                 const imageUrl = item.product && item.product.images && item.product.images.length > 0 && item.product.images[0].path
-                        ? item.product.images[0].path
+                        ? '/' + item.product.images[0].path
                         : '/assets/img/default-product.jpg';
                 const productName = item.product ? item.product.name : 'Product Not Available';
                 const productBrand = item.product && item.product.brand ? item.product.brand : '';
@@ -870,23 +899,23 @@
                                     <tr>
                                         <td>${item.product ? item.product.name : 'Product Not Available'}</td>
                                         <td>${item.quantity}</td>
-                                        <td>$${item.price.toFixed(2)}</td>
-                                        <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                                        <td>${item.price.toLocaleString()} XAF</td>
+                                        <td>${(item.price * item.quantity).toLocaleString()} XAF</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="3" class="total">Subtotal:</td>
-                                    <td class="total">$${order.subtotal.toFixed(2)}</td>
+                                    <td class="total">${order.subtotal.toLocaleString()} XAF</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="total">Shipping:</td>
-                                    <td class="total">$${order.shippingCost.toFixed(2)}</td>
+                                    <td class="total">${order.shippingCost.toLocaleString()} XAF</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="total">Total:</td>
-                                    <td class="total">$${order.total.toFixed(2)}</td>
+                                    <td class="total">${order.total.toLocaleString()} XAF</td>
                                 </tr>
                             </tfoot>
                         </table>

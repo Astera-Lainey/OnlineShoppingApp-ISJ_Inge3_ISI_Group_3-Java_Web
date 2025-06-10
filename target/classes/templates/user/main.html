@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+	<base href="/">
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -381,7 +382,7 @@
 						<div class="product-image">
 							<a th:href="@{/user/single-product/{id}(id=${product.id})}">
 								<img th:if="${product.images != null and !product.images.empty and product.images[0] != null and product.images[0].path != null}" 
-									 th:src="@{/${product.images[0].path}}" 
+									 th:src="@{${product.images[0].path}}" 
 									 th:alt="${product.name}"
 									 style="height: 200px; width: 308px; object-fit: cover;">
 								<img th:unless="${product.images != null and !product.images.empty and product.images[0] != null and product.images[0].path != null}" 
@@ -422,7 +423,7 @@
                                 </span>
                             </div>
                         </div>
-                    	<img th:src="@{/assets/img/a.jpg}" alt="">
+                    	<img th:src="@{/assets/img/pexels-pixabay-416717.jpg}" alt="">
                     </div>
                 </div>
                 <!--Content Column-->
